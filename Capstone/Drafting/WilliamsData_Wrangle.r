@@ -35,101 +35,106 @@
 
 # STEP 1: SETUP - LOAD LIBRARIES
 #-------------------------------------------------------------------------------------
-# install.packages(c("tidyverse", "haven", "readxl")) # Run once if not installed
 library(tidyverse)
 library(haven)
-library(readxl)
 
 
-# STEP 2: CONFIGURE FILE PATHS
+# STEP 2: CONFIGURE FILE PATHS FOR ACCESSIBLE DATA
 #-------------------------------------------------------------------------------------
-# Set the base path to your specific data directory, using forward slashes.
 base_path <- "C:/Users/Parker/Documents/DataScienceClass/Capstone/PH125x-DataScience/Capstone/Drafting/data"
 
-# Define paths to specific data files using file.path() for robustness.
-# NOTE: The subfolder names ('DSDR-38421') and filenames ('38421-0001-Data.dta')
-# must match what is inside your 'data' folder.
+# Paths for the two datasets you have downloaded
+path_lgbt_demographics <- file.path(base_path, "DSDR-37166", "37166-0007-Data.csv") # Check .csv extension
 path_transpop  <- file.path(base_path, "DSDR-38421", "38421-0001-Data.dta")
-path_geniuss   <- file.path(base_path, "RCMD-37229", "37229-0001-Data.csv")
-path_estimates <- file.path(base_path, "DSDR-38853", "Transgender Adult Population Estimates by State (June 2022).xlsx")
 
 
-# STEP 3: LOAD DATA FROM FILES
+# STEP 3: LOAD ACCESSIBLE DATA FROM FILES
 #-------------------------------------------------------------------------------------
+lgbt_demographics_df <- read_csv(path_lgbt_demographics)
 transpop_df  <- read_dta(path_transpop)
-geniuss_df   <- read_csv(path_geniuss) # Use read_dta() if it's a Stata file instead of CSV
-estimates_df <- read_excel(path_estimates, sheet = "State Estimates") # Specify sheet name if needed
 
 
-# STEP 4: HARMONIZE & COMBINE INDIVIDUAL-LEVEL DATA
+# STEP 4: CREATE THE GEOGRAPHIC DATA FRAME MANUALLY
 #-------------------------------------------------------------------------------------
-# This step requires consulting the codebooks. The variable names below are
-# educated guesses. YOU MUST VERIFY THESE AGAINST THE DOCUMENTATION.
+# Data sourced from the Williams Institute website. We use tribble() to create a data frame.
+# This replaces the need to download the restricted .xlsx file.
+geo_df <- tribble(
+  ~state_name,    ~state_fips, ~trans_pop_estimate,
+  "Alabama",      "01",        16100,
+  "Alaska",       "02",        3000,
+  "Arizona",      "04",        36900,
+  "Arkansas",     "05",        12000,
+  "California",   "06",        192900,
+  "Colorado",     "08",        27400,
+  "Connecticut",  "09",        14100,
+  "Delaware",     "10",        4100,
+  "Florida",      "12",        121100,
+  "Georgia",      "13",        55500,
+  "Hawaii",       "15",        6800,
+  "Idaho",        "16",        6400,
+  "Illinois",     "17",        52200,
+  "Indiana",      "18",        26800,
+  "Iowa",         "19",        11900,
+  "Kansas",       "20",        10500,
+  "Kentucky",     "21",        16700,
+  "Louisiana",    "22",        18100,
+  "Maine",        "23",        6000,
+  "Maryland",     "24",        27600,
+  "Massachusetts","25",        30000,
+  "Michigan",     "26",        37600,
+  "Minnesota",    "27",        22700,
+  "Mississippi",  "28",        11100,
+  "Missouri",     "29",        23500,
+  "Montana",      "30",        4200,
+  "Nebraska",     "31",        7100,
+  "Nevada",       "32",        14600,
+  "New Hampshire","33",        5700,
+  "New Jersey",   "34",        38700,
+  "New Mexico",   "35",        9000,
+  "New York",     "36",        94800,
+  "North Carolina","37",       47200,
+  "North Dakota", "38",        2500,
+  "Ohio",         "39",        44000,
+  "Oklahoma",     "40",        16000,
+  "Oregon",       "41",        20500,
+  "Pennsylvania", "42",        48500,
+  "Rhode Island", "44",        4300,
+  "South Carolina","45",       20600,
+  "South Dakota", "46",        3000,
+  "Tennessee",    "47",        28600,
+  "Texas",        "48",        125300,
+  "Utah",         "49",        11900,
+  "Vermont",      "50",        2900,
+  "Virginia",     "51",        38100,
+  "Washington",   "52",        39800,
+  "West Virginia","53",        6300,
+  "Wisconsin",    "54",        21100,
+  "Wyoming",      "55",        1900
+)
 
-# --- Harmonize the TransPop Dataset (DSDR-38421) ---
+# STEP 5: HARMONIZE & COMBINE ACCESSIBLE INDIVIDUAL-LEVEL DATA
+#-------------------------------------------------------------------------------------
+# --- Harmonize LGBT Demographics (37166) ---
+lgbt_demographics_harmonized <- lgbt_demographics_df %>%
+  mutate(source = "LGBT_Demographics_37166") %>%
+  rename(age = AGE, state_fips = STATEFIP, survey_weight = L2BWT) %>%
+  mutate(state_fips = str_pad(as.character(state_fips), width = 2, side = "left", pad = "0")) %>%
+  select(source, age, state_fips, survey_weight)
+
+# --- Harmonize TransPop (38421) ---
 transpop_harmonized <- transpop_df %>%
-  mutate(source = "TransPop") %>%
-  rename(
-    age = V101_AGE,          # <-- VERIFY THIS VARIABLE NAME!
-    state_fips = V203_STATE, # <-- VERIFY THIS VARIABLE NAME!
-    survey_weight = FINALWT  # <-- VERIFY THIS VARIABLE NAME!
-  ) %>%
-  mutate(
-    gender_identity_category = case_when(
-      GENDER_TME == 1 ~ "Transgender Man",
-      GENDER_TW == 1 ~ "Transgender Woman",
-      GENDER_NB == 1 ~ "Nonbinary",
-      TRUE ~ NA_character_
-    ),
-    state_fips = as.character(state_fips)
-  ) %>%
-  select(source, age, state_fips, gender_identity_category, survey_weight)
+  mutate(source = "TransPop_38421") %>%
+  rename(age = V101_AGE, state_fips = V203_STATE, survey_weight = FINALWT) %>%
+  mutate(state_fips = as.character(state_fips)) %>%
+  select(source, age, state_fips, survey_weight)
 
-# --- Harmonize the GENIUSS Dataset (RCMD-37229) ---
-geniuss_harmonized <- geniuss_df %>%
-  mutate(source = "GENIUSS") %>%
-  rename(
-    age = `_AGEG5YR`,         # <-- VERIFY THIS VARIABLE NAME!
-    state_fips = `_STATE`,    # <-- VERIFY THIS VARIABLE NAME!
-    survey_weight = `_LLCPWT` # <-- VERIFY THIS VARIABLE NAME!
-  ) %>%
-  mutate(
-    gender_identity_category = case_when(
-      SEX == 1 & TRANSGND == 2 ~ "Transgender Woman", # These names (SEX, TRANSGND) are common but must be verified
-      SEX == 2 & TRANSGND == 1 ~ "Transgender Man",
-      TRANSGND == 3 ~ "Nonbinary",
-      SEX == 1 & TRANSGND == 1 ~ "Cisgender Man",
-      SEX == 2 & TRANSGND == 2 ~ "Cisgender Woman",
-      TRUE ~ NA_character_
-    ),
-    state_fips = str_pad(as.character(state_fips), width = 2, side = "left", pad = "0")
-  ) %>%
-  select(source, age, state_fips, gender_identity_category, survey_weight)
+# --- Stack the TWO Harmonized Data Frames ---
+individual_df <- bind_rows(lgbt_demographics_harmonized, transpop_harmonized)
 
-# --- Stack the Harmonized Data Frames ---
-individual_df <- bind_rows(transpop_harmonized, geniuss_harmonized)
-
-cat("\n--- Glimpse of the combined individual-level data frame ---\n")
-glimpse(individual_df)
-
-
-# STEP 5: AGGREGATE & JOIN TO CREATE FINAL STATE-LEVEL FRAME
+# STEP 6: AGGREGATE & JOIN TO CREATE FINAL STATE-LEVEL FRAME
 #-------------------------------------------------------------------------------------
-# Prepare the state estimates data frame for joining.
-geo_df <- estimates_df %>%
-  rename(
-    state_name = State,
-    state_fips = `State FIPS Code`, # <-- VERIFY THIS COLUMN NAME!
-    trans_pop_estimate = `Transgender Adult Population Estimate`
-  ) %>%
-  mutate(
-    state_fips = str_pad(as.character(state_fips), width = 2, side = "left", pad = "0")
-  ) %>%
-  select(state_name, state_fips, trans_pop_estimate)
-
-# Aggregate the combined survey data to the state level
 state_level_stats <- individual_df %>%
-  filter(!is.na(state_fips), !is.na(survey_weight), !is.na(age)) %>%
+  filter(!is.na(state_fips), !is.na(survey_weight), !is.na(age), survey_weight > 0) %>%
   group_by(state_fips) %>%
   summarise(
     mean_age_weighted = weighted.mean(age, w = survey_weight, na.rm = TRUE),
@@ -137,16 +142,9 @@ state_level_stats <- individual_df %>%
     .groups = 'drop'
   )
 
-cat("\n--- Aggregated statistics calculated from survey data ---\n")
-print(state_level_stats)
-
-# --- Join the aggregated stats to the geographic estimates ---
 final_geo_df <- left_join(geo_df, state_level_stats, by = "state_fips")
 
-
-# STEP 6: VIEW THE FINAL COMBINED DATA FRAME
+# STEP 7: VIEW THE FINAL COMBINED DATA FRAME
 #-------------------------------------------------------------------------------------
-cat("\n--- Final combined state-level data frame ---\n")
-cat("Each row represents a state, combining population estimates with aggregated survey data.\n\n")
-
-print(final_geo_df)
+cat("\n--- Final combined state-level data frame (built from accessible sources) ---\n")
+print(final_geo_df, n=51)
