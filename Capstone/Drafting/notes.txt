@@ -25,6 +25,21 @@
         ◦ http://www.cdc.gov/brfss/annual_data/2012/files/LLCP12V3_ASC.ZIP
         ◦ https://www.cdc.gov/brfss/annual_data/2011/files/LLCP2011ASC.ZIP
         ◦ https://www.cdc.gov/brfss/annual_data/2010/files/CDBRFS10ASC.zip
+
+        https://www.cdc.gov/brfss/annual_data/2023/files/LLCP2023XPT.zip
+        https://www.cdc.gov/brfss/annual_data/2022/files/LLCP2022XPT.zip
+        https://www.cdc.gov/brfss/annual_data/2021/files/LLCP2021XPT.zip
+        https://www.cdc.gov/brfss/annual_data/2020/files/LLCP2020XPT.zip
+        https://www.cdc.gov/brfss/annual_data/2019/files/LLCP2019XPT.zip
+        https://www.cdc.gov/brfss/annual_data/2018/files/LLCP2018XPT.zip
+        https://www.cdc.gov/brfss/annual_data/2017/files/LLCP2017XPT.zip
+        https://www.cdc.gov/brfss/annual_data/2016/files/LLCP2016XPT.zip
+        https://www.cdc.gov/brfss/annual_data/2015/files/LLCP2015XPT.zip
+        https://www.cdc.gov/brfss/annual_data/2014/files/LLCP2014XPT.ZIP
+        https://www.cdc.gov/brfss/annual_data/2013/files/LLCP2013XPT.ZIP
+        https://www.cdc.gov/brfss/annual_data/2012/files/LLCP2012XPT.ZIP
+        https://www.cdc.gov/brfss/annual_data/2011/files/LLCP2011XPT.ZIP
+        https://www.cdc.gov/brfss/annual_data/2010/files/CDBRFS10XPT.zip
           
 3. CDC YRBS Age 13-17
     • Youth Risk Behavior Surveillance System (YRBS)
