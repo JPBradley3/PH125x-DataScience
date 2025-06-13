@@ -1,0 +1,165 @@
+1. The Williams Institute UCLA
+    • LGBT Data & Demographics
+        ◦ https://www.icpsr.umich.edu/web/DSDR/studies/37166
+    • U.S. Transgender Population Estimates
+        ◦ https://www.icpsr.umich.edu/web/DSDR/studies/38853
+    • GENIUSS Group (Gender Identity in U.S. Surveillance)
+        ◦ https://www.icpsr.umich.edu/web/RCMD/studies/37229
+        ◦ https://www.icpsr.umich.edu/web/RCMD/studies/34363
+    • TransPop Survey Overview
+        ◦ https://www.icpsr.umich.edu/web/DSDR/studies/38421
+          
+2. CDC BRFSS Behavioral Surveillance System
+    • BRFSS Data & Documentation
+        ◦ https://www.cdc.gov/brfss/annual_data/2023/files/LLCP23V2_ASC.ZIP
+        ◦ https://www.cdc.gov/brfss/annual_data/2022/files/LLCP22V2_ASC.ZIP
+        ◦ https://www.cdc.gov/brfss/annual_data/2021/files/LLCP21V3_ASC.ZIP
+        ◦ https://www.cdc.gov/brfss/annual_data/2020/files/LLCP20V3_ASC.ZIP
+        ◦ https://www.cdc.gov/brfss/annual_data/2019/files/LLCP19V3_ASC.zip
+        ◦ https://www.cdc.gov/brfss/annual_data/2018/files/LLCP18V3_ASC.zip
+        ◦ https://www.cdc.gov/brfss/annual_data/2017/files/LLCP17V3_ASC.zip
+        ◦ https://www.cdc.gov/brfss/annual_data/2016/files/LLCP16V3_ASC.zip
+        ◦ https://www.cdc.gov/brfss/annual_data/2015/llcp_multiq.html
+        ◦ https://www.cdc.gov/brfss/annual_data/2014/files/LLCP14V3_ASC.ZIP
+        ◦ http://www.cdc.gov/brfss/annual_data/2013/files/llcp13v3_asc.zip
+        ◦ http://www.cdc.gov/brfss/annual_data/2012/files/LLCP12V3_ASC.ZIP
+        ◦ https://www.cdc.gov/brfss/annual_data/2011/files/LLCP2011ASC.ZIP
+        ◦ https://www.cdc.gov/brfss/annual_data/2010/files/CDBRFS10ASC.zip
+          
+3. CDC YRBS Age 13-17
+    • Youth Risk Behavior Surveillance System (YRBS)
+        ◦ https://www.cdc.gov/yrbs/files/2023/XXH2023_YRBS_Data.dat
+        ◦ https://www.cdc.gov/yrbs/files/2021/XXH2021_YRBS_Data.dat
+        ◦ https://www.cdc.gov/yrbs/files/2019/XXH2019_YRBS_Data.dat
+        ◦ https://www.cdc.gov/yrbs/files/2017/XXH2017_YRBS_Data.dat
+        ◦ https://www.cdc.gov/yrbs/files/2015/yrbs2015.dat
+        ◦ https://www.cdc.gov/yrbs/files/2013/yrbs2013.dat
+        ◦ https://www.cdc.gov/yrbs/files/2011/yrbs2011.dat
+
+4. U.S. Census Household Pulse Survey
+    • Household Pulse Survey Main Page
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2025/topical/HTOPS_HPS_2502%20CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2024/topical/HPS_DECEMBER2024_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2024/topical/HPS_OCTOBER2024_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2024/cycle09/HPS_Phase4-2Cycle09_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2024/cycle08/HPS_Phase4-2Cycle08_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2024/cycle07/HPS_Phase4-1Cycle07_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2024/cycle06/HPS_Phase4-1Cycle06_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2024/cycle05/HPS_Phase4-1Cycle05_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2024/cycle04/HPS_Phase4-1Cycle04_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2024/cycle03/HPS_Phase4Cycle03_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2024/cycle02/HPS_Phase4Cycle02_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2024/cycle01/HPS_Phase4Cycle01_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2023/wk63/HPS_Week63_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2023/wk62/HPS_Week62_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2023/wk61/HPS_Week61_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2023/wk60/HPS_Week60_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2023/wk59/HPS_Week59_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2023/wk58/HPS_Week58_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2023/wk57/HPS_Week57_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2023/wk56/HPS_Week56_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2023/wk55/HPS_Week55_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2023/wk54/HPS_Week54_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2023/wk53/HPS_Week53_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2023/wk52/HPS_Week52_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2022/wk51/HPS_Week51_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2022/wk50/HPS_Week50_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2022/wk49/HPS_Week49_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2022/wk48/HPS_Week48_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2022/wk47/HPS_Week47_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2022/wk46/HPS_Week46_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2022/wk45/HPS_Week45_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2022/wk44/HPS_Week44_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2022/wk43/HPS_Week43_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2022/wk42/HPS_Week42_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2022/wk41/HPS_Week41_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2021/wk40/HPS_Week40_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2021/wk39/HPS_Week39_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2021/wk38/HPS_Week38_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2021/wk37/HPS_Week37_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2021/wk36/HPS_Week36_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2021/wk35/HPS_Week35_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2021/wk34/HPS_Week34_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2021/wk33/HPS_Week33_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2021/wk32/HPS_Week32_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2021/wk31/HPS_Week31_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2021/wk30/HPS_Week30_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2021/wk29/HPS_Week29_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2021/wk28/HPS_Week28_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2021/wk27/HPS_Week27_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2021/wk26/HPS_Week26_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2021/wk25/HPS_Week25_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2021/wk24/HPS_Week24_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2021/wk23/HPS_Week23_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2021/wk22/HPS_Week22_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk21/HPS_Week21_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk20/HPS_Week20_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk19/HPS_Week19_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk18/HPS_Week18_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk17/HPS_Week17_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk16/HPS_Week16_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk15/HPS_Week15_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk14/HPS_Week14_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk13/HPS_Week13_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk12/HPS_Week12_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk12/pulse2020_puf_hhwgt_12.csv
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk11/HPS_Week11_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk11/pulse2020_puf_hhwgt_11.csv
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk10/HPS_Week10_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk10/pulse2020_puf_hhwgt_10.csv
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk9/HPS_Week09_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk9/pulse2020_puf_hhwgt_09.csv
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk8/HPS_Week08_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk8/pulse2020_puf_hhwgt_08.csv
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk7/HPS_Week07_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk7/pulse2020_puf_hhwgt_07.csv
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk6/HPS_Week06_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk5/pulse2020_puf_hhwgt_05.csv
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk4/HPS_Week04_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk4/pulse2020_puf_hhwgt_04.csv
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk3/HPS_Week03_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk2/HPS_Week02_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk2/pulse2020_puf_hhwgt_02.csv
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk1/HPS_Week01_PUF_CSV.zip
+        ◦ https://www2.census.gov/programs-surveys/demo/datasets/hhp/2020/wk1/pulse2020_puf_hhwgt_01.csv
+
+5. HRC (Human Rights Campaign)
+    • State Equality Indexes
+        ◦ https://reports.hrc.org/2022-state-equality-index?_ga=2.181441895.195174743.1704917335-170867165.1704383834
+        ◦ https://reports.hrc.org/2021-state-equality-index-2?_ga=2.215119447.195174743.1704917335-170867165.1704383834
+        ◦ https://reports.hrc.org/2020-state-equality-index?_ga=2.215119447.195174743.1704917335-170867165.1704383834
+        ◦ https://hrc-prod-requests.s3-us-west-2.amazonaws.com/HRC-SEI-2019-Report-compressed.cleaned.pdf
+        ◦ https://assets2.hrc.org/files/assets/resources/SEI-2018-Report.pdf
+        ◦ https://assets2.hrc.org/files/assets/resources/HRC-2017-report-FINAL-2.pdf?_ga=2.125735050.1858172360.1548687867-606239215.1524675577
+        ◦ https://assets2.hrc.org/files/assets/resources/SEI-2016-Report-FINAL.pdf
+        ◦ https://assets2.hrc.org/files/assets/resources/SEI-2015-FullReport.pdf
+        ◦ https://assets2.hrc.org/files/documents/HRC-SEI-2014-ReportRev5-1-Opt.pdf
+        ◦ https://assets2.hrc.org/files/assets/resources/equalitystatetostate_2013.pdf
+        ◦ https://assets2.hrc.org/files/assets/resources/EqualityfromStatetoState_2012.pdf
+        ◦ https://assets2.hrc.org/files/assets/resources/EqualityfromStatetoState_2011.pdf
+        ◦ https://assets2.hrc.org/files/documents/HRC_States_Report_2010.pdf
+    • Municipal Equality Indexes
+        ◦ https://reports.hrc.org/municipal-equality-index-2023
+        ◦ https://reports.hrc.org/municipal-equality-index-2022
+        ◦ https://reports.hrc.org/municipal-equality-index-2021
+        ◦ https://reports.hrc.org/municipal-equality-index-2020
+        ◦ https://reports.hrc.org/municipal-equality-index-2019
+        ◦ https://reports.hrc.org/municipal-equality-index-2018
+        ◦ https://reports.hrc.org/municipal-equality-index-2017
+        ◦ https://reports.hrc.org/municipal-equality-index-2016
+        ◦ https://reports.hrc.org/municipal-equality-index-2015
+        ◦ https://reports.hrc.org/municipal-equality-index-2014
+        ◦ https://reports.hrc.org/municipal-equality-index-2013
+        ◦ https://reports.hrc.org/municipal-equality-index-2012
+          
+6. Berkeley
+    • American Journal of Public Health
+        ◦ https://sda.berkeley.edu/sdaweb/analysis/?dataset=gss16
+
+7. Resource Center for Minority Data
+    • 2015 U.S. Transgender Survey – USTS
+        ◦ https://www.icpsr.umich.edu/web/RCMD/studies/37229/versions/V1/datadocumentation#
+    • 2022 U.S. Transgender Survey - USTS
+        ◦ https://transequality.org/sites/default/files/2024-02/2022%20USTS%20Early%20Insights%20Report_FINAL.pdf
+    • https://www.icpsr.umich.edu/web/RCMD/studies/37877/datadocumentation#
+      
