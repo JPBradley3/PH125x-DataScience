@@ -209,8 +209,45 @@ missing_by_year <- brfss_raw %>%
   )
 print(missing_by_year)
 
+# Check for alternative LGBT variable names across years
+alt_lgbt_vars <- c("sexorien", "sxorient", "sexornt", "gay", "lesbian", "bisexual", 
+                   "homosexual", "lgb", "msm", "wsw", "same_sex", "partner_sex")
+
+cat("\n=== ALTERNATIVE LGBT VARIABLES ===\n")
+for (var in alt_lgbt_vars) {
+  if (var %in% names(brfss_raw)) {
+    missing_pct <- round(sum(is.na(brfss_raw[[var]])) / nrow(brfss_raw) * 100, 1)
+    cat(var, "FOUND - missing:", missing_pct, "%\n")
+  } else {
+    cat(var, "NOT FOUND\n")
+  }
+}
+
+# Check for proxy variables that might indicate LGBT status
+proxy_vars <- c("hivtst5", "hivtst6", "hivtstd2", "hivtstd3", "hivrisk2", "hivrisk3", 
+                "hivrisk4", "hivrisk5", "marital", "sex", "addepev", "addepev2", 
+                "adanxev", "menthlth", "vhsuicid")
+
+cat("\n=== PROXY VARIABLES ANALYSIS ===\n")
+for (var in proxy_vars) {
+  if (var %in% names(brfss_raw)) {
+    missing_pct <- round(sum(is.na(brfss_raw[[var]])) / nrow(brfss_raw) * 100, 1)
+    cat(var, "missing:", missing_pct, "%\n")
+  }
+}
+
+# Recommend focusing on years with LGBT data
+cat("\n=== RECOMMENDATION ===\n")
+cat("Sexual orientation data available: 2014-2017\n")
+cat("Transgender data available: 2014-2023\n")
+cat("Consider filtering to years_to_process <- 2014:2017 for complete LGBT analysis\n")
+cat("Proxy variables (HIV testing, mental health, marital status) available across more years\n")
+
+# Create directory if it doesn't exist
+dir.create("data_processed", showWarnings = FALSE)
+
 # Save the combined raw data as a feather file for faster loading in the future
-write_rds(brfss_raw, file.path("C:/Users/Parker/Documents/DataScienceClass/Capstone/PH125x-DataScience/Capstone/Drafting/data_processed", "brfss_2014-2022_raw.rds"))
+write_rds(brfss_raw, "data_processed/brfss_2010-2023_raw.rds")
 
 # ==============================
 # CLEAN DATA
