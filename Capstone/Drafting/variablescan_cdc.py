@@ -82,22 +82,27 @@ class BRFSSCodebookScraper:
                     self.extract_variables_from_text(text, pdf_file.name, page_num + 1)
     
     def extract_variables_from_text(self, text, filename, page_num=None):
-        # LGBT-specific patterns
+        # Enhanced patterns to capture full descriptions
         lgbt_patterns = [
-            r'(SEXORIEN|SXORIENT|SEXORNT|GAY|LESBIAN|BISEXUAL|TRNSGNDR|TRANSGEN)\s+([^\n]{10,200})',
-            r'([A-Z_]*(?:SEX|ORIENT|TRANS|GENDER|GAY|LGB)[A-Z0-9_]*)\s+([^\n]{10,200})'
+            r'(SXORIENT|SEXORIEN|TRNSGNDR|TRANSGEN)\s*:?\s*([^\n]+(?:\n[^\n\w]*[^\n]+)*)',
+            r'Variable Name:\s*(SXORIENT|SEXORIEN|TRNSGNDR|TRANSGEN)\s*\n([^\n]+(?:\n[^\n\w]*[^\n]+)*)',
+            r'([A-Z_]*(?:SEX|ORIENT|TRANS|GENDER)[A-Z0-9_]*)\s+([A-Za-z][^\n]{20,300})'
         ]
         
         for pattern in lgbt_patterns:
-            matches = re.findall(pattern, text, re.MULTILINE)
+            matches = re.findall(pattern, text, re.MULTILINE | re.DOTALL)
             for var_name, description in matches:
                 var_name = var_name.strip()
                 description = re.sub(r'\s+', ' ', description.strip())
                 
-                lgbt_keywords = ['gay', 'lesbian', 'bisexual', 'sexual orientation', 'transgender', 'lgb', 'lgbt']
-                is_lgbt = any(keyword in description.lower() for keyword in lgbt_keywords)
+                # Filter out common non-descriptive text
+                if any(skip in description.lower() for skip in ['question prologue', 'calculated by', 'go to']):
+                    continue
                 
-                if (3 <= len(var_name) <= 32 and len(description) >= 10):
+                lgbt_keywords = ['gay', 'lesbian', 'bisexual', 'sexual orientation', 'transgender', 'lgb', 'lgbt', 'straight', 'heterosexual']
+                is_lgbt = any(keyword in description.lower() for keyword in lgbt_keywords) or var_name.upper() in ['SXORIENT', 'SEXORIEN', 'TRNSGNDR', 'TRANSGEN']
+                
+                if (3 <= len(var_name) <= 32 and len(description) >= 5):
                     var_dict = {
                         'variable_name': var_name,
                         'description': description,

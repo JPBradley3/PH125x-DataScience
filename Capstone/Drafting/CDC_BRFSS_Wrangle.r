@@ -223,6 +223,13 @@ for (var in alt_lgbt_vars) {
   }
 }
 
+# Focus on 2018-2023 missing data issue
+cat("\n=== 2018-2023 VARIABLE CHECK ===\n")
+recent_years <- brfss_raw %>% filter(year >= 2018)
+cat("Available columns in 2018-2023 data:\n")
+lgbt_related_cols <- names(recent_years)[grepl("sex|orient|trans|gender|gay|lgb", names(recent_years), ignore.case = TRUE)]
+cat(paste(lgbt_related_cols, collapse = ", "), "\n")
+
 # Check for proxy variables that might indicate LGBT status
 proxy_vars <- c("hivtst5", "hivtst6", "hivtstd2", "hivtstd3", "hivrisk2", "hivrisk3", 
                 "hivrisk4", "hivrisk5", "marital", "sex", "addepev", "addepev2", 
