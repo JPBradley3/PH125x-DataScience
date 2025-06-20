@@ -230,6 +230,25 @@ cat("Available columns in 2018-2023 data:\n")
 lgbt_related_cols <- names(recent_years)[grepl("sex|orient|trans|gender|gay|lgb", names(recent_years), ignore.case = TRUE)]
 cat(paste(lgbt_related_cols, collapse = ", "), "\n")
 
+# Check actual values in sex_orient for years with data
+cat("\n=== SEX_ORIENT VALUES CHECK ===\n")
+sex_orient_values <- brfss_raw %>% 
+  filter(!is.na(sex_orient)) %>%
+  count(year, sex_orient, sort = TRUE)
+print(sex_orient_values)
+
+# Look for any variables that might contain text values like "gay", "lesbian", "bisexual"
+cat("\n=== SEARCHING FOR TEXT VALUES ===\n")
+for (col in names(brfss_raw)) {
+  if (is.character(brfss_raw[[col]])) {
+    lgbt_matches <- brfss_raw[[col]][grepl("gay|lesbian|bisexual|straight|heterosexual", brfss_raw[[col]], ignore.case = TRUE)]
+    if (length(lgbt_matches) > 0) {
+      cat("Found LGBT text in column:", col, "\n")
+      cat("Sample values:", head(unique(lgbt_matches), 5), "\n")
+    }
+  }
+}
+
 # Check for proxy variables that might indicate LGBT status
 proxy_vars <- c("hivtst5", "hivtst6", "hivtstd2", "hivtstd3", "hivrisk2", "hivrisk3", 
                 "hivrisk4", "hivrisk5", "marital", "sex", "addepev", "addepev2", 
@@ -327,35 +346,120 @@ lgb_by_state <- brfss_clean %>%
   ) %>%
   filter(total >= 30)
 
-# Create maps
+# Contiguous US states only
 us_states <- tigris::states(cb = TRUE) %>%
-  filter(!STUSPS %in% c("PR", "VI", "GU", "AS", "MP", "UM"))
+  filter(!STUSPS %in% c("AK", "HI", "PR", "VI", "GU", "AS", "MP", "UM"))
 
-# Transgender map
-trans_map_data <- us_states %>%
-  left_join(trans_by_state, by = c("NAME" = "state_name"))
+# Load LGB estimates for 2018-2023 if not already in memory
+if (!exists("lgb_estimates_2018_2023")) {
+  lgb_estimates_2018_2023 <- read_rds(here("data_processed", "lgb_estimates_2018_2023.rds"))
+}
 
-trans_map <- ggplot(trans_map_data) +
-  geom_sf(aes(fill = trans_percent), color = "white", size = 0.2) +
-  scale_fill_viridis(option = "plasma", name = "Transgender %", na.value = "gray90") +
-  theme_minimal()
-
-# LGB map
-lgb_map_data <- us_states %>%
-  left_join(lgb_by_state, by = c("NAME" = "state_name"))
-
-lgb_map <- ggplot(lgb_map_data) +
-  geom_sf(aes(fill = lgb_percent), color = "white", size = 0.2) +
-  scale_fill_viridis(option = "viridis", name = "LGB %", na.value = "gray90") +
-  theme_minimal()
-
-# Save maps
-ggsave(here("plots", "transgender_map.png"), trans_map, width = 10, height = 7)
-ggsave(here("plots", "lgb_map.png"), lgb_map, width = 10, height = 7)
+# Create combined LGB and Transgender maps for all years
+for (map_year in 2014:2023) {
+  # LGB data - direct for 2014-2017, estimated for 2018-2023
+  if (map_year <= 2017) {
+    lgb_data <- brfss_clean %>%
+      filter(year == map_year, !is.na(lgb_binary)) %>%
+      group_by(state_name) %>%
+      summarize(lgb_percent = mean(lgb_binary, na.rm = TRUE) * 100, .groups = 'drop')
+    lgb_subtitle <- "Direct Data"
+  } else {
+    lgb_data <- lgb_estimates_2018_2023 %>%
+      filter(year == map_year) %>%
+      select(state_name, lgb_percent = lgb_percent_estimated)
+    lgb_subtitle <- "Estimated"
+  }
+  
+  # Transgender data
+  trans_data <- brfss_clean %>%
+    filter(year == map_year, !is.na(trans_binary)) %>%
+    group_by(state_name) %>%
+    summarize(trans_percent = mean(trans_binary, na.rm = TRUE) * 100, .groups = 'drop')
+  
+  # Create LGB map
+  lgb_map_data <- us_states %>% left_join(lgb_data, by = c("NAME" = "state_name"))
+  lgb_map <- ggplot(lgb_map_data) +
+    geom_sf(aes(fill = lgb_percent), color = "white", size = 0.1) +
+    scale_fill_viridis(option = "viridis", name = "LGB %", na.value = "gray90", limits = c(0, 8)) +
+    labs(title = paste("LGB Population -", map_year), subtitle = lgb_subtitle) +
+    theme_void() + theme(legend.position = "bottom")
+  
+  # Create Transgender map
+  trans_map_data <- us_states %>% left_join(trans_data, by = c("NAME" = "state_name"))
+  trans_map <- ggplot(trans_map_data) +
+    geom_sf(aes(fill = trans_percent), color = "white", size = 0.1) +
+    scale_fill_viridis(option = "plasma", name = "Trans %", na.value = "gray90", limits = c(0, 1)) +
+    labs(title = paste("Transgender Population -", map_year)) +
+    theme_void() + theme(legend.position = "bottom")
+  
+  # Combine maps horizontally
+  combined_map <- lgb_map | trans_map
+  
+  ggsave(here("plots", paste0("lgbt_combined_", map_year, ".png")), combined_map, 
+         width = 16, height = 8, dpi = 300)
+}
 
 # Save processed data
 write_rds(trans_by_state, here("data_processed", "transgender_by_state.rds"))
 write_rds(lgb_by_state, here("data_processed", "lgb_by_state.rds"))
 
-# Print completion message
-cat("Analysis complete. Results saved to the 'plots' and 'data_processed' directories.\n")
+# ==============================
+# INDIRECT LGBT ESTIMATION FOR 2018-2023
+# ==============================
+
+# Build prediction model using 2014-2017 data
+training_data <- brfss_clean %>%
+  filter(year %in% 2014:2017, !is.na(lgb_status)) %>%
+  mutate(
+    age_group = case_when(
+      is.na(as.numeric(substr(as.character(state), 1, 2))) ~ "Unknown",
+      as.numeric(substr(as.character(state), 1, 2)) < 35 ~ "18-34",
+      as.numeric(substr(as.character(state), 1, 2)) < 50 ~ "35-49", 
+      TRUE ~ "50+"
+    ),
+    hiv_tested = ifelse(!is.na(hivtst6) & hivtst6 == 1, 1, 0),
+    mental_health_poor = ifelse(!is.na(menthlth) & menthlth >= 14, 1, 0),
+    never_married = ifelse(!is.na(marital) & marital == 5, 1, 0)
+  )
+
+# Fit logistic regression model
+lgb_model <- glm(lgb_binary ~ sex + age_group + hiv_tested + mental_health_poor + never_married + state, 
+                 data = training_data, family = binomial, weights = weight)
+
+# Apply model to 2018-2023 data
+prediction_data <- brfss_clean %>%
+  filter(year %in% 2018:2023) %>%
+  mutate(
+    age_group = case_when(
+      is.na(as.numeric(substr(as.character(state), 1, 2))) ~ "Unknown",
+      as.numeric(substr(as.character(state), 1, 2)) < 35 ~ "18-34",
+      as.numeric(substr(as.character(state), 1, 2)) < 50 ~ "35-49",
+      TRUE ~ "50+"
+    ),
+    hiv_tested = ifelse(!is.na(hivtst6) & hivtst6 == 1, 1, 0),
+    mental_health_poor = ifelse(!is.na(menthlth) & menthlth >= 14, 1, 0),
+    never_married = ifelse(!is.na(marital) & marital == 5, 1, 0)
+  )
+
+# Generate predictions
+prediction_data$lgb_prob <- predict(lgb_model, newdata = prediction_data, type = "response")
+prediction_data$lgb_predicted <- ifelse(prediction_data$lgb_prob > 0.05, 1, 0)
+
+# Estimate LGB population by state for 2018-2023
+lgb_estimates_2018_2023 <- prediction_data %>%
+  group_by(state_name, year) %>%
+  summarize(
+    total = n(),
+    lgb_estimated = sum(lgb_predicted, na.rm = TRUE),
+    lgb_percent_estimated = mean(lgb_predicted, na.rm = TRUE) * 100,
+    .groups = 'drop'
+  ) %>%
+  filter(total >= 100)
+
+# Save estimates
+write_rds(lgb_estimates_2018_2023, here("data_processed", "lgb_estimates_2018_2023.rds"))
+
+cat("Indirect LGBT estimation complete. Results saved to data_processed directory.\n")
+
+cat("Indirect LGBT estimation complete. Results saved to data_processed directory.\n")
