@@ -1,0 +1,932 @@
+variable_name,description,source_file,source_type,page
+HIDDEN,"Data not displayedNotes: Due to the nature of the data or the size of the table for display, this information is not printed for this report",codebook19_llcp-v2-508.HTML,html,
+BLANK,MissingNotes: QSTVER > = 20,codebook19_llcp-v2-508.HTML,html,
+_GEOSTR,Geographic Stratum Code,CODEBOOK11_LLCP.pdf,pdf_text,3.0
+_DENSTR2,Household Density Stratum Code,CODEBOOK11_LLCP.pdf,pdf_text,4.0
+PRECALL,Pre-Call Status Code,CODEBOOK11_LLCP.pdf,pdf_text,4.0
+INTVID,Interviewer Identification,CODEBOOK11_LLCP.pdf,pdf_text,8.0
+SEQNO,Annual Sequence Number,CODEBOOK11_LLCP.pdf,pdf_text,8.0
+_PSU,Primary Sampling Unit (Equal to Annual Sequence Number),CODEBOOK11_LLCP.pdf,pdf_text,9.0
+NRECSEL,Number of Sample Records Selected from Stratum,CODEBOOK11_LLCP.pdf,pdf_text,9.0
+NRECSTR,Number of Telephone Numbers in Stratum from Which Sample Was Selected,CODEBOOK11_LLCP.pdf,pdf_text,9.0
+CTELENUM,Correct Telephone Number?,CODEBOOK11_LLCP.pdf,pdf_text,10.0
+NUMADULT,Number of Adults in Household,CODEBOOK11_LLCP.pdf,pdf_text,11.0
+NUMMEN,Number of Adult Men in Household,CODEBOOK11_LLCP.pdf,pdf_text,11.0
+NUMWOMEN,Number of Adult Women in Household,CODEBOOK11_LLCP.pdf,pdf_text,12.0
+GENHLTH,Would you say that in general your health is:,CODEBOOK11_LLCP.pdf,pdf_text,12.0
+PHYSHLTH,"Now thinking about your physical health, which includes physical illness and injury, for how many days during the",CODEBOOK11_LLCP.pdf,pdf_text,13.0
+MENTHLTH,"Now thinking about your mental health, which includes stress, depression, and problems with emotions, for how",CODEBOOK11_LLCP.pdf,pdf_text,13.0
+POORHLTH,"During the past 30 days, for about how many days did poor physical or mental health keep you from doing your",CODEBOOK11_LLCP.pdf,pdf_text,14.0
+HLTHPLN1,"Do you have any kind of health care coverage, including health insurance, prepaid plans such as HMOs, or",CODEBOOK11_LLCP.pdf,pdf_text,14.0
+PERSDOC2,"Do you have one person you think of as your personal doctor or health care provider? (If ""No"" ask ""Is there more",CODEBOOK11_LLCP.pdf,pdf_text,14.0
+MEDCOST,Was there a time in the past 12 months when you needed to see a doctor but could not because of cost?,CODEBOOK11_LLCP.pdf,pdf_text,15.0
+CHECKUP1,About how long has it been since you last visited a doctor for a routine checkup? [A routine checkup is a general,CODEBOOK11_LLCP.pdf,pdf_text,15.0
+BPHIGH4,"Have you EVER been told by a doctor, nurse or other health professional that you have high blood pressure? (If",CODEBOOK11_LLCP.pdf,pdf_text,16.0
+BPMEDS,Are you currently taking medicine for your high blood pressure?,CODEBOOK11_LLCP.pdf,pdf_text,16.0
+BLOODCHO,Blood cholesterol is a fatty substance found in the blood. Have you EVER had your blood cholesterol checked?,CODEBOOK11_LLCP.pdf,pdf_text,16.0
+CHOLCHK,About how long has it been since you last had your blood cholesterol checked?,CODEBOOK11_LLCP.pdf,pdf_text,17.0
+TOLDHI2,"Have you EVER been told by a doctor, nurse or other health professional that your blood cholesterol is high?",CODEBOOK11_LLCP.pdf,pdf_text,17.0
+CVDINFR4,"(Ever told) you had a heart attack, also called a myocardial infarction?",CODEBOOK11_LLCP.pdf,pdf_text,18.0
+CVDCRHD4,(Ever told) you had angina or coronary heart disease?,CODEBOOK11_LLCP.pdf,pdf_text,18.0
+CVDSTRK3,(Ever told) you had a stroke.,CODEBOOK11_LLCP.pdf,pdf_text,18.0
+ASTHMA3,(Ever told) you had asthma?,CODEBOOK11_LLCP.pdf,pdf_text,19.0
+ASTHNOW,Do you still have asthma?,CODEBOOK11_LLCP.pdf,pdf_text,19.0
+CHCSCNCR,(Ever told) you had skin cancer?,CODEBOOK11_LLCP.pdf,pdf_text,19.0
+CHCOCNCR,(Ever told) you had any other types of cancer?,CODEBOOK11_LLCP.pdf,pdf_text,20.0
+CHCCOPD,"(Ever told) you have (COPD) chronic obstructive pulmonary disease, emphysema or chronic bronchitis?",CODEBOOK11_LLCP.pdf,pdf_text,20.0
+HAVARTH3,"(Ever told) you have some form of arthritis, rheumatoid arthritis, gout, lupus, or fibromyalgia? (Arthritis diagnoses",CODEBOOK11_LLCP.pdf,pdf_text,20.0
+ADDEPEV2,"(Ever told) you that you have a depressive disorder, including depression, major depression, dysthymia, or minor",CODEBOOK11_LLCP.pdf,pdf_text,21.0
+CHCKIDNY,"(Ever told) you have kidney disease? Do NOT include kidney stones, bladder infection or incontinence.(Incontinence",CODEBOOK11_LLCP.pdf,pdf_text,21.0
+CHCVISON,"Has a doctor, nurse or other health professional ever said that you have vision impairment in one or both eyes, even",CODEBOOK11_LLCP.pdf,pdf_text,21.0
+DIABETE3,"(Ever told) you have diabetes (If ""Yes"" and respondent is female, ask ""Was this only when you were pregnant?"". If",CODEBOOK11_LLCP.pdf,pdf_text,22.0
+SMOKE100,Have you smoked at least 100 cigarettes in your entire life? [Note: 5 packs = 100 cigarettes],CODEBOOK11_LLCP.pdf,pdf_text,22.0
+SMOKDAY2,"Do you now smoke cigarettes every day, some days, or not at all?",CODEBOOK11_LLCP.pdf,pdf_text,23.0
+STOPSMK2,"During the past 12 months, have you stopped smoking for one day or longer because you were trying to quit",CODEBOOK11_LLCP.pdf,pdf_text,23.0
+LASTSMK2,"How long has it been since you last smoked a cigarette, even one or two puffs?",CODEBOOK11_LLCP.pdf,pdf_text,24.0
+USENOW3,"Do you currently use chewing tobacco, snuff, or snus every day, some days, or not at all? (Snus (Swedish for snuff)",CODEBOOK11_LLCP.pdf,pdf_text,24.0
+HISPANC2,Are you Hispanic or Latino?,CODEBOOK11_LLCP.pdf,pdf_text,25.0
+MRACE,Which one or more of the following would you say is your race? [Mark all that apply.],CODEBOOK11_LLCP.pdf,pdf_text,25.0
+ORACE2,Which one of these groups would you say best represents your race?,CODEBOOK11_LLCP.pdf,pdf_text,26.0
+VETERAN3,"Have you ever served on active duty in the United States Armed Forces, either in the regular military or in a National",CODEBOOK11_LLCP.pdf,pdf_text,26.0
+MARITAL,Are you: (marital status),CODEBOOK11_LLCP.pdf,pdf_text,27.0
+CHILDREN,How many children less than 18 years of age live in your household?,CODEBOOK11_LLCP.pdf,pdf_text,27.0
+EDUCA,What is the highest grade or year of school you completed?,CODEBOOK11_LLCP.pdf,pdf_text,28.0
+EMPLOY,Are you currently: (employment status),CODEBOOK11_LLCP.pdf,pdf_text,28.0
+INCOME2,"Is your annual household income from all sources: (If respondent refuses at any income level, code ""Refused."")",CODEBOOK11_LLCP.pdf,pdf_text,29.0
+WEIGHT2,"About how much do you weigh without shoes? (If respondent answers in metrics, put a 9 in the first column)[Round",CODEBOOK11_LLCP.pdf,pdf_text,29.0
+HEIGHT3,"About how tall are you without shoes? (If respondent answers in metrics, put a 9 in the first column)[Round",CODEBOOK11_LLCP.pdf,pdf_text,30.0
+CTYCODE1,What county do you live in?,CODEBOOK11_LLCP.pdf,pdf_text,30.0
+NUMHHOL2,Do you have more than one telephone number in your household? Do not include cell phones or numbers that are,CODEBOOK11_LLCP.pdf,pdf_text,30.0
+NUMPHON2,How many of these telephone numbers are residential numbers?,CODEBOOK11_LLCP.pdf,pdf_text,31.0
+CPDEMO1,Do you have a cell phone for personal use? Please include cell phones used for both business and personal use,CODEBOOK11_LLCP.pdf,pdf_text,31.0
+CPDEMO2,Do you share a cell phone for personal use (at least one-third of the time) with other adults?,CODEBOOK11_LLCP.pdf,pdf_text,32.0
+CPDEMO3,Do you usually share this cell phone (at least one-third of the time) with any other adults?,CODEBOOK11_LLCP.pdf,pdf_text,32.0
+CPDEMO4,"Thinking about all the phone calls that you receive on your landline or cell phone, what percent, between 0 and 100,",CODEBOOK11_LLCP.pdf,pdf_text,32.0
+RENTHOM1,Do you own or rent your home? (Home is defined as the place where you live most of the time/the majority of the,CODEBOOK11_LLCP.pdf,pdf_text,33.0
+SEX,Indicate sex of respondent.,CODEBOOK11_LLCP.pdf,pdf_text,33.0
+PREGNANT,"To your knowledge, are you now pregnant?",CODEBOOK11_LLCP.pdf,pdf_text,33.0
+FRUITJU1,"During the past month, how many times per day, week or month did you drink 100%% PURE fruit juices? Do not",CODEBOOK11_LLCP.pdf,pdf_text,34.0
+FRUIT1,"During the past month, not counting juice, how many times per day, week, or month did you eat fruit? Count fresh,",CODEBOOK11_LLCP.pdf,pdf_text,34.0
+FVBEANS,"During the past month, how many times per day, week, or month did you eat cooked or canned beans, such as",CODEBOOK11_LLCP.pdf,pdf_text,35.0
+FVGREEN,"During the past month, how many times per day, week, or month did you eat dark green vegetables for example",CODEBOOK11_LLCP.pdf,pdf_text,35.0
+FVORANG,"During the past month, how many times per day, week, or month did you eat orange-colored vegetables such as",CODEBOOK11_LLCP.pdf,pdf_text,36.0
+VEGETAB1,"Not counting what you just told me about, during the past month, about how many times per day, week, or month did",CODEBOOK11_LLCP.pdf,pdf_text,36.0
+EXERANY2,"During the past month, other than your regular job, did you participate in any physical activities or exercises such as",CODEBOOK11_LLCP.pdf,pdf_text,37.0
+EXRACT01,What type of physical activity or exercise did you spend the most time doing during the past month?,CODEBOOK11_LLCP.pdf,pdf_text,38.0
+EXEROFT1,How many times per week or per month did you take part in this activity during the past month?,CODEBOOK11_LLCP.pdf,pdf_text,40.0
+EXERHMM1,"And when you took part in this activity, for how many minutes or hours did you usually keep at it?",CODEBOOK11_LLCP.pdf,pdf_text,40.0
+EXRACT02,What other type of physical activity gave you the next most exercise during the past month?,CODEBOOK11_LLCP.pdf,pdf_text,41.0
+EXEROFT2,How many times per week or per month did you take part in this activity during the past month?,CODEBOOK11_LLCP.pdf,pdf_text,43.0
+EXERHMM2,"And when you took part in this activity, for how many minutes or hours did you usually keep at it?",CODEBOOK11_LLCP.pdf,pdf_text,44.0
+STRENGTH,"During the past month, how many times per week or per month did you do physical activities or exercises to",CODEBOOK11_LLCP.pdf,pdf_text,44.0
+QLACTLM2,"Are you limited in any way in any activities because of physical, mental, or emotional problems?",CODEBOOK11_LLCP.pdf,pdf_text,45.0
+USEEQUIP,"Do you now have any health problem that requires you to use special equipment, such as a cane, a wheelchair, a",CODEBOOK11_LLCP.pdf,pdf_text,45.0
+LMTJOIN3,Are you now limited in any way in any of your usual activities because of arthritis or joint symptoms?,CODEBOOK11_LLCP.pdf,pdf_text,45.0
+ARTHDIS2,"Do arthritis or joint symptoms now affect whether you work, the type of work you do or the amount of work you do?",CODEBOOK11_LLCP.pdf,pdf_text,46.0
+ARTHSOCL,"During the past 30 days, to what extent has your arthritis or joint symptoms interfered with your normal social",CODEBOOK11_LLCP.pdf,pdf_text,46.0
+JOINPAIN,"Please think about the past 30 days, keeping in mind all of your joint pain or aching and whether or not you have",CODEBOOK11_LLCP.pdf,pdf_text,47.0
+SEATBELT,How often do you use seat belts when you drive or ride in a car? Would you say—,CODEBOOK11_LLCP.pdf,pdf_text,47.0
+FLUSHOT5,"During the past 12 months, have you had either a seasonal flu shot or a seasonal flu vaccine that was sprayed in",CODEBOOK11_LLCP.pdf,pdf_text,48.0
+IMFVPLAC,At what kind of place did you get your last flu shot/vaccine?,CODEBOOK11_LLCP.pdf,pdf_text,48.0
+PNEUVAC3,A pneumonia shot or pneumococcal vaccine is usually given only once or twice in a person´s lifetime and is different,CODEBOOK11_LLCP.pdf,pdf_text,49.0
+ALCDAY5,"During the past 30 days, how many days per week or per month did you have at least one drink of any alcoholic",CODEBOOK11_LLCP.pdf,pdf_text,49.0
+AVEDRNK2,"One drink is equivalent to a 12-ounce beer, a 5-ounce glass of wine, or a drink with one shot of liquor. During the",CODEBOOK11_LLCP.pdf,pdf_text,50.0
+DRNK3GE5,"Considering all types of alcoholic beverages, how many times during the past 30 days did you have 5 or more drinks",CODEBOOK11_LLCP.pdf,pdf_text,50.0
+MAXDRNKS,"During the past 30 days, what is the largest number of drinks you had on any occasion?",CODEBOOK11_LLCP.pdf,pdf_text,50.0
+HIVTST6,Have you ever been tested for HIV? Do not count tests you may have had as part of a blood donation. Include,CODEBOOK11_LLCP.pdf,pdf_text,51.0
+HIVTSTD3,"Not including blood donations, in what month and year was your last HIV test? (If response is before January 1985,",CODEBOOK11_LLCP.pdf,pdf_text,51.0
+HIVRISK3,"I am going to read you a list. When I am done, please tell me if any of the situations apply to you. You do not need to",CODEBOOK11_LLCP.pdf,pdf_text,52.0
+PDIABTST,Have you had a test for high blood sugar or diabetes within the past three years?,CODEBOOK11_LLCP.pdf,pdf_text,52.0
+PREDIAB1,Have you ever been told by a doctor or other health professional that you have pre-diabetes or borderline diabetes?,CODEBOOK11_LLCP.pdf,pdf_text,53.0
+DIABAGE2,How old were you when you were told you have diabetes?,CODEBOOK11_LLCP.pdf,pdf_text,53.0
+INSULIN,Are you now taking insulin?,CODEBOOK11_LLCP.pdf,pdf_text,53.0
+BLDSUGAR,About how often do you check your blood for glucose or sugar? Include times when checked by a family member or,CODEBOOK11_LLCP.pdf,pdf_text,54.0
+FEETCHK2,About how often do you check your feet for any sores or irritations? Include times when checked by a family,CODEBOOK11_LLCP.pdf,pdf_text,54.0
+DOCTDIAB,"About how many times in the past 12 months have you seen a doctor, nurse, or other health professional for your",CODEBOOK11_LLCP.pdf,pdf_text,55.0
+CHKHEMO3,A test for “A one C” measures the average level of blood sugar over the past three months. About how many times,CODEBOOK11_LLCP.pdf,pdf_text,55.0
+FEETCHK,About how many times in the past 12 months has a health professional checked your feet for any sores or irritations?,CODEBOOK11_LLCP.pdf,pdf_text,56.0
+EYEEXAM,When was the last time you had an eye exam in which the pupils were dilated? This would have made you,CODEBOOK11_LLCP.pdf,pdf_text,56.0
+DIABEYE,Has a doctor ever told you that diabetes has affected your eyes or that you had retinopathy?,CODEBOOK11_LLCP.pdf,pdf_text,57.0
+DIABEDU,Have you ever taken a course or class in how to manage your diabetes yourself?,CODEBOOK11_LLCP.pdf,pdf_text,57.0
+PAINACT2,"During the past 30 days, for about how many days did pain make it hard for you to do your usual activities, such as",CODEBOOK11_LLCP.pdf,pdf_text,57.0
+QLMENTL2,"During the past 30 days, for about how may days have you felt sad, blue, or depressed?",CODEBOOK11_LLCP.pdf,pdf_text,58.0
+QLSTRES2,"During the past 30 days, for about how many days have you felt worried, tense, or anxious?",CODEBOOK11_LLCP.pdf,pdf_text,58.0
+QLHLTH2,"During the past 30 days, for about how many days have you felt very healthy and full of energy?",CODEBOOK11_LLCP.pdf,pdf_text,58.0
+SSBSUGAR,About how often do you drink regular soda or pop that contains sugar? Do not include diet soda or diet pop.,CODEBOOK11_LLCP.pdf,pdf_text,58.0
+SSBFRUIT,"About how often do you drink sweetened fruit drinks, such as Kool-aid, cranberry, and lemonade? Include fruit drinks",CODEBOOK11_LLCP.pdf,pdf_text,59.0
+SSBCALRI,"When calorie information is available in the restaurant, how often does this information help you decide what to",CODEBOOK11_LLCP.pdf,pdf_text,59.0
+PFPPREPR,"Has a doctor, nurse, or other health care worker ever talked with you about ways to prepare for a healthy pregnancy",CODEBOOK11_LLCP.pdf,pdf_text,60.0
+PFPPRGNT,Have you ever been pregnant?,CODEBOOK11_LLCP.pdf,pdf_text,60.0
+PFPPRVNT,Did you or your husband/partner do anything the last time you had sex to keep you from getting pregnant?,CODEBOOK11_LLCP.pdf,pdf_text,61.0
+TYPCNTR6,What did you or your husband/partner do the last time you had sex to keep you from getting pregnant?,CODEBOOK11_LLCP.pdf,pdf_text,62.0
+NOBCUSE4,What was your main reason for not doing anything the last time you had sex to keep you from getting pregnant?,CODEBOOK11_LLCP.pdf,pdf_text,63.0
+FPCHLDF2,How do you feel about having a child now or sometime in the future? Would you say:,CODEBOOK11_LLCP.pdf,pdf_text,64.0
+PFPVITMN,"How many times a week do you currently take a multivitamin, a prenatal vitamin, or a folic acid vitamin?",CODEBOOK11_LLCP.pdf,pdf_text,64.0
+VIDFCLT3,"How much difficulty, if any, do you have in recognizing a friend across the street? Would you say—",CODEBOOK11_LLCP.pdf,pdf_text,65.0
+VIREDIF3,"How much difficulty, if any, do you have reading print in newspapers, magazines, recipes, menus, or numbers on the",CODEBOOK11_LLCP.pdf,pdf_text,65.0
+VIPRFVS3,When was the last time you had your eyes examined by any doctor or eye care provider?,CODEBOOK11_LLCP.pdf,pdf_text,65.0
+VINOCRE3,What is the main reason you have not visited an eye care professional in the past 12 months?,CODEBOOK11_LLCP.pdf,pdf_text,65.0
+VIEYEXM3,When was the last time you had an eye exam in which the pupils were dilated? This would have made you,CODEBOOK11_LLCP.pdf,pdf_text,66.0
+VIINSUR3,Do you have any kind of health insurance coverage for eye care?,CODEBOOK11_LLCP.pdf,pdf_text,66.0
+VICTRCT3,Have you EVER been told by an eye doctor or other health care professional that you had cataracts?,CODEBOOK11_LLCP.pdf,pdf_text,66.0
+VIGLUMA3,Have you EVER been told by an eye doctor or other health care professional that you had glaucoma?,CODEBOOK11_LLCP.pdf,pdf_text,66.0
+VIMACDG3,Have you EVER been told by an eye doctor or other health care professional that you had age-related macular,CODEBOOK11_LLCP.pdf,pdf_text,67.0
+QLREST2,"During the past 30 days, for about how many days have you felt you did not get enough rest or sleep?",CODEBOOK11_LLCP.pdf,pdf_text,67.0
+SLEPTIME,"On average, how many hours of sleep do you get in a 24-hour period? Think about the time you actually spend",CODEBOOK11_LLCP.pdf,pdf_text,67.0
+SLEPSNOR,"Do you snore? (If the respondent indicates that their spouse or someone told him/her that they snore, then the",CODEBOOK11_LLCP.pdf,pdf_text,68.0
+SLEPDAY,"During the past 30 days, for about how many days did you find yourself unintentionally falling asleep during the day?",CODEBOOK11_LLCP.pdf,pdf_text,68.0
+SLEPDRIV,"During the past 30 days, have you ever nodded off or fallen asleep, even just for a brief moment, while driving?",CODEBOOK11_LLCP.pdf,pdf_text,68.0
+WRKHCF1,"Do you currently volunteer or work in a hospital, medical clinic, doctor´s office, dentist´s office, nursing home or some",CODEBOOK11_LLCP.pdf,pdf_text,69.0
+DIRCONT1,Do you provide direct patient care as part of your routine work? By direct patient care we mean physical or hands-on,CODEBOOK11_LLCP.pdf,pdf_text,69.0
+DRHPAD1,"Has a doctor, nurse, or other health professional ever said that you have… Lung problems, other than asthma,",CODEBOOK11_LLCP.pdf,pdf_text,69.0
+HAVHPAD,Do you still have (this/any of these) problem(s)?,CODEBOOK11_LLCP.pdf,pdf_text,69.0
+HAREHAB1,"Following your heart attack, did you go to any kind of outpatient rehabilitation? This is sometimes called “rehab.”",CODEBOOK11_LLCP.pdf,pdf_text,70.0
+STREHAB1,Following your stroke did you go to any kind of outpatient rehabilitation? This is sometimes called “rehab.”,CODEBOOK11_LLCP.pdf,pdf_text,70.0
+CVDASPRN,Do you take aspirin daily or every other day?,CODEBOOK11_LLCP.pdf,pdf_text,70.0
+ASPUNSAF,"Do you have a health problem or condition that makes taking aspirin unsafe for you? (If ""Yes,"" ask ""Is this a",CODEBOOK11_LLCP.pdf,pdf_text,71.0
+BPEATHBT,(Are you) changing your eating habits (to help lower or control your high blood pressure)?,CODEBOOK11_LLCP.pdf,pdf_text,71.0
+BPSALT,(Are you) cutting down on salt (to help lower or control your high blood pressure)?,CODEBOOK11_LLCP.pdf,pdf_text,72.0
+BPALCHOL,(Are you) reducing alcohol use (to help lower or control your high blood pressure)?,CODEBOOK11_LLCP.pdf,pdf_text,72.0
+BPEXER,(Are you) exercising (to help lower or control your high blood pressure)?,CODEBOOK11_LLCP.pdf,pdf_text,73.0
+BPEATADV,(Ever advised you to) change your eating habits (to help lower or control your high blood pressure)?,CODEBOOK11_LLCP.pdf,pdf_text,73.0
+BPSLTADV,(Ever advised you to) cut down on salt (to help lower or control your high blood pressure)?,CODEBOOK11_LLCP.pdf,pdf_text,74.0
+BPALCADV,(Ever advised you to) reduce alcohol use (to help lower or control your high blood pressure)?,CODEBOOK11_LLCP.pdf,pdf_text,74.0
+BPEXRADV,(Ever advised you to) exercise (to help lower or control your high blood pressure)?,CODEBOOK11_LLCP.pdf,pdf_text,75.0
+BPMEDADV,(Ever advised you to) take medication (to help lower or control your high blood pressure)?,CODEBOOK11_LLCP.pdf,pdf_text,75.0
+BPHI2MR,Were you told on two or more different visits to a doctor or other health professional that you had high blood,CODEBOOK11_LLCP.pdf,pdf_text,76.0
+HASYMP1,"(Do you think) pain or discomfort in the jaw, neck, or back (are symptoms of a heart attack)?",CODEBOOK11_LLCP.pdf,pdf_text,76.0
+HASYMP2,"(Do you think) feeling weak, lightheaded, or faint (are symptoms of a heart attack)?",CODEBOOK11_LLCP.pdf,pdf_text,77.0
+HASYMP3,(Do you think) chest pain or discomfort (are symptoms of a heart attack)?,CODEBOOK11_LLCP.pdf,pdf_text,77.0
+HASYMP4,(Do you think) sudden trouble seeing in one or both eyes (is a symptom of a heart attack)?,CODEBOOK11_LLCP.pdf,pdf_text,77.0
+HASYMP5,(Do you think) pain or discomfort in the arms or shoulder (are symptoms of a heart attack)?,CODEBOOK11_LLCP.pdf,pdf_text,78.0
+HASYMP6,(Do you think) shortness of breath (is a symptom of a heart attack)?,CODEBOOK11_LLCP.pdf,pdf_text,78.0
+STRSYMP1,(Do you think) sudden confusion or trouble speaking (are symptoms of a stroke?),CODEBOOK11_LLCP.pdf,pdf_text,78.0
+STRSYMP2,"(Do you think) sudden numbness or weakness of face, arm, or leg, especially on one side (are symptoms of a",CODEBOOK11_LLCP.pdf,pdf_text,79.0
+STRSYMP3,(Do you think) sudden trouble seeing in one or both eyes (is a symptom of a stroke?),CODEBOOK11_LLCP.pdf,pdf_text,79.0
+STRSYMP4,(Do you think) sudden chest pain or discomfort (are symptoms of a stroke?),CODEBOOK11_LLCP.pdf,pdf_text,79.0
+STRSYMP5,"(Do you think) sudden trouble walking, dizziness, or loss of balance (are symptoms of a stroke?)",CODEBOOK11_LLCP.pdf,pdf_text,80.0
+STRSYMP6,(Do you think) severe headache with no known cause (is a symptom of a stroke?),CODEBOOK11_LLCP.pdf,pdf_text,80.0
+FIRSTAID,"If you thought someone was having a heart attack or a stroke, what is the first thing you would do?",CODEBOOK11_LLCP.pdf,pdf_text,80.0
+HADMAM,A mammogram is an x-ray of each breast to look for breast cancer. Have you ever had a mammogram?,CODEBOOK11_LLCP.pdf,pdf_text,81.0
+HOWLONG,How long has it been since you had your last mammogram?,CODEBOOK11_LLCP.pdf,pdf_text,81.0
+PROFEXAM,"A clinical breast exam is when a doctor, nurse, or other health professional feels the breast for lumps. Have you ever",CODEBOOK11_LLCP.pdf,pdf_text,81.0
+LENGEXAM,How long has it been since your last breast exam?,CODEBOOK11_LLCP.pdf,pdf_text,81.0
+HADPAP2,A Pap test is a test for cancer of the cervix. Have you ever had a Pap test?,CODEBOOK11_LLCP.pdf,pdf_text,82.0
+LASTPAP2,How long has it been since you had your last Pap test?,CODEBOOK11_LLCP.pdf,pdf_text,82.0
+HADHYST2,Have you had a hysterectomy? (A hysterectomy is an operation to remove the uterus (womb).),CODEBOOK11_LLCP.pdf,pdf_text,82.0
+PCPSAREC,"A Prostate-Specific Antigen test, also called a PSA test, is a blood test used to check men for prostate cancer. Has",CODEBOOK11_LLCP.pdf,pdf_text,83.0
+PSATEST1,Have you EVER HAD a PSA test?,CODEBOOK11_LLCP.pdf,pdf_text,83.0
+PSATIME,How long has it been since you had your last PSA test?,CODEBOOK11_LLCP.pdf,pdf_text,84.0
+PCPSARSN,"What was the MAIN reason you had this PSA test – was it part of a routine exam, because of a problem, or some",CODEBOOK11_LLCP.pdf,pdf_text,84.0
+PCPSAADV,Before you had the PSA test did a doctor EVER talk with you about the advantages of the PSA test?,CODEBOOK11_LLCP.pdf,pdf_text,85.0
+PCPSADIS,Before you had the PSA test did a doctor EVER talk with you about the disadvantages of the PSA test?,CODEBOOK11_LLCP.pdf,pdf_text,85.0
+PCPSADEC,Which of the following best describes the decision to have the PSA test done?,CODEBOOK11_LLCP.pdf,pdf_text,86.0
+PROSTATE,"Have you ever been told by a doctor, nurse, or other health professional that you had prostate cancer?",CODEBOOK11_LLCP.pdf,pdf_text,86.0
+BLDSTOOL,A blood stool test is a test that may use a special kit at home to determine whether the stool contains blood. Have,CODEBOOK11_LLCP.pdf,pdf_text,87.0
+LSTBLDS3,How long has it been since you had your last blood stool test using a home kit?,CODEBOOK11_LLCP.pdf,pdf_text,87.0
+HADSIGM3,Sigmoidoscopy and colonoscopy are exams in which a tube is inserted in the rectum to view the colon for signs of,CODEBOOK11_LLCP.pdf,pdf_text,88.0
+HADSGCO1,"For a SIGMOIDOSCOPY, a flexible tube is inserted into the rectum to look for problems. A COLONOSCOPY is",CODEBOOK11_LLCP.pdf,pdf_text,88.0
+LASTSIG3,How long has it been since you had your last sigmoidoscopy or colonoscopy?,CODEBOOK11_LLCP.pdf,pdf_text,89.0
+SMCQUITL,A telephone quitline is a free telephone-based service that connects people who smoke cigarettes with someone,CODEBOOK11_LLCP.pdf,pdf_text,89.0
+SMCTRYQT,"You last smoked (If Core Q7.4 = 1): say “less than.” If (Core Q7.4 = 2, 3, or 4) say “more than” [first two words in the",CODEBOOK11_LLCP.pdf,pdf_text,90.0
+SMCCALQT,(If Core Q7.4 = 1-4 and Q.2 = 1): When you quit smoking… (If Core Q7.2 = 1 or 2 and Q7.3 = 1): The last time you,CODEBOOK11_LLCP.pdf,pdf_text,90.0
+SMCPROGQ,(If Core Q7.4 = 1-4 and Q2 = 1): When you quit smoking… (If Core Q7.2 = 1 or 2 and Q7.3 = 1): The last time you,CODEBOOK11_LLCP.pdf,pdf_text,91.0
+SMCCNSLQ,(If Core Q7.4 = 1-4 and Q2 = 1): When you quit smoking… (If Core Q7.2 = 1 or 2 and Q7.3 = 1): The last time you,CODEBOOK11_LLCP.pdf,pdf_text,91.0
+SMCMEDQT,(If Core Q7.4 = 1-4 and Q2 = 1): When you quit smoking… (If Core Q7.2 = 1 or 2 and Q7.3 = 1): The last time you,CODEBOOK11_LLCP.pdf,pdf_text,92.0
+SMCTIMEQ,Do you have a time frame in mind for quitting?,CODEBOOK11_LLCP.pdf,pdf_text,92.0
+SMCPLANQ,Do you plan to quit smoking cigarettes for good…,CODEBOOK11_LLCP.pdf,pdf_text,93.0
+SHSNWRK1,"During the past 7 days, that is, since last [TODAY’S DAY OF THE WEEK], on how many days did you breathe the",CODEBOOK11_LLCP.pdf,pdf_text,93.0
+SHSNHOM1,"Not counting decks, porches, or garages, during the past 7 days, that is, since last [TODAY’S DAY OF WEEK], on",CODEBOOK11_LLCP.pdf,pdf_text,93.0
+SHSRIDEV,"During the past 7 days, that is, since last [TODAY’S DAY OF WEEK], on how many days did you ride in a vehicle",CODEBOOK11_LLCP.pdf,pdf_text,94.0
+SHSINPUB,"[If Q8.9 = 1 (Employed) or Q8.9 = 2 (Self-employed); say “Not counting times while you were at work,”] during the",CODEBOOK11_LLCP.pdf,pdf_text,94.0
+SHSHOMES,"Not counting decks, porches, or garages, inside your home, is smoking…",CODEBOOK11_LLCP.pdf,pdf_text,94.0
+SHSVHICL,"Not counting motorcycles, in the vehicles that you or family members who live with you own or lease, is smoking…",CODEBOOK11_LLCP.pdf,pdf_text,94.0
+SHSALOW1,"At workplaces, do you think smoking indoors should be…",CODEBOOK11_LLCP.pdf,pdf_text,95.0
+ASTHMAGE,"How old were you when you were first told by a doctor, nurse or other health professional that you had asthma?",CODEBOOK11_LLCP.pdf,pdf_text,95.0
+ASATTACK,"During the past 12 months, have you had an episode of asthma or an asthma attack?",CODEBOOK11_LLCP.pdf,pdf_text,95.0
+ASERVIST,"During the past 12 months, how many times did you visit an emergency room or urgent care center because of your",CODEBOOK11_LLCP.pdf,pdf_text,96.0
+ASDRVIST,"During the past 12 months, how many times did you see a doctor, nurse or other health professional for urgent",CODEBOOK11_LLCP.pdf,pdf_text,96.0
+ASRCHKUP,"During the past 12 months, how many times did you see a doctor, nurse, or other health professional for a routine",CODEBOOK11_LLCP.pdf,pdf_text,97.0
+ASACTLIM,"During the past 12 months, how many days were you unable to work or carry out your usual activities because of",CODEBOOK11_LLCP.pdf,pdf_text,97.0
+ASYMPTOM,"Symptoms of asthma include cough, wheezing, shortness of breath, chest tightness and phlegm production when",CODEBOOK11_LLCP.pdf,pdf_text,98.0
+ASNOSLEP,"During the past 30 days, how many days did symptoms of asthma make it difficult for you to stay asleep? Would you",CODEBOOK11_LLCP.pdf,pdf_text,98.0
+ASTHMED3,"During the past 30 days, how many days did you take a prescription asthma medication to PREVENT an asthma",CODEBOOK11_LLCP.pdf,pdf_text,99.0
+ASINHALR,"During the past 30 days, how often did you use a prescription asthma inhaler DURING AN ASTHMA ATTACK to",CODEBOOK11_LLCP.pdf,pdf_text,99.0
+ARTTODAY,"Thinking about your arthritis or joint symptoms, which of the following best describes you TODAY?",CODEBOOK11_LLCP.pdf,pdf_text,100.0
+ARTHWGT,Has a doctor or other health professional EVER suggested losing weight to help your arthritis or joint symptoms?,CODEBOOK11_LLCP.pdf,pdf_text,100.0
+ARTHEXER,Has a doctor or other health professional EVER suggested physical activity or exercise to help your arthritis or joint,CODEBOOK11_LLCP.pdf,pdf_text,101.0
+ARTHEDU,Have you EVER taken an educational course or class to teach you how to manage problems related to your arthritis,CODEBOOK11_LLCP.pdf,pdf_text,101.0
+TNSARCV,Have you received a tetanus shot in the past 10 years?,CODEBOOK11_LLCP.pdf,pdf_text,101.0
+TNSARCNT,Was your most recent tetanus shot given in 2005 or later?,CODEBOOK11_LLCP.pdf,pdf_text,102.0
+TNSASHT1,Did your doctor say your recent tetanus shot included the pertussis or whooping cough vaccine?,CODEBOOK11_LLCP.pdf,pdf_text,102.0
+HPVADVC2,"Have you ever had the HPV vaccination? (Human Papilloma Virus (Human Pap•uh•loh•muh Virus), Gardasil",CODEBOOK11_LLCP.pdf,pdf_text,102.0
+HPVADSHT,How many HPV shots did you receive?,CODEBOOK11_LLCP.pdf,pdf_text,103.0
+SHINGLE1,"A vaccine for shingles has been available since May 2006, it is called Zostavax®, the zoster vaccine, or the shingles",CODEBOOK11_LLCP.pdf,pdf_text,103.0
+COPDTEST,"Have you ever been given a breathing test to diagnose your COPD, chronic bronchitis, or emphysema?",CODEBOOK11_LLCP.pdf,pdf_text,103.0
+COPDQOL,Would you say that shortness of breath affects the quality of your life?,CODEBOOK11_LLCP.pdf,pdf_text,104.0
+COPDDOC,"Other than a routine visit, have you had to see a doctor in the past 12 months for symptoms related to shortness of",CODEBOOK11_LLCP.pdf,pdf_text,104.0
+COPDHOSP,Did you have to visit an emergency room or be admitted to the hospital in the past 12 months because of your,CODEBOOK11_LLCP.pdf,pdf_text,105.0
+COPDMEDS,"How many different medications do you currently take each day to help with your COPD, chronic bronchitis, or",CODEBOOK11_LLCP.pdf,pdf_text,105.0
+GPWELPR3,How well prepared do you feel your household is to handle a large-scale disaster or emergency? Would you say…,CODEBOOK11_LLCP.pdf,pdf_text,105.0
+GP3DYWTR,Does your household have a 3-day supply of water for everyone who lives there? A 3-day supply of water is 1 gallon,CODEBOOK11_LLCP.pdf,pdf_text,106.0
+GP3DYFD1,Does your household have a 3-day supply of nonperishable food for everyone who lives there? By nonperishable,CODEBOOK11_LLCP.pdf,pdf_text,106.0
+GP3DYPRS,Does your household have a 3-day supply of prescription medication for each person who takes prescribed,CODEBOOK11_LLCP.pdf,pdf_text,106.0
+GPBATRAD,Does your household have a working battery operated radio and working batteries for your use if the electricity is,CODEBOOK11_LLCP.pdf,pdf_text,106.0
+GPFLSLIT,Does your household have a working flashlight and working batteries for your use if the electricity is out?,CODEBOOK11_LLCP.pdf,pdf_text,107.0
+GPEMRCM1,"In a large-scale disaster or emergency, what would be your main method or way of communicating with relatives and",CODEBOOK11_LLCP.pdf,pdf_text,107.0
+GPEMRIN1,What would be your main method or way of getting information from authorities in a large-scale disaster or,CODEBOOK11_LLCP.pdf,pdf_text,107.0
+GPVACPL1,"Does your household have a written disaster evacuation plan for how you will leave your home, in case of a",CODEBOOK11_LLCP.pdf,pdf_text,107.0
+GPMNDEVC,If public authorities announced a mandatory evacuation from your community due to a large-scale disaster or,CODEBOOK11_LLCP.pdf,pdf_text,108.0
+GPNOTEV1,What would be the main reason you might not evacuate if asked to do so?,CODEBOOK11_LLCP.pdf,pdf_text,108.0
+VHCOMBAT,Did you ever serve in a combat or war zone?,CODEBOOK11_LLCP.pdf,pdf_text,108.0
+VHDRPTSD,"Has a doctor or other health professional ever told you that you have depression, anxiety, or post traumatic stress",CODEBOOK11_LLCP.pdf,pdf_text,109.0
+VHDRTBI,Has a doctor or other health professional ever told you that you have suffered a traumatic brain injury (TBI)?,CODEBOOK11_LLCP.pdf,pdf_text,109.0
+VHCOUNSL,"In the past 12 months, did you receive any psychological or psychiatric counseling or treatment?",CODEBOOK11_LLCP.pdf,pdf_text,110.0
+VHTAKLIF,Has there been a time in the past 12 months when you thought of taking your own life?,CODEBOOK11_LLCP.pdf,pdf_text,110.0
+VHSUICID,"During the past 12 months, did you attempt to commit suicide? Would you say--- (As I mentioned, I would give you",CODEBOOK11_LLCP.pdf,pdf_text,111.0
+RRCLASS2,"How do other people usually classify you in this country? Would you say White, Black or African American, Hispanic",CODEBOOK11_LLCP.pdf,pdf_text,111.0
+RRCOGNT2,"How often do you think about your race? Would you say never, once a year, once a month, once a week, once a",CODEBOOK11_LLCP.pdf,pdf_text,111.0
+RRATWRK2,"Within the past 12 months at work, do you feel you were treated worse than, the same as, or better than people of",CODEBOOK11_LLCP.pdf,pdf_text,112.0
+RRHCARE3,"Within the past 12 months when seeking health care, do you feel your experiences were worse than, the same as, or",CODEBOOK11_LLCP.pdf,pdf_text,112.0
+RRPHYSM2,"Within the past 30 days, have you experienced any physical symptoms, for example, a headache, an upset stomach,",CODEBOOK11_LLCP.pdf,pdf_text,112.0
+RREMTSM2,"Within the past 30 days, have you felt emotionally upset, for example angry, sad, or frustrated, as a result of how you",CODEBOOK11_LLCP.pdf,pdf_text,112.0
+ADPLEASR,"Over the last 2 weeks, how many days have you had little interest or pleasure in doing things?",CODEBOOK11_LLCP.pdf,pdf_text,113.0
+ADDOWN,"Over the last 2 weeks, how many days have you felt down, depressed or hopeless?",CODEBOOK11_LLCP.pdf,pdf_text,113.0
+ADSLEEP,"Over the last 2 weeks, how many days have you had trouble falling asleep or staying asleep or sleeping too much?",CODEBOOK11_LLCP.pdf,pdf_text,113.0
+ADENERGY,"Over the last 2 weeks, how many days have you felt tired or had little energy?",CODEBOOK11_LLCP.pdf,pdf_text,114.0
+ADEAT1,"Over the last 2 weeks, how many days have you had a poor appetite or eaten too much?",CODEBOOK11_LLCP.pdf,pdf_text,114.0
+ADFAIL,"Over the last 2 weeks, how many days have you felt bad about yourself or that you were a failure or had let yourself",CODEBOOK11_LLCP.pdf,pdf_text,114.0
+ADTHINK,"Over the last 2 weeks, how many days have you had trouble concentrating on things, such as reading the",CODEBOOK11_LLCP.pdf,pdf_text,115.0
+ADMOVE,"Over the last 2 weeks, how many days have you moved or spoken so slowly that other people could have noticed?",CODEBOOK11_LLCP.pdf,pdf_text,115.0
+MISTMNT,Are you now taking medicine or receiving treatment from a doctor or other health professional for any type of mental,CODEBOOK11_LLCP.pdf,pdf_text,115.0
+ADANXEV,Has a doctor or other healthcare provider EVER told you that you had an anxiety disorder (including acute stress,CODEBOOK11_LLCP.pdf,pdf_text,116.0
+CIMEMLOS,"During the past 12 months, have you experienced confusion or memory loss that is happening more often or is",CODEBOOK11_LLCP.pdf,pdf_text,116.0
+CINOADLT,"[If Q1 = 1), Not including yourself], how many adults 18 or older in your household experienced confusion or memory",CODEBOOK11_LLCP.pdf,pdf_text,117.0
+CIRBIAGE,"Of these people, please select the person who had the most recent birthday. How old is this person?",CODEBOOK11_LLCP.pdf,pdf_text,117.0
+CIHOWOFT,"During the past 12 months, how often [If Q1 = 1 (Yes): insert “have you” otherwise, insert “has this person”] given up",CODEBOOK11_LLCP.pdf,pdf_text,118.0
+CIASSIST,"As a result of [If Q1 = 1 (Yes): insert “your” otherwise, insert “this person’s”] confusion or memory loss, in which of",CODEBOOK11_LLCP.pdf,pdf_text,118.0
+CIINTFER,"During the past 12 months, how often has confusion or memory loss interfered with [If Q1 = 1 (Yes): insert “your”",CODEBOOK11_LLCP.pdf,pdf_text,119.0
+CIFAMCAR,"During the past 30 days, how often [If Q1 = 1 (Yes): insert “has” otherwise, insert “have you,”] a family member or",CODEBOOK11_LLCP.pdf,pdf_text,119.0
+CIHCPROF,"Has anyone discussed with a health care professional, increases in [If Q1 = 1 (Yes): insert “your” otherwise, insert",CODEBOOK11_LLCP.pdf,pdf_text,120.0
+CIMEDS,"Have [If Q1 = 1 (Yes): insert “you” otherwise, insert “this person”] received treatment such as therapy or medications",CODEBOOK11_LLCP.pdf,pdf_text,120.0
+CIDIAGAZ,"Has a health care professional ever said that [If Q1 = 1 (Yes): insert “you have” otherwise, insert “this person has”]",CODEBOOK11_LLCP.pdf,pdf_text,121.0
+SCNTMONY,How often in the past 12 months would you say you were worried or stressed about having enough money to pay,CODEBOOK11_LLCP.pdf,pdf_text,121.0
+SCNTMEAL,How often in the past 12 months would you say you were worried or stressed about having enough money to buy,CODEBOOK11_LLCP.pdf,pdf_text,122.0
+SCNTPAID,"At your main job or business, how are you generally paid for the work you do. Are you:",CODEBOOK11_LLCP.pdf,pdf_text,122.0
+SCNTWRK1,About how many hours do you work per week on all of your jobs and businesses combined?,CODEBOOK11_LLCP.pdf,pdf_text,123.0
+SCNTLPAD,"Thinking about the last time you worked, at your main job or business, how were you generally paid for the work you",CODEBOOK11_LLCP.pdf,pdf_text,123.0
+SCNTLWK1,"Thinking about the last time you worked, about how many hours did you work per week at all of your jobs and",CODEBOOK11_LLCP.pdf,pdf_text,124.0
+WHRTST9,"Where did you have your last HIV test — at a private doctor or HMO office, at a counseling and testing site, at a",CODEBOOK11_LLCP.pdf,pdf_text,124.0
+HIVRDTS2,Was it a rapid test where you could get your results within a couple of hours?,CODEBOOK11_LLCP.pdf,pdf_text,124.0
+EMTSUPRT,How often do you get the social and emotional support you need?,CODEBOOK11_LLCP.pdf,pdf_text,125.0
+LSATISFY,"In general, how satisfied are you with your life?",CODEBOOK11_LLCP.pdf,pdf_text,125.0
+ACEDEPRS,"Did you live with anyone who was depressed, mentally ill, or suicidal?",CODEBOOK11_LLCP.pdf,pdf_text,125.0
+ACEDRINK,Did you live with anyone who was a problem drinker or alcoholic?,CODEBOOK11_LLCP.pdf,pdf_text,126.0
+ACEDRUGS,Did you live with anyone who used illegal street drugs or who abused prescription medications?,CODEBOOK11_LLCP.pdf,pdf_text,126.0
+ACEPRISN,"Did you live with anyone who served time or was sentenced to serve time in a prison, jail, or other correctional",CODEBOOK11_LLCP.pdf,pdf_text,126.0
+ACEDIVRC,Were your parents separated or divorced?,CODEBOOK11_LLCP.pdf,pdf_text,127.0
+ACEPUNCH,"How often did your parents or adults in your home ever slap, hit, kick, punch or beat each other up?",CODEBOOK11_LLCP.pdf,pdf_text,127.0
+ACEHURT,"Before age 18, how often did a parent or adult in your home ever hit, beat, kick, or physically hurt you in any way?",CODEBOOK11_LLCP.pdf,pdf_text,128.0
+ACESWEAR,"How often did a parent or adult in your home ever swear at you, insult you, or put you down?",CODEBOOK11_LLCP.pdf,pdf_text,128.0
+ACETOUCH,"How often did anyone at least 5 years older than you or an adult, ever touch you sexually?",CODEBOOK11_LLCP.pdf,pdf_text,129.0
+ACETTHEM,"How often did anyone at least 5 years older than you or an adult, try to make you touch them sexually?",CODEBOOK11_LLCP.pdf,pdf_text,129.0
+ACEHVSEX,"How often did anyone at least 5 years older than you or an adult, force you to have sex?",CODEBOOK11_LLCP.pdf,pdf_text,129.0
+RCSBIRTH,What is the birth month and year of the “Xth” child?,CODEBOOK11_LLCP.pdf,pdf_text,130.0
+RCSGENDR,Is the child a boy or a girl?,CODEBOOK11_LLCP.pdf,pdf_text,130.0
+RCHISLAT,Is the child Hispanic or Latino?,CODEBOOK11_LLCP.pdf,pdf_text,130.0
+RCSRACE,Which one or more of the following would you say is the race of the child?,CODEBOOK11_LLCP.pdf,pdf_text,131.0
+RCSBRACE,Which one of these groups would you say best represents the child’s race?,CODEBOOK11_LLCP.pdf,pdf_text,131.0
+RCSRLTN2,How are you related to the child?,CODEBOOK11_LLCP.pdf,pdf_text,132.0
+CASTHDX2,"Has a doctor, nurse or other health professional EVER said that the child has asthma?",CODEBOOK11_LLCP.pdf,pdf_text,132.0
+CASTHNO2,Does the child still have asthma?,CODEBOOK11_LLCP.pdf,pdf_text,133.0
+FLUSHCH2,"During the past 12 months, has [Fill: he/she] had a seasonal flu vaccination?",CODEBOOK11_LLCP.pdf,pdf_text,133.0
+RCVFVCH4,During what month and year did [Fill: he/she] receive [Fill: his/her] most recent seasonal flu vaccination?,CODEBOOK11_LLCP.pdf,pdf_text,133.0
+CHIMRCVE,At what kind of place did [he/she] get [his/her] last seasonal flu vaccine?,CODEBOOK11_LLCP.pdf,pdf_text,134.0
+CALLBACK,We would like to call you again within the next 2 weeks to talk in more detail about (your/your child’s) experiences,CODEBOOK11_LLCP.pdf,pdf_text,134.0
+ADLTCHLD,Which household member was selected to be the focus of the callback.,CODEBOOK11_LLCP.pdf,pdf_text,135.0
+CTELNUM1,Is this (phone number) ?,CODEBOOK11_LLCP.pdf,pdf_text,135.0
+CELLFON2,Is this a cellular telephone?,CODEBOOK11_LLCP.pdf,pdf_text,135.0
+CADULT,Are you 18 years of age or older?,CODEBOOK11_LLCP.pdf,pdf_text,136.0
+PVTRESD2,"Do you live in a private residence, that is, not in a dormitory or other type of group living situation?",CODEBOOK11_LLCP.pdf,pdf_text,136.0
+CSTATE,Are you a resident of [STATE]?,CODEBOOK11_LLCP.pdf,pdf_text,136.0
+RSPSTATE,In what state do you live?,CODEBOOK11_LLCP.pdf,pdf_text,137.0
+LANDLINE,Do you also have a landline telephone in your home that is used to make and receive calls?,CODEBOOK11_LLCP.pdf,pdf_text,138.0
+PCTCELL,"Thinking about all the phone calls that you receive on your landline or cell phone, what percent, between 0 and 100,",CODEBOOK11_LLCP.pdf,pdf_text,139.0
+QSTVER,Questionnaire Version Identifier,CODEBOOK11_LLCP.pdf,pdf_text,139.0
+MSCODE,Metropolitan Status Code,CODEBOOK11_LLCP.pdf,pdf_text,140.0
+_STSTR,Sample Design Stratification Variable (A five digit number that combines the values for _STATE (first two,CODEBOOK11_LLCP.pdf,pdf_text,140.0
+_STRWT,Stratum weight (Number of records in a stratum (NRECSTR) divided by the number of records selected,CODEBOOK11_LLCP.pdf,pdf_text,140.0
+_RAW,Raw weighting factor (Number of adults in the household (NUMADULT) divided by the imputed number of phones,CODEBOOK11_LLCP.pdf,pdf_text,141.0
+_WT2,Design weight (Stratum weight (_STRWT) multiplied by the raw weighting factor (_RAW).),CODEBOOK11_LLCP.pdf,pdf_text,141.0
+_RAWRAKE,"Raw weighting factor used in raking (Number of adults in the household (NUMADULT, maximum of 5) divided by",CODEBOOK11_LLCP.pdf,pdf_text,141.0
+_WT2RAKE,Design weight used in raking (Stratum weight (_STRWT) multiplied by the raw weighting factor (_RAWRAKE).),CODEBOOK11_LLCP.pdf,pdf_text,142.0
+_REGION,"Geographic region within a state, imputed from CTYCODE, _IMPCTY, or _GEOSTR",CODEBOOK11_LLCP.pdf,pdf_text,142.0
+_IMPAGE,"Imputed age used in post-stratification (This value is the reported age or an imputed age, if the respondent refused",CODEBOOK11_LLCP.pdf,pdf_text,142.0
+_IMPRACE,"Imputed race/ethnicity value (This value is the reported race/ethnicity or an imputed race/ethnicity, if the respondent",CODEBOOK11_LLCP.pdf,pdf_text,143.0
+_IMPNPH,Imputed number of phones used in weighting,CODEBOOK11_LLCP.pdf,pdf_text,143.0
+O_STATE,Original state that collected the cell phone data,CODEBOOK11_LLCP.pdf,pdf_text,144.0
+CRACEASC,"CRACE with 7, 8, 9s removed, in ascending order",CODEBOOK11_LLCP.pdf,pdf_text,145.0
+_CRACE,Child multiracial race categorization,CODEBOOK11_LLCP.pdf,pdf_text,146.0
+_RAWCH,Raw child weighting factor (Number of children in the household (CHILDREN) divided by the imputed number of,CODEBOOK11_LLCP.pdf,pdf_text,146.0
+_WT2CH,Child design weight (Child stratum weight (_STRWT) multiplied by the raw weighting factor (_RAWCH).),CODEBOOK11_LLCP.pdf,pdf_text,147.0
+_CLCPM01,Child Combined Land-Line and Cell-Phone First Margin (Age-Gender),CODEBOOK11_LLCP.pdf,pdf_text,149.0
+_CLCPM02,Child Combined Land-Line and Cell-Phone Second Margin (Race/Ethnicity),CODEBOOK11_LLCP.pdf,pdf_text,149.0
+_CLCPM03,Child Combined Land-Line and Cell-Phone Third Margin (Gender-Race/Ethnicity),CODEBOOK11_LLCP.pdf,pdf_text,149.0
+_CLCPM04,Child Combined Land-Line and Cell-Phone Fourth Margin (Age-Race/Ethnicity),CODEBOOK11_LLCP.pdf,pdf_text,150.0
+_CLCPM05,Child Combined Land-Line and Cell-Phone Fifth Margin (Telephone Source),CODEBOOK11_LLCP.pdf,pdf_text,150.0
+_CLLCPWT,Final child weight: Land-line and Cell-Phone data (Raking derived weight),CODEBOOK11_LLCP.pdf,pdf_text,150.0
+_LLCPM01,Combined Land-Line and Cell-Phone First Margin (Age-Gender),CODEBOOK11_LLCP.pdf,pdf_text,151.0
+_LLCPM02,Combined Land-Line and Cell-Phone Second Margin (Race/Ethnicity),CODEBOOK11_LLCP.pdf,pdf_text,151.0
+_LLCPM03,Combined Land-Line and Cell-Phone Third Margin (Education),CODEBOOK11_LLCP.pdf,pdf_text,151.0
+_LLCPM04,Combined Land-Line and Cell-Phone Fourth Margin (Marital Status),CODEBOOK11_LLCP.pdf,pdf_text,152.0
+_LLCPM05,Combined Land-Line and Cell-Phone Fifth Margin (Home Ownership),CODEBOOK11_LLCP.pdf,pdf_text,152.0
+_LLCPM06,Combined Land-Line and Cell-Phone Sixth Margin (Gender-Race/Ethnicity),CODEBOOK11_LLCP.pdf,pdf_text,152.0
+_LLCPM07,Combined Land-Line and Cell-Phone Seventh Margin (Age-Race/Ethnicity),CODEBOOK11_LLCP.pdf,pdf_text,152.0
+_LLCPM08,Combined Land-Line and Cell-Phone Eighth Margin (Telephone Source),CODEBOOK11_LLCP.pdf,pdf_text,153.0
+_LLCPM09,Combined Land-Line and Cell-Phone Ninth Margin (Regions),CODEBOOK11_LLCP.pdf,pdf_text,153.0
+_LLCPM10,Combined Land-Line and Cell-Phone Tenth Margin (Regions-Age),CODEBOOK11_LLCP.pdf,pdf_text,153.0
+_LLCPM11,Combined Land-Line and Cell-Phone Eleventh Margin (Regions-Gender),CODEBOOK11_LLCP.pdf,pdf_text,153.0
+_LLCPM12,Combined Land-Line and Cell-Phone Twelfth Margin (Regions-Race/Ethnicity),CODEBOOK11_LLCP.pdf,pdf_text,154.0
+_LLCPWT,Final weight assigned to each respondent: Land-line and cell-phone data (Raking derived weight),CODEBOOK11_LLCP.pdf,pdf_text,154.0
+_RFHLTH,Adults with good or better health,CODEBOOK11_LLCP.pdf,pdf_text,154.0
+_HCVU651,Respondents aged 18-64 that have any form of health care coverage,CODEBOOK11_LLCP.pdf,pdf_text,155.0
+_RFHYPE5,"Adults who have been told they have high blood pressure by a doctor, nurse, or other health professional",CODEBOOK11_LLCP.pdf,pdf_text,155.0
+_CHOLCHK,Cholesterol check within past five years,CODEBOOK11_LLCP.pdf,pdf_text,155.0
+_RFCHOL,"Adults who have had their cholesterol checked and have been told by a doctor, nurse, or other health professional",CODEBOOK11_LLCP.pdf,pdf_text,156.0
+_LTASTH1,Adults who have ever been told they have asthma,CODEBOOK11_LLCP.pdf,pdf_text,156.0
+_CASTHM1,Adults who have been told they currently have asthma,CODEBOOK11_LLCP.pdf,pdf_text,157.0
+_ASTHMS1,Computed asthma status,CODEBOOK11_LLCP.pdf,pdf_text,157.0
+_DRDXAR1,Respondents that have had a doctor diagnose them as having some form of arthritis,CODEBOOK11_LLCP.pdf,pdf_text,157.0
+_SMOKER3,"Four-level smoker status: Everyday smoker, Someday smoker, Former smoker, Non-smoker",CODEBOOK11_LLCP.pdf,pdf_text,158.0
+_RFSMOK3,Adults who are current smokers,CODEBOOK11_LLCP.pdf,pdf_text,158.0
+MRACEORG,"MRACE with trailing 7,8,9s removed",CODEBOOK11_LLCP.pdf,pdf_text,159.0
+MRACEASC,"MRACE with 7,8,9s removed, in ascending order",CODEBOOK11_LLCP.pdf,pdf_text,159.0
+_PRACE,Preferred race category,CODEBOOK11_LLCP.pdf,pdf_text,160.0
+_MRACE,Multiracial race categorization,CODEBOOK11_LLCP.pdf,pdf_text,161.0
+RACE2,Race/ethnicity categories,CODEBOOK11_LLCP.pdf,pdf_text,162.0
+_RACEG2,White non-Hispanic race group,CODEBOOK11_LLCP.pdf,pdf_text,162.0
+_RACEGR2,Five-level race/ethnicity category,CODEBOOK11_LLCP.pdf,pdf_text,163.0
+_RACE_G,Race groups used for internet prevalence tables,CODEBOOK11_LLCP.pdf,pdf_text,163.0
+_CNRACE,Number of census race categories chosen,CODEBOOK11_LLCP.pdf,pdf_text,164.0
+_CNRACEC,"Number of census race categories chosen, collapsed",CODEBOOK11_LLCP.pdf,pdf_text,164.0
+_AGEG5YR,Fourteen-level age category,CODEBOOK11_LLCP.pdf,pdf_text,165.0
+_AGE65YR,Two-level age category,CODEBOOK11_LLCP.pdf,pdf_text,166.0
+_AGE_G,Six-level imputed age category,CODEBOOK11_LLCP.pdf,pdf_text,166.0
+HTIN4,Reported height in inches,CODEBOOK11_LLCP.pdf,pdf_text,167.0
+HTM4,Reported height in meters,CODEBOOK11_LLCP.pdf,pdf_text,167.0
+WTKG3,Reported weight in kilograms,CODEBOOK11_LLCP.pdf,pdf_text,167.0
+_BMI5,Body Mass Index (BMI),CODEBOOK11_LLCP.pdf,pdf_text,168.0
+_BMI5CAT,Four-categories of Body Mass Index (BMI),CODEBOOK11_LLCP.pdf,pdf_text,168.0
+_RFBMI5,Adults who have a body mass index greater than 25.00 (Overweight or Obese),CODEBOOK11_LLCP.pdf,pdf_text,168.0
+_CHLDCNT,Number of children in household,CODEBOOK11_LLCP.pdf,pdf_text,169.0
+_EDUCAG,Level of education completed,CODEBOOK11_LLCP.pdf,pdf_text,169.0
+FTJUDA1_,Fruit juice intake in times per day,CODEBOOK11_LLCP.pdf,pdf_text,170.0
+FRUTDA1_,Fruit intake in times per day,CODEBOOK11_LLCP.pdf,pdf_text,170.0
+BEANDAY_,Bean intake in times per day,CODEBOOK11_LLCP.pdf,pdf_text,171.0
+GRENDAY_,Dark green vegetable intake in times per day,CODEBOOK11_LLCP.pdf,pdf_text,171.0
+ORNGDAY_,Orange-colored vegetable intake in times per day,CODEBOOK11_LLCP.pdf,pdf_text,171.0
+VEGEDA1_,Vegetable intake in times per day,CODEBOOK11_LLCP.pdf,pdf_text,172.0
+_FRUTSUM,Total fruits consumed per day,CODEBOOK11_LLCP.pdf,pdf_text,173.0
+_VEGESUM,Total vegetables consumed per day,CODEBOOK11_LLCP.pdf,pdf_text,174.0
+_FRT16,Reported consuming Fruit >16 per day,CODEBOOK11_LLCP.pdf,pdf_text,174.0
+_VEG23,Reported consuming Vegetables >23 per day,CODEBOOK11_LLCP.pdf,pdf_text,174.0
+_FRUITEX,Fruit Exclusion from analyses,CODEBOOK11_LLCP.pdf,pdf_text,175.0
+_VEGETEX,Vegetable Exclusion from analyses,CODEBOOK11_LLCP.pdf,pdf_text,175.0
+_TOTINDA,Adults that report doing physical activity or exercise during the past 30 days other than their regular job,CODEBOOK11_LLCP.pdf,pdf_text,175.0
+METVAL1_,Activity MET Value for First Activity,CODEBOOK11_LLCP.pdf,pdf_text,176.0
+METVAL2_,Activity MET Value for Second Activity,CODEBOOK11_LLCP.pdf,pdf_text,176.0
+MAXVO2_,Estimated Age-Gender Specific Maximum Oxygen Consumption,CODEBOOK11_LLCP.pdf,pdf_text,176.0
+FC60_,Estimated Functional Capacity,CODEBOOK11_LLCP.pdf,pdf_text,177.0
+ACTINT1_,Estimated Activity Intensity for First Activity,CODEBOOK11_LLCP.pdf,pdf_text,177.0
+ACTINT2_,Estimated Activity Intensity for Second Activity,CODEBOOK11_LLCP.pdf,pdf_text,177.0
+PADUR1_,Minutes of First Activity,CODEBOOK11_LLCP.pdf,pdf_text,178.0
+PADUR2_,Minutes of Second Activity,CODEBOOK11_LLCP.pdf,pdf_text,178.0
+PAFREQ1_,Physical Activity Frequency per Week for First Activity,CODEBOOK11_LLCP.pdf,pdf_text,178.0
+PAFREQ2_,Physical Activity Frequency per Week for Second Activity,CODEBOOK11_LLCP.pdf,pdf_text,179.0
+_MINACT1,Minutes of Physical Activity per week for First Activity,CODEBOOK11_LLCP.pdf,pdf_text,179.0
+_MINACT2,Minutes of Physical Activity per week for Second Activity,CODEBOOK11_LLCP.pdf,pdf_text,179.0
+STRFREQ_,Strength Activity Frequency per Week,CODEBOOK11_LLCP.pdf,pdf_text,180.0
+PAMIN1_,Minutes of Physical Activity per week for First Activity,CODEBOOK11_LLCP.pdf,pdf_text,180.0
+PAMIN2_,Minutes of Physical Activity per week for Second Activity,CODEBOOK11_LLCP.pdf,pdf_text,181.0
+PAMIN_,Minutes of total Physical Activity per week,CODEBOOK11_LLCP.pdf,pdf_text,181.0
+PAVIGM1_,Minutes of Vigorous Physical Activity per week for First Activity,CODEBOOK11_LLCP.pdf,pdf_text,181.0
+PAVIGM2_,Minutes of Vigorous Physical Activity per week for Second Activity,CODEBOOK11_LLCP.pdf,pdf_text,182.0
+PAVIGMN_,Minutes of total Vigorous Physical Activity per week,CODEBOOK11_LLCP.pdf,pdf_text,182.0
+_PACAT,Physical Activity Categories,CODEBOOK11_LLCP.pdf,pdf_text,182.0
+_PAINDEX,Physical Activity Index,CODEBOOK11_LLCP.pdf,pdf_text,183.0
+_PA150R1,Adults that participated in 150 minutes (or vigorous equivalent minutes) of physical activity per week.,CODEBOOK11_LLCP.pdf,pdf_text,183.0
+_PA300R1,Adults that participated in 300 minutes (or vigorous equivalent minutes) of physical activity per week.,CODEBOOK11_LLCP.pdf,pdf_text,183.0
+_PA3002L,Adults that participated in 300 minutes (or vigorous equivalent minutes) of physical activity per week (2-levels).,CODEBOOK11_LLCP.pdf,pdf_text,184.0
+_PASTRNG,Muscle Strengthening Recommendation,CODEBOOK11_LLCP.pdf,pdf_text,184.0
+_PAREC,Aerobic and Strengthening Guideline,CODEBOOK11_LLCP.pdf,pdf_text,184.0
+_PASTAER,Aerobic and Strengthening (2-level),CODEBOOK11_LLCP.pdf,pdf_text,185.0
+_RFSEAT2,Always or Nearly Always Wear Seat Belts Calculated Variable,CODEBOOK11_LLCP.pdf,pdf_text,185.0
+_RFSEAT3,Always Wear Seat Belts Calculated Variable,CODEBOOK11_LLCP.pdf,pdf_text,185.0
+_FLSHOT5,Adults aged 65+ who have had a flu shot within the past year,CODEBOOK11_LLCP.pdf,pdf_text,186.0
+_PNEUMO2,Adults aged 65+ who have ever had a pneumonia vaccination,CODEBOOK11_LLCP.pdf,pdf_text,186.0
+DRNKANY5,Adults that report having had at least one drink of alcohol in the past 30 days.,CODEBOOK11_LLCP.pdf,pdf_text,187.0
+DROCDY3_,Drink-occasions-per-day,CODEBOOK11_LLCP.pdf,pdf_text,187.0
+_RFBING5,"Binge drinkers (males having five or more drinks on one occasion, females having four or more drinks on one",CODEBOOK11_LLCP.pdf,pdf_text,188.0
+_DRNKDY4,Calculated total number of alcoholic beverages consumed per day,CODEBOOK11_LLCP.pdf,pdf_text,188.0
+_DRNKMO4,Calculated total number of alcoholic beverages consumed per month,CODEBOOK11_LLCP.pdf,pdf_text,188.0
+_RFDRHV4,Heavy drinkers (adult men having more than two drinks per day and adult women having more than one drink per,CODEBOOK11_LLCP.pdf,pdf_text,189.0
+_RFDRMN4,Adult Men that are Heavy drinkers (having more than two drinks per day),CODEBOOK11_LLCP.pdf,pdf_text,189.0
+_RFDRWM4,Adult Women that are Heavy drinkers (having more than one drink per day),CODEBOOK11_LLCP.pdf,pdf_text,190.0
+_AIDTST3,Adults that have ever been tested for HIV,CODEBOOK11_LLCP.pdf,pdf_text,190.0
+COLGHOUS,Do you live in college housing?,CODEBOOK12_LLCP.pdf,pdf_text,10.0
+LADULT,Are you 18 years of age or older?,CODEBOOK12_LLCP.pdf,pdf_text,11.0
+CHCCOPD1,"(Ever told) you have Chronic Obstructive Pulmonary Disease or COPD, emphysema or chronic bronchitis?",CODEBOOK12_LLCP.pdf,pdf_text,19.0
+CHCVISN1,"Do you have any trouble seeing, even when wearing glasses or contact lenses?",CODEBOOK12_LLCP.pdf,pdf_text,20.0
+LASTDEN3,How long has it been since you last visited a dentist or a dental clinic for any reason? Include visits to dental,CODEBOOK12_LLCP.pdf,pdf_text,21.0
+RMVTETH3,How many of your permanent teeth have been removed because of tooth decay or gum disease? Include teeth lost,CODEBOOK12_LLCP.pdf,pdf_text,22.0
+FLSHTMY2,During what month and year did you receive your most recent flu shot injected into your arm or flu vaccine that was,CODEBOOK12_LLCP.pdf,pdf_text,36.0
+FALL12MN,"In the past 12 months, how many times have you fallen?",CODEBOOK12_LLCP.pdf,pdf_text,37.0
+FALLINJ2,"How many of these falls caused an injury? By an injury, we mean the fall caused you to limit your regular activities",CODEBOOK12_LLCP.pdf,pdf_text,38.0
+DRNKDRI2,"During the past 30 days, how many times have you driven when you’ve had perhaps too much to drink?",CODEBOOK12_LLCP.pdf,pdf_text,39.0
+PCPSAAD1,"Has a doctor, nurse, or other health professional EVER talked with you about the advantages of the PSA test?",CODEBOOK12_LLCP.pdf,pdf_text,43.0
+PCPSADI1,"Has a doctor, nurse, or other health professional EVER talked with you about the disadvantages of the PSA test?",CODEBOOK12_LLCP.pdf,pdf_text,43.0
+PCPSARE1,"Has a doctor, nurse, or other health professional EVER recommended that you have a PSA test?",CODEBOOK12_LLCP.pdf,pdf_text,43.0
+PCPSARS1,What was the MAIN reason you had this PSA test – was it …?,CODEBOOK12_LLCP.pdf,pdf_text,45.0
+VIDFCLT2,"How much difficulty, if any, do you have in recognizing a friend across the street? Would you say—",CODEBOOK12_LLCP.pdf,pdf_text,56.0
+VIREDIF2,"How much difficulty, if any, do you have reading print in newspaper, magazine, recipe, menu, or numbers on the",CODEBOOK12_LLCP.pdf,pdf_text,56.0
+VIPRFVS2,When was the last time you had your eyes examined by any doctor or eye care provider?,CODEBOOK12_LLCP.pdf,pdf_text,57.0
+VINOCRE2,What is the main reason you have not visited an eye care professional in the past 12 months?,CODEBOOK12_LLCP.pdf,pdf_text,57.0
+VIEYEXM2,When was the last time you had an eye exam in which the pupils were dilated? This would have made you,CODEBOOK12_LLCP.pdf,pdf_text,58.0
+VIINSUR2,Do you have any kind of health insurance coverage for eye care?,CODEBOOK12_LLCP.pdf,pdf_text,58.0
+VICTRCT4,Have you been told by an eye doctor or other health care professional that you NOW have cataracts?,CODEBOOK12_LLCP.pdf,pdf_text,59.0
+VIGLUMA2,Have you EVER been told by an eye doctor or other health care professional that you had glaucoma?,CODEBOOK12_LLCP.pdf,pdf_text,59.0
+VIMACDG2,Have you EVER been told by an eye doctor or other health care professional that you had age-related macular,CODEBOOK12_LLCP.pdf,pdf_text,60.0
+SSBSUGR1,"During the past 30 days, how often did you drink regular soda or pop that contains sugar? Do not include diet soda",CODEBOOK12_LLCP.pdf,pdf_text,60.0
+SSBFRUT1,"During the past 30 days, how often did you drink sweetened fruit drinks, such as Kool-aid, cranberry juice cocktail,",CODEBOOK12_LLCP.pdf,pdf_text,61.0
+NUMBURN2,"In the past 12 months, how many times did you have a red OR painful sunburn that lasted a day or more?",CODEBOOK12_LLCP.pdf,pdf_text,62.0
+PCDMDECN,Who made the decision with you? (Mark all that apply),CODEBOOK12_LLCP.pdf,pdf_text,77.0
+CNCRDIFF,How many different types of cancer have you had?,CODEBOOK12_LLCP.pdf,pdf_text,78.0
+CNCRAGE,"At what age were you told that you had cancer? (If Response = 2 (Two) or 3 (Three or more), ask: “At what age",CODEBOOK12_LLCP.pdf,pdf_text,78.0
+CNCRTYP1,"What type of cancer was it? (If Response = 2 (Two) or 3 (Three or more), ask: “With your most recent diagnoses of",CODEBOOK12_LLCP.pdf,pdf_text,79.0
+CSRVTRT1,"Are you currently receiving treatment for cancer? By treatment, we mean surgery, radiation therapy, chemotherapy,",CODEBOOK12_LLCP.pdf,pdf_text,80.0
+CSRVDOC1,What type of doctor provides the majority of your health care?,CODEBOOK12_LLCP.pdf,pdf_text,80.0
+CSRVSUM,"Did any doctor, nurse, or other health professional EVER give you a written summary of all the cancer treatments",CODEBOOK12_LLCP.pdf,pdf_text,81.0
+CSRVRTRN,"Have you EVER received instructions from a doctor, nurse, or other health professional about where you should",CODEBOOK12_LLCP.pdf,pdf_text,81.0
+CSRVINST,Were these instructions written down or printed on paper for you?,CODEBOOK12_LLCP.pdf,pdf_text,82.0
+CSRVINSR,"With your most recent diagnosis of cancer, did you have health insurance that paid for all or part of your cancer",CODEBOOK12_LLCP.pdf,pdf_text,82.0
+CSRVDEIN,Were you EVER denied health insurance or life insurance coverage because of your cancer?,CODEBOOK12_LLCP.pdf,pdf_text,83.0
+CSRVCLIN,Did you participate in a clinical trial as part of your cancer treatment?,CODEBOOK12_LLCP.pdf,pdf_text,83.0
+CSRVPAIN,Do you currently have physical pain caused by your cancer or cancer treatment?,CODEBOOK12_LLCP.pdf,pdf_text,84.0
+CSRVCTL1,Is your pain currently under control?,CODEBOOK12_LLCP.pdf,pdf_text,84.0
+MISNERVS,"About how often during the past 30 days did you feel nervous- would you say all of the time, most of the time, some",CODEBOOK12_LLCP.pdf,pdf_text,88.0
+MISHOPLS,"During the past 30 days, about how often did you feel hopeless- all of the time, most of the time, some of the time, a",CODEBOOK12_LLCP.pdf,pdf_text,88.0
+MISRSTLS,"During the past 30 days, about how often did you feel restless or fidgety? (If necessary: all, most, some, a little, or",CODEBOOK12_LLCP.pdf,pdf_text,89.0
+MISDEPRD,"During the past 30 days, about how often did you feel so depressed that nothing could cheer you up? (If necessary:",CODEBOOK12_LLCP.pdf,pdf_text,89.0
+MISEFFRT,"During the past 30 days, about how often did you feel that everything was an effort? (If necessary: all, most, some,",CODEBOOK12_LLCP.pdf,pdf_text,90.0
+MISWTLES,"During the past 30 days, about how often did you feel worthless? (If necessary: all, most, some, a little, or none of",CODEBOOK12_LLCP.pdf,pdf_text,90.0
+MISNOWRK,"During the past 30 days, for about how many days did a mental health condition or emotional problem keep you from",CODEBOOK12_LLCP.pdf,pdf_text,91.0
+MISTRHLP,"Treatment can help people with mental illness lead normal lives. Do you agree slightly or strongly, or disagree",CODEBOOK12_LLCP.pdf,pdf_text,92.0
+MISPHLPF,People are generally caring and sympathetic to people with mental illness. Do you agree slightly or strongly or,CODEBOOK12_LLCP.pdf,pdf_text,92.0
+WHRTST8,"Where did you have your last HIV test — at a private doctor or HMO office, at a counseling and testing site, at a",CODEBOOK12_LLCP.pdf,pdf_text,112.0
+HIVRDTST,Was it a rapid test where you could get your results within a couple of hours?,CODEBOOK12_LLCP.pdf,pdf_text,113.0
+CCLGHOUS,Do you live in college housing?,CODEBOOK12_LLCP.pdf,pdf_text,116.0
+CRACEORG,"CRACE with trailing 7, 8, 9s removed",CODEBOOK12_LLCP.pdf,pdf_text,125.0
+_DUALUSE,Dual Phone Use Categories,CODEBOOK12_LLCP.pdf,pdf_text,131.0
+_DUALCOR,Dual phone use correction factor,CODEBOOK12_LLCP.pdf,pdf_text,132.0
+_EXTETH2,Adults aged 18+ who have had permanent teeth extracted,CODEBOOK12_LLCP.pdf,pdf_text,141.0
+_ALTETH2,Adults aged 65+ who have had all their natural teeth extracted,CODEBOOK12_LLCP.pdf,pdf_text,141.0
+_DENVST2,"Adults who have visited a dentist, dental hygenist or dental clinic within the past year",CODEBOOK12_LLCP.pdf,pdf_text,142.0
+_RFMAM2Y,Women respondents aged 40+ who have had a mammogram in the past two years,CODEBOOK12_LLCP.pdf,pdf_text,159.0
+_MAM502Y,Women respondents aged 50+ who have had a mammogram in the past two years,CODEBOOK12_LLCP.pdf,pdf_text,159.0
+_RFPAP32,Women respondents aged 18+ who have had a pap test in the past three years,CODEBOOK12_LLCP.pdf,pdf_text,160.0
+_RFPSA21,Male respondents aged 40+ who have had a PSA test in the past 2 years,CODEBOOK12_LLCP.pdf,pdf_text,160.0
+_RFBLDS2,Respondents aged 50+ who have had a blood stool test within the past two years,CODEBOOK12_LLCP.pdf,pdf_text,161.0
+_RFSIGM2,Respondents aged 50 or older who have had a sigmoidoscopy or colonoscopy,CODEBOOK12_LLCP.pdf,pdf_text,161.0
+PVTRESD1,"Is this a private residence? [READ ONLY IF NECESSARY: “By private residence, we mean someplace like a",CODEBOOK13_LLCP.pdf,pdf_text,7.0
+STATERES,Do you reside in ____(state)____?,CODEBOOK13_LLCP.pdf,pdf_text,7.0
+CELLFON3,"Is this a cellular telephone? (Telephone service over the internet counts as landline service (includes Vonage,",CODEBOOK13_LLCP.pdf,pdf_text,8.0
+SLEPTIM1,"On average, how many hours of sleep do you get in a 24-hour period?",CODEBOOK13_LLCP.pdf,pdf_text,13.0
+INTERNET,Have you used the internet in the past 30 days?,CODEBOOK13_LLCP.pdf,pdf_text,24.0
+BLIND,"Are you blind or do you have serious difficulty seeing, even when wearing glasses?",CODEBOOK13_LLCP.pdf,pdf_text,26.0
+DECIDE,"Because of a physical, mental, or emotional condition, do you have serious difficulty concentrating, remembering, or",CODEBOOK13_LLCP.pdf,pdf_text,26.0
+DIFFWALK,Do you have serious difficulty walking or climbing stairs?,CODEBOOK13_LLCP.pdf,pdf_text,27.0
+DIFFDRES,Do you have difficulty dressing or bathing?,CODEBOOK13_LLCP.pdf,pdf_text,27.0
+DIFFALON,"Because of a physical, mental, or emotional condition, do you have difficulty doing errands alone such as visiting a",CODEBOOK13_LLCP.pdf,pdf_text,27.0
+EXRACT11,What type of physical activity or exercise did you spend the most time doing during the past month?,CODEBOOK13_LLCP.pdf,pdf_text,36.0
+EXRACT21,What other type of physical activity gave you the next most exercise during the past month?,CODEBOOK13_LLCP.pdf,pdf_text,39.0
+FLUSHOT6,"During the past 12 months, have you had either a flu shot or a flu vaccine that was sprayed in your nose? (A new",CODEBOOK13_LLCP.pdf,pdf_text,45.0
+TETANUS,"Since 2005, have you had a tetanus shot? (If yes, ask: “Was this Tdap, the tetanus shot that also has pertussis or",CODEBOOK13_LLCP.pdf,pdf_text,46.0
+WHRTST10,"Where did you have your last HIV test — at a private doctor or HMO office, at a counseling and testing site, in the",CODEBOOK13_LLCP.pdf,pdf_text,47.0
+MEDICARE,Do you have Medicare? (Medicare is a coverage plan for people 65 or over and for certain disabled people.),CODEBOOK13_LLCP.pdf,pdf_text,54.0
+HLTHCVRG,Are you CURRENTLY covered by any of the following types of health insurance or health coverage plans? [Select,CODEBOOK13_LLCP.pdf,pdf_text,54.0
+DELAYMED,Have you delayed getting needed medical care for any of the following reasons in the past 12 months? Select the,CODEBOOK13_LLCP.pdf,pdf_text,55.0
+DLYOTHER,Delayed Getting Medical Care Other Response,CODEBOOK13_LLCP.pdf,pdf_text,55.0
+NOCOV121,In the PAST 12 MONTHS was there any time when you did NOT have ANY health insurance or coverage?,CODEBOOK13_LLCP.pdf,pdf_text,55.0
+LSTCOVRG,About how long has it been since you last had health care coverage?,CODEBOOK13_LLCP.pdf,pdf_text,56.0
+DRVISITS,"How many times have you been to a doctor, nurse, or other health professional in the past 12 months?",CODEBOOK13_LLCP.pdf,pdf_text,56.0
+MEDSCOST,Was there a time in the past 12 months when you did not take your medication as prescribed because of cost? Do,CODEBOOK13_LLCP.pdf,pdf_text,57.0
+CARERCVD,"In general, how satisfied are you with the health care you received? Would you say—",CODEBOOK13_LLCP.pdf,pdf_text,57.0
+MEDBILLS,Do you currently have any medical bills that are being paid off over time? (This could include medical bills being,CODEBOOK13_LLCP.pdf,pdf_text,58.0
+SSBFRUT2,"During the past 30 days, how often did you drink sugar-sweetened fruit drinks (such as Kool-aid and lemonade),",CODEBOOK13_LLCP.pdf,pdf_text,59.0
+WTCHSALT,Are you currently watching or reducing your sodium or salt intake?,CODEBOOK13_LLCP.pdf,pdf_text,59.0
+LONGWTCH,"How many days, weeks, months, or years have you been watching or reducing your sodium or salt intake?",CODEBOOK13_LLCP.pdf,pdf_text,60.0
+DRADVISE,Has a doctor or other health professional ever advised you to reduce sodium or salt intake?,CODEBOOK13_LLCP.pdf,pdf_text,60.0
+RLIVPAIN,Do you take aspirin to relieve pain?,CODEBOOK13_LLCP.pdf,pdf_text,66.0
+RDUCHART,Do you take aspirin to reduce the chance of a heart attack?,CODEBOOK13_LLCP.pdf,pdf_text,66.0
+RDUCSTRK,Do you take aspirin to reduce the chance of a stroke?,CODEBOOK13_LLCP.pdf,pdf_text,67.0
+PCPSAAD2,"Has a doctor, nurse, or other health professional EVER talked with you about the advantages of the PSA test?",CODEBOOK13_LLCP.pdf,pdf_text,76.0
+PCPSADE1,Which of the following best describes the decision to have the PSA test done?,CODEBOOK13_LLCP.pdf,pdf_text,79.0
+TYPEWORK,"What kind of work do/did you do? [(for example, registered nurse, janitor, cashier, auto mechanic)]",CODEBOOK13_LLCP.pdf,pdf_text,87.0
+TYPEINDS,"What kind of business or industry do/did you work in? [(for example, hospital, elementary school, clothing",CODEBOOK13_LLCP.pdf,pdf_text,88.0
+SCNTVOT1,Did you vote in the last presidential election? [The November 2012 election between Barack Obama and Mitt,CODEBOOK13_LLCP.pdf,pdf_text,91.0
+RCHISLA1,"Is the child Hispanic, Latino/a, or Spanish origin?",CODEBOOK13_LLCP.pdf,pdf_text,92.0
+RCSRACE1,Which one or more of the following would you say is the race of the child? (If 40 (Asian) or 50 (Pacific Islander) is,CODEBOOK13_LLCP.pdf,pdf_text,92.0
+RCSBRAC1,Which one of these groups would you say best represents the child’s race? (If 40 (Asian) or 50 (Pacific Islander) is,CODEBOOK13_LLCP.pdf,pdf_text,93.0
+_IMPEDUC,"Imputed Education Level (This value is the reported education level or an imputed education level, if the",CODEBOOK13_LLCP.pdf,pdf_text,101.0
+_IMPMRTL,"Imputed Marital Status (This value is the reported marital status or an imputed marital status, if the respondent",CODEBOOK13_LLCP.pdf,pdf_text,101.0
+_IMPHOME,"Imputed Own or Rent Home (This value is the reported tenure (rent or own home) or an imputed tenure, if the",CODEBOOK13_LLCP.pdf,pdf_text,101.0
+_CHISPNC,"Child Hispanic, Latino/a, or Spanish origin calculated variable",CODEBOOK13_LLCP.pdf,pdf_text,102.0
+_CRACE1,Child multiracial race categorization,CODEBOOK13_LLCP.pdf,pdf_text,102.0
+_IMPCRAC,Imputed Child Race/Ethnicity,CODEBOOK13_LLCP.pdf,pdf_text,103.0
+_IMPCSEX,Imputed Child Gender,CODEBOOK13_LLCP.pdf,pdf_text,103.0
+_LLCPWT2,Truncated design weight used in adult combined land line and cell phone raking,CODEBOOK13_LLCP.pdf,pdf_text,108.0
+_PRACE1,Preferred race category,CODEBOOK13_LLCP.pdf,pdf_text,112.0
+_MRACE1,Calculated multiracial race categorization,CODEBOOK13_LLCP.pdf,pdf_text,113.0
+_HISPANC,"Hispanic, Latino/a, or Spanish origin calculated variable",CODEBOOK13_LLCP.pdf,pdf_text,113.0
+_RACE,Race/ethnicity categories,CODEBOOK13_LLCP.pdf,pdf_text,114.0
+_RACEG21,White non-Hispanic race group,CODEBOOK13_LLCP.pdf,pdf_text,114.0
+_RACEGR3,Five-level race/ethnicity category,CODEBOOK13_LLCP.pdf,pdf_text,115.0
+_RACE_G1,Race groups used for internet prevalence tables,CODEBOOK13_LLCP.pdf,pdf_text,115.0
+_FRTLT1,Consume Fruit 1 or more times per day,CODEBOOK13_LLCP.pdf,pdf_text,128.0
+_VEGLT1,Consume Vegetables 1 or more times per day,CODEBOOK13_LLCP.pdf,pdf_text,128.0
+METVL11_,Activity MET Value for First Activity,CODEBOOK13_LLCP.pdf,pdf_text,131.0
+METVL21_,Activity MET Value for Second Activity,CODEBOOK13_LLCP.pdf,pdf_text,131.0
+ACTIN11_,Estimated Activity Intensity for First Activity,CODEBOOK13_LLCP.pdf,pdf_text,132.0
+ACTIN21_,Estimated Activity Intensity for Second Activity,CODEBOOK13_LLCP.pdf,pdf_text,132.0
+_MINAC11,Minutes of Physical Activity per week for First Activity,CODEBOOK13_LLCP.pdf,pdf_text,134.0
+_MINAC21,Minutes of Physical Activity per week for Second Activity,CODEBOOK13_LLCP.pdf,pdf_text,134.0
+PAMIN11_,Minutes of Physical Activity per week for First Activity,CODEBOOK13_LLCP.pdf,pdf_text,135.0
+PAMIN21_,Minutes of Physical Activity per week for Second Activity,CODEBOOK13_LLCP.pdf,pdf_text,136.0
+PA1MIN_,Minutes of total Physical Activity per week,CODEBOOK13_LLCP.pdf,pdf_text,136.0
+PAVIG11_,Minutes of Vigorous Physical Activity per week for First Activity,CODEBOOK13_LLCP.pdf,pdf_text,136.0
+PAVIG21_,Minutes of Vigorous Physical Activity per week for Second Activity,CODEBOOK13_LLCP.pdf,pdf_text,136.0
+PA1VIGM_,Minutes of total Vigorous Physical Activity per week,CODEBOOK13_LLCP.pdf,pdf_text,137.0
+_PACAT1,Physical Activity Categories,CODEBOOK13_LLCP.pdf,pdf_text,137.0
+_PAINDX1,Physical Activity Index,CODEBOOK13_LLCP.pdf,pdf_text,137.0
+_PA150R2,Adults that participated in 150 minutes (or vigorous equivalent minutes) of physical activity per week.,CODEBOOK13_LLCP.pdf,pdf_text,138.0
+_PA300R2,Adults that participated in 300 minutes (or vigorous equivalent minutes) of physical activity per week.,CODEBOOK13_LLCP.pdf,pdf_text,138.0
+_PA30021,Adults that participated in 300 minutes (or vigorous equivalent minutes) of physical activity per week (2-levels).,CODEBOOK13_LLCP.pdf,pdf_text,138.0
+_PAREC1,Aerobic and Strengthening Guideline,CODEBOOK13_LLCP.pdf,pdf_text,139.0
+_PASTAE1,Aerobic and Strengthening (2-level),CODEBOOK13_LLCP.pdf,pdf_text,139.0
+_LMTACT1,Limited usual activities,CODEBOOK13_LLCP.pdf,pdf_text,140.0
+_LMTWRK1,Limited work activities,CODEBOOK13_LLCP.pdf,pdf_text,140.0
+_LMTSCL1,Limited social activities,CODEBOOK13_LLCP.pdf,pdf_text,140.0
+_FLSHOT6,Adults aged 65+ who have had a flu shot within the past year,CODEBOOK13_LLCP.pdf,pdf_text,141.0
+_AGE80,Imputed Age value collapsed above 80,CODEBOOK13_LLCP.pdf,pdf_text,143.0
+SHINGLE2,Have you ever had the shingles or zoster vaccine?,CODEBOOK14_LLCP.pdf,pdf_text,34.0
+HLTHCVR1,What is the primary source of your health care coverage? Is it…,CODEBOOK14_LLCP.pdf,pdf_text,54.0
+MEDBILL1,Do you currently have any health care bills that are being paid off over time? (This could include medical bills being,CODEBOOK14_LLCP.pdf,pdf_text,57.0
+ASBIALCH,"You told me earlier that your last routine checkup was [within the past year/within the past 2 years]. At that checkup,",CODEBOOK14_LLCP.pdf,pdf_text,57.0
+ASBIDRNK,Did the health care provider ask you in person or on a form how much you drink?,CODEBOOK14_LLCP.pdf,pdf_text,58.0
+ASBIBING,Did the healthcare provider specifically ask whether you drank [5 FOR MEN /4 FOR WOMEN] or more alcoholic drinks,CODEBOOK14_LLCP.pdf,pdf_text,58.0
+ASBIADVC,Were you offered advice about what level of drinking is harmful or risky for your health?,CODEBOOK14_LLCP.pdf,pdf_text,58.0
+ASBIRDUC,"At your last routine checkup, were you advised to reduce or quit your drinking?",CODEBOOK14_LLCP.pdf,pdf_text,59.0
+HPVTEST,An HPV test is sometimes given with the Pap test for cervical cancer screening. Have you ever had an HPV test?,CODEBOOK14_LLCP.pdf,pdf_text,67.0
+HPLSTTST,How long has it been since you had your last HPV test?,CODEBOOK14_LLCP.pdf,pdf_text,67.0
+SCNTMNY1,How often in the past 12 months would you say you were worried or stressed about having enough money to pay your,CODEBOOK14_LLCP.pdf,pdf_text,79.0
+SCNTMEL1,How often in the past 12 months would you say you were worried or stressed about having enough money to buy,CODEBOOK14_LLCP.pdf,pdf_text,79.0
+SXORIENT,Do you consider yourself to be: (We ask this question in order to better understand the health and health care needs of,CODEBOOK14_LLCP.pdf,pdf_text,82.0
+TRNSGNDR,"Do you consider yourself to be transgender? (If yes, ask “Do you consider yourself to be male-to-female,",CODEBOOK14_LLCP.pdf,pdf_text,83.0
+HHADULT,"How many members of your household, including yourself, are 18 years of age or older?",CODEBOOK14_LLCP.pdf,pdf_text,89.0
+_CPRACE,Preferred Child Race Categories,CODEBOOK14_LLCP.pdf,pdf_text,96.0
+_MAM5021,Women respondents aged 50-74 who have had a mammogram in the past two years,CODEBOOK14_LLCP.pdf,pdf_text,120.0
+_RFPAP33,Women respondents aged 21-65 who have had a pap test in the past three years,CODEBOOK14_LLCP.pdf,pdf_text,121.0
+_RFBLDS3,Respondents aged 50-75 who have had a blood stool test within the past year,CODEBOOK14_LLCP.pdf,pdf_text,122.0
+_COL10YR,Respondents aged 50-75 that who have had a colonoscopy in the past 10 years,CODEBOOK14_LLCP.pdf,pdf_text,123.0
+_HFOB3YR,Respondents aged 50-75 who have had a blood stool test within the past 3 years,CODEBOOK14_LLCP.pdf,pdf_text,124.0
+_FS5YR,Respondents aged 50-75 who have had a sigmoidoscopy within the past 5 years,CODEBOOK14_LLCP.pdf,pdf_text,124.0
+_FOBTFS,Respondents aged 50-75 who have had a blood stool test within the past 3 years and a sigmoidoscopy within the past,CODEBOOK14_LLCP.pdf,pdf_text,125.0
+_CRCREC,Respondents aged 50-75 who have fully met the USPSTF recommendation,CODEBOOK14_LLCP.pdf,pdf_text,125.0
+CAREGIV1,"During the past 30 days, did you provide regular care or assistance to a friend or family member who has a health",codebook15_llcp.pdf,pdf_text,55.0
+CRGVREL1,What is his/her relationship to you? For example is he/she your (mother/daughter or father/son)?,codebook15_llcp.pdf,pdf_text,56.0
+CRGVLNG1,For how long have you provided care for that person? Would you say…,codebook15_llcp.pdf,pdf_text,56.0
+CRGVHRS1,"In an average week, how many hours do you provide care or assistance? Would you say…",codebook15_llcp.pdf,pdf_text,57.0
+CRGVPRB1,"What is the main health problem, long-term illness, or disability that the person you care for has?",codebook15_llcp.pdf,pdf_text,57.0
+CRGVPERS,"…Managing personal care such as giving medications, feeding, dressing, or bathing?",codebook15_llcp.pdf,pdf_text,58.0
+CRGVHOUS,"…Managing household tasks such as cleaning, managing money, or preparing meals?",codebook15_llcp.pdf,pdf_text,58.0
+CRGVMST2,"Of the following support services, which one do you MOST need, that you are not currently getting?",codebook15_llcp.pdf,pdf_text,59.0
+CRGVEXPT,"In the next 2 years, do you expect to provide care or assistance to a friend or family member who has a health",codebook15_llcp.pdf,pdf_text,59.0
+CDHOUSE,"During the past 12 months, as a result of confusion or memory loss, how often have you given up day-to-day",codebook15_llcp.pdf,pdf_text,65.0
+CDASSIST,"As a result of confusion or memory loss, how often do you need assistance with these day-to-day activities?",codebook15_llcp.pdf,pdf_text,65.0
+CDHELP,"When you need help with these day-to-day activities, how often are you able to get the help that you need?",codebook15_llcp.pdf,pdf_text,66.0
+CDSOCIAL,"During the past 12 months, how often has confusion or memory loss interfered with your ability to work, volunteer, or",codebook15_llcp.pdf,pdf_text,66.0
+CDDISCUS,Have you or anyone else discussed your confusion or memory loss with a health care professional?,codebook15_llcp.pdf,pdf_text,67.0
+EXACTOT1,First Activity Other response description,codebook15_llcp.pdf,pdf_text,99.0
+EXACTOT2,Second Activity Other response description,codebook15_llcp.pdf,pdf_text,100.0
+_MICHD,Respondents that have ever reported having coronary heart disease (CHD) or myocardial infarction (MI),codebook15_llcp.pdf,pdf_text,106.0
+_DRNKWEK,Calculated total number of alcoholic beverages consumed per week,codebook15_llcp.pdf,pdf_text,119.0
+_RFDRHV5,Heavy drinkers (adult men having more than 14 drinks per week and adult women having more than 7 drinks per,codebook15_llcp.pdf,pdf_text,119.0
+SAS,Variable Name: _GEOSTR,codebook16_llcp.pdf,pdf_text,4.0
+IYEAR,Interviewer Identification,codebook16_llcp.pdf,pdf_text,9.0
+DISPCODE,Annual Sequence Number,codebook16_llcp.pdf,pdf_text,10.0
+NATTMPTS,Number of Sample Records Selected from Stratum,codebook16_llcp.pdf,pdf_text,11.0
+CELLFON5,Are you 18 years of age or older?,codebook16_llcp.pdf,pdf_text,16.0
+PVTRESD3,Do you live in college housing?,codebook16_llcp.pdf,pdf_text,17.0
+CSTATE1,In what state do you currently live?,codebook16_llcp.pdf,pdf_text,18.0
+AGE,"Hispanic, Latino/a, or Spanish origin?",codebook16_llcp.pdf,pdf_text,33.0
+ZIPCODE1,Household Telephones,codebook16_llcp.pdf,pdf_text,36.0
+DEAF,Blind or Difficulty seeing,codebook16_llcp.pdf,pdf_text,43.0
+ECIGNOW,Days in past 30 had alcoholic beverage,codebook16_llcp.pdf,pdf_text,50.0
+HIVRISK4,Had a test for high blood sugar or diabetes in the past three years?,codebook16_llcp.pdf,pdf_text,68.0
+MEDADVIC,"How difficult is it for you to understand information that doctors, nurses and other health professionals tell you?",codebook16_llcp.pdf,pdf_text,83.0
+WRITTEN,Provided regular care for family or friend,codebook16_llcp.pdf,pdf_text,84.0
+SSBSUGR2,How often did you drink sugar-sweetened drinks?,codebook16_llcp.pdf,pdf_text,93.0
+CALRINFO,"During the past 30 days, on how many days did you use marijuana or hashish?",codebook16_llcp.pdf,pdf_text,94.0
+USEMRJNA,Days had trouble with sleep,codebook16_llcp.pdf,pdf_text,95.0
+SLEPDAY1,Have you ever been told that you snore loudly?,codebook16_llcp.pdf,pdf_text,96.0
+SLEPSNO1,Has anyone ever observed that you stop breathing during your sleep?,codebook16_llcp.pdf,pdf_text,96.0
+CHHISPA,Questionnaire Version Identifier,codebook16_llcp.pdf,pdf_text,128.0
+QSTLANG,Cell Phone County Name,codebook16_llcp.pdf,pdf_text,129.0
+CPCOUNTY,Did you do anything to keep from getting pregnant?,codebook16_llcp.pdf,pdf_text,129.0
+TYPCNTR7,What was main reason for not doing anything to keep you from getting pregnant?,codebook16_llcp.pdf,pdf_text,130.0
+STATEQUE,End of Data-Submission Record Marker,codebook16_llcp.pdf,pdf_text,131.0
+EOR,Metropolitan Statistical Area Code.,codebook16_llcp.pdf,pdf_text,131.0
+_IMPSEX,Age value used to determine age groups,codebook16_llcp.pdf,pdf_text,135.0
+CRACASC1,Child Non-Hispanic Race including Multiracial,codebook16_llcp.pdf,pdf_text,139.0
+CHILDAGE,Child Combined Land-Line and Cell-Phone First Margin (Age-Gender),codebook16_llcp.pdf,pdf_text,142.0
+_CLCM2V1,Version 1 Child Combined Land-Line and Cell-Phone Third Margin (Gender-Race/Ethnicity),codebook16_llcp.pdf,pdf_text,145.0
+_CLCM3V1,Version 1 Child Combined Land-Line and Cell-Phone Fourth Margin (Age-Race/Ethnicity),codebook16_llcp.pdf,pdf_text,145.0
+_CLCM5V1,Version 1 child weight: Land-line and Cell-Phone data,codebook16_llcp.pdf,pdf_text,146.0
+_CLCWTV1,Version 2 Child Combined Land-Line and Cell-Phone First Margin (Age-Gender),codebook16_llcp.pdf,pdf_text,146.0
+_CLCM2V2,Version 2 Child Combined Land-Line and Cell-Phone Third Margin (Gender-Race/Ethnicity),codebook16_llcp.pdf,pdf_text,147.0
+_CLCM3V2,Version 2 Child Combined Land-Line and Cell-Phone Fourth Margin (Age-Race/Ethnicity),codebook16_llcp.pdf,pdf_text,147.0
+_CLCM5V2,Version 2 child weight: Land-line and Cell-Phone data,codebook16_llcp.pdf,pdf_text,148.0
+_CLCWTV2,Version 3 Child Combined Land-Line and Cell-Phone First Margin (Age-Gender),codebook16_llcp.pdf,pdf_text,148.0
+_CLCM2V3,Version 3 Child Combined Land-Line and Cell-Phone Third Margin (Gender-Race/Ethnicity),codebook16_llcp.pdf,pdf_text,149.0
+_CLCM3V3,Version 3 Child Combined Land-Line and Cell-Phone Fourth Margin (Age-Race/Ethnicity),codebook16_llcp.pdf,pdf_text,149.0
+_CLCM5V3,Version 3 child weight: Land-line and Cell-Phone data,codebook16_llcp.pdf,pdf_text,150.0
+_CLCWTV3,Original State and Original Sequence Number,codebook16_llcp.pdf,pdf_text,150.0
+_LLCPM13,Combined Land-Line and Cell-Phone Fourteenth Margin (Counties-Race/Ethnicity),codebook16_llcp.pdf,pdf_text,156.0
+_LLCPM14,Combined Land-Line and Cell-Phone Fifteenth Margin (Counties-Age),codebook16_llcp.pdf,pdf_text,156.0
+_LLCPM16,Final weight: Land-line and cell-phone data,codebook16_llcp.pdf,pdf_text,157.0
+_LCM02V1,Version 1 Combined Land-Line and Cell-Phone Third Margin (Education),codebook16_llcp.pdf,pdf_text,158.0
+_LCM03V1,Version 1 Combined Land-Line and Cell-Phone Fourth Margin (Marital Status),codebook16_llcp.pdf,pdf_text,158.0
+_LCM05V1,Version 1 Combined Land-Line and Cell-Phone Sixth Margin (Gender-Race/Ethnicity),codebook16_llcp.pdf,pdf_text,159.0
+_LCM06V1,Version 1 Combined Land-Line and Cell-Phone Seventh Margin (Age-Race/Ethnicity),codebook16_llcp.pdf,pdf_text,159.0
+_LCM08V1,Version 1 Combined Land-Line and Cell-Phone Ninth Margin (Regions),codebook16_llcp.pdf,pdf_text,160.0
+_LCM09V1,Version 1 Combined Land-Line and Cell-Phone Tenth Margin (Regions-Age),codebook16_llcp.pdf,pdf_text,160.0
+_LCM11V1,Version 1 Combined Land-Line and Cell-Phone Twelfth Margin (Regions-Race/Ethnicity),codebook16_llcp.pdf,pdf_text,161.0
+_LCM12V1,Version 1 weight: Land-line and cell-phone data,codebook16_llcp.pdf,pdf_text,161.0
+_LCM01V2,Version 2 Combined Land-Line and Cell-Phone Second Margin (Race/Ethnicity),codebook16_llcp.pdf,pdf_text,162.0
+_LCM02V2,Version 2 Combined Land-Line and Cell-Phone Third Margin (Education),codebook16_llcp.pdf,pdf_text,162.0
+_LCM04V2,Version 2 Combined Land-Line and Cell-Phone Fifth Margin (Home Ownership),codebook16_llcp.pdf,pdf_text,163.0
+_LCM05V2,Version 2 Combined Land-Line and Cell-Phone Sixth Margin (Gender-Race/Ethnicity),codebook16_llcp.pdf,pdf_text,163.0
+_LCM07V2,Version 2 Combined Land-Line and Cell-Phone Eighth Margin (Telephone Source),codebook16_llcp.pdf,pdf_text,164.0
+_LCM08V2,Version 2 Combined Land-Line and Cell-Phone Ninth Margin (Regions),codebook16_llcp.pdf,pdf_text,164.0
+_LCM10V2,Version 2 Combined Land-Line and Cell-Phone Eleventh Margin (Regions-Gender),codebook16_llcp.pdf,pdf_text,165.0
+_LCM11V2,Version 2 Combined Land-Line and Cell-Phone Twelfth Margin (Regions-Race/Ethnicity),codebook16_llcp.pdf,pdf_text,165.0
+_LCPWTV2,Version 3 Combined Land-Line and Cell-Phone First Margin (Age-Gender),codebook16_llcp.pdf,pdf_text,166.0
+_LCM01V3,Version 3 Combined Land-Line and Cell-Phone Second Margin (Race/Ethnicity),codebook16_llcp.pdf,pdf_text,166.0
+_LCM03V3,Version 3 Combined Land-Line and Cell-Phone Fourth Margin (Marital Status),codebook16_llcp.pdf,pdf_text,167.0
+_LCM04V3,Version 3 Combined Land-Line and Cell-Phone Fifth Margin (Home Ownership),codebook16_llcp.pdf,pdf_text,167.0
+_LCM06V3,Version 3 Combined Land-Line and Cell-Phone Seventh Margin (Age-Race/Ethnicity),codebook16_llcp.pdf,pdf_text,168.0
+_LCM07V3,Version 3 Combined Land-Line and Cell-Phone Eighth Margin (Telephone Source),codebook16_llcp.pdf,pdf_text,168.0
+_LCM09V3,Version 3 Combined Land-Line and Cell-Phone Tenth Margin (Regions-Age),codebook16_llcp.pdf,pdf_text,169.0
+_LCM10V3,Version 3 Combined Land-Line and Cell-Phone Eleventh Margin (Regions-Gender),codebook16_llcp.pdf,pdf_text,169.0
+_LCM12V3,Version 3 weight: Land-line and cell-phone data,codebook16_llcp.pdf,pdf_text,170.0
+_LCPWTV3,Adults with good or better health,codebook16_llcp.pdf,pdf_text,170.0
+_PHYS14D,Computed Mental Health Status,codebook16_llcp.pdf,pdf_text,171.0
+MRACORG1,MRACORG1 with responses in ascending order calculated variable,codebook16_llcp.pdf,pdf_text,177.0
+_ECIGSTS,Current E-cigarette User Calculated Variable,codebook16_llcp.pdf,pdf_text,192.0
+SAFETIME,Correct Phone Number?,codebook17_llcp-v2-508.pdf,pdf_text,13.0
+CHOLCHK1,Ever Told Blood Cholesterol High,codebook17_llcp-v2-508.pdf,pdf_text,22.0
+CHOLMED1,Ever Diagnosed with Heart Attack,codebook17_llcp-v2-508.pdf,pdf_text,23.0
+EMPLOY1,Number of Children in Household,codebook17_llcp-v2-508.pdf,pdf_text,36.0
+FRUITJU2,How many times did you eat dark green vegetables?,codebook17_llcp-v2-508.pdf,pdf_text,50.0
+FRENCHF1,How Often Do You Eat Potatoes,codebook17_llcp-v2-508.pdf,pdf_text,51.0
+VEGETAB2,Exercise in Past 30 Days,codebook17_llcp-v2-508.pdf,pdf_text,52.0
+HIVRISK5,Had a test for high blood sugar or diabetes in the past three years?,codebook17_llcp-v2-508.pdf,pdf_text,65.0
+COPDFLEM,Did you have shortness of breath?,codebook17_llcp-v2-508.pdf,pdf_text,73.0
+COPDBTST,How many years have you smoked tobacco products?,codebook17_llcp-v2-508.pdf,pdf_text,74.0
+SLEPBRTH,Do you have Medicare?,codebook17_llcp-v2-508.pdf,pdf_text,96.0
+MARIJANA,"During the past 30 days, how did you primarily use marijuana?",codebook17_llcp-v2-508.pdf,pdf_text,115.0
+LCSLAST,"On average, how many cigarettes do you smoke each day?",codebook17_llcp-v2-508.pdf,pdf_text,124.0
+LCSCTSCN,Provided regular care for family or friend,codebook17_llcp-v2-508.pdf,pdf_text,125.0
+SDHBILLS,How many times have you moved?,codebook17_llcp-v2-508.pdf,pdf_text,135.0
+SDHMEALS,How do your finances usually work out at the end of the month?,codebook17_llcp-v2-508.pdf,pdf_text,137.0
+SDHSTRES,Sexual orientation or gender identity,codebook17_llcp-v2-508.pdf,pdf_text,138.0
+GUNLOAD,Any Loaded Firearms Also Unlocked,codebook17_llcp-v2-508.pdf,pdf_text,140.0
+_CHOLCH1,High Cholesterol Calculated Variable,codebook17_llcp-v2-508.pdf,pdf_text,153.0
+FRUTDA2_,Computed Dark Green Vegetable intake in times per day,codebook17_llcp-v2-508.pdf,pdf_text,175.0
+GRENDA1_,Computed French Fry intake in times per day,codebook17_llcp-v2-508.pdf,pdf_text,175.0
+POTADA1_,Computed Other Vegetable intake in times per day,codebook17_llcp-v2-508.pdf,pdf_text,176.0
+_FRUTSU1,Total vegetables consumed per day,codebook17_llcp-v2-508.pdf,pdf_text,178.0
+_VEGESU1,Consume Fruit 1 or more times per day,codebook17_llcp-v2-508.pdf,pdf_text,178.0
+_VEGLT1A,Reported consuming Fruit >16 per day,codebook17_llcp-v2-508.pdf,pdf_text,179.0
+_FRT16A,Reported consuming Vegetables >23 per day,codebook17_llcp-v2-508.pdf,pdf_text,179.0
+_FRUITE1,Vegetable Exclusion from analyses,codebook17_llcp-v2-508.pdf,pdf_text,180.0
+PAMISS1_,Minutes of Physical Activity per week for First Activity,codebook17_llcp-v2-508.pdf,pdf_text,187.0
+CHCKDNY1,(Ever told) you have diabetes,codebook18_llcp-v2-508.pdf,pdf_text,27.0
+PNEUVAC4,Had Fall Past Twelve Months,codebook18_llcp-v2-508.pdf,pdf_text,48.0
+FALLINJ3,How often use seatbelts in car?,codebook18_llcp-v2-508.pdf,pdf_text,49.0
+PCPSAAD3,Has a health professional EVER talked with you about the disadvantages of the PSA test?,codebook18_llcp-v2-508.pdf,pdf_text,54.0
+EYEEXAM1,Ever Told Diabetes Has Affected Eyes,codebook18_llcp-v2-508.pdf,pdf_text,67.0
+DELAYME1,Delayed Getting Medical Care Other Response,codebook18_llcp-v2-508.pdf,pdf_text,70.0
+CRGVMST3,Do you expect to have a relative you will need to provide care for?,codebook18_llcp-v2-508.pdf,pdf_text,82.0
+ECIGARET,"Do you now use e-cigarettes, every day, some days, or not at all?",codebook18_llcp-v2-508.pdf,pdf_text,83.0
+MARIJAN1,"During the past 30 days, how did you primarily use marijuana?",codebook18_llcp-v2-508.pdf,pdf_text,84.0
+RSNMRJN1,Days had trouble with sleep,codebook18_llcp-v2-508.pdf,pdf_text,85.0
+ADDOWN1,"Felt nervous, anxious or on edge",codebook18_llcp-v2-508.pdf,pdf_text,88.0
+STOPWORY,Did you have a cough?,codebook18_llcp-v2-508.pdf,pdf_text,89.0
+INDORTAN,Number Of Sunburns In Past 12 Months,codebook18_llcp-v2-508.pdf,pdf_text,93.0
+WKENDOUT,How old when you first started smoking?,codebook18_llcp-v2-508.pdf,pdf_text,96.0
+TETANUS1,Have you ever had the shingles or zoster vaccine?,codebook18_llcp-v2-508.pdf,pdf_text,112.0
+_ALTETH3,"Adults that have visited a dentist, dental hygenist or dental clinic within the past year",codebook18_llcp-v2-508.pdf,pdf_text,131.0
+_RFDRHV6,Flu Shot Calculated Variable,codebook18_llcp-v2-508.pdf,pdf_text,147.0
+_PNEUMO3,Always or Nearly Always Wear Seat Belts,codebook18_llcp-v2-508.pdf,pdf_text,148.0
+_RFMAM21,Women respondents aged 50-74 that have had a mammogram in the past two years,codebook18_llcp-v2-508.pdf,pdf_text,150.0
+LADULT1,Are you male or female?,codebook20_llcp-v2-508.pdf,pdf_text,11.0
+CADULT1,Are you male or female?,codebook20_llcp-v2-508.pdf,pdf_text,15.0
+HAVARTH4,(Ever told) you had a depressive disorder,codebook20_llcp-v2-508.pdf,pdf_text,28.0
+CHCKDNY2,(Ever told) you had diabetes,codebook20_llcp-v2-508.pdf,pdf_text,29.0
+DIABAGE3,Last Visited Dentist or Dental Clinic,codebook20_llcp-v2-508.pdf,pdf_text,30.0
+FLSHTMY3,Have you ever had the shingles or zoster vaccine?,codebook20_llcp-v2-508.pdf,pdf_text,47.0
+FALLINJ4,How often use seatbelts in car?,codebook20_llcp-v2-508.pdf,pdf_text,49.0
+COLNTEST,Ever had a sigmoidoscopy?,codebook20_llcp-v2-508.pdf,pdf_text,59.0
+LSTBLDS4,Ever had stool DNA test?,codebook20_llcp-v2-508.pdf,pdf_text,62.0
+INSULIN1,How Often Check Blood for Glucose,codebook20_llcp-v2-508.pdf,pdf_text,68.0
+HAVECFS,How many hours a week are you been able to work,codebook20_llcp-v2-508.pdf,pdf_text,74.0
+TOLDHEPC,Treated for Hepatitis C,codebook20_llcp-v2-508.pdf,pdf_text,75.0
+PRIRHEPC,Still have Hepatitis C,codebook20_llcp-v2-508.pdf,pdf_text,76.0
+HAVEHEPB,Currently taking medicine for hepatitis B,codebook20_llcp-v2-508.pdf,pdf_text,77.0
+CRGVALZD,Managed personal care,codebook20_llcp-v2-508.pdf,pdf_text,87.0
+CRGVHOU1,Do you expect to have a relative you will need to provide care for?,codebook20_llcp-v2-508.pdf,pdf_text,88.0
+PCDMDEC1,Have you ever had an H.P.V. vaccination?,codebook20_llcp-v2-508.pdf,pdf_text,105.0
+SOFEMALE,Do you consider yourself to be transgender?,codebook20_llcp-v2-508.pdf,pdf_text,109.0
+ACEHURT1,How Often Did A Parent Swear At You?,codebook20_llcp-v2-508.pdf,pdf_text,113.0
+_DRDXAR2,Adults aged 18+ that have had permanent teeth extracted,codebook20_llcp-v2-508.pdf,pdf_text,130.0
+_RFDRHV7,Flu Shot Calculated Variable,codebook20_llcp-v2-508.pdf,pdf_text,149.0
+_CLNSCPY,Respondents aged 50-75 who have had a sigmoidoscopy within the past five years,codebook20_llcp-v2-508.pdf,pdf_text,156.0
+_SGMS10Y,Respondents aged 50-75 who have had a blood stool test within the past year,codebook20_llcp-v2-508.pdf,pdf_text,157.0
+_STOLDNA,Respondents aged 50-75 who have had a virtual colonoscopy within the past five years,codebook20_llcp-v2-508.pdf,pdf_text,158.0
+CELLSEX,Do you live in a private residence?,codebook21_llcp-v2-508.pdf,pdf_text,16.0
+PERSDOC3,Could Not Afford To See Doctor,codebook21_llcp-v2-508.pdf,pdf_text,23.0
+BPHIGH6,Currently Taking Blood Pressure Medication,codebook21_llcp-v2-508.pdf,pdf_text,25.0
+CHOLCHK3,Ever Told Cholesterol Is High,codebook21_llcp-v2-508.pdf,pdf_text,26.0
+CHOLMED3,Ever Diagnosed with Heart Attack,codebook21_llcp-v2-508.pdf,pdf_text,27.0
+CHCCOPD3,(Ever told) you had a depressive disorder,codebook21_llcp-v2-508.pdf,pdf_text,31.0
+ECIGNOW1,Days in past 30 had alcoholic beverage,codebook21_llcp-v2-508.pdf,pdf_text,48.0
+TOLDCFS,Still have Chronic Fatigue Syndrome or Myalgic Encephalomyelitis,codebook21_llcp-v2-508.pdf,pdf_text,64.0
+HPVADVC4,How many HPV shots did you receive?,codebook21_llcp-v2-508.pdf,pdf_text,68.0
+LCSFIRST,How old when you last smoked?,codebook21_llcp-v2-508.pdf,pdf_text,70.0
+LCSNUMCG,Did you have a CT or CAT scan?,codebook21_llcp-v2-508.pdf,pdf_text,71.0
+CERVSCRN,Time since last cervical cancer screening test,codebook21_llcp-v2-508.pdf,pdf_text,73.0
+CRVCLPAP,Have an H.P.V. test and recent cervical cancer screening,codebook21_llcp-v2-508.pdf,pdf_text,74.0
+PCPSARS2,Did you talk about the advantages or disadvantages of P.S.A. test,codebook21_llcp-v2-508.pdf,pdf_text,77.0
+HADSIGM4,"Ever had a colonoscopy, sigmoidoscopy, or both",codebook21_llcp-v2-508.pdf,pdf_text,78.0
+LASTSIG4,Ever had any other kind of test for colorectal cancer,codebook21_llcp-v2-508.pdf,pdf_text,81.0
+VIRCOLO1,How long since you had virtual colonoscopy,codebook21_llcp-v2-508.pdf,pdf_text,82.0
+SMALSTOL,How long since you had stool test?,codebook21_llcp-v2-508.pdf,pdf_text,83.0
+STOOLDN1,Was test part of Cologuard test?,codebook21_llcp-v2-508.pdf,pdf_text,84.0
+SDNATES1,How Many Types of Cancer?,codebook21_llcp-v2-508.pdf,pdf_text,85.0
+HOMBPCHK,Regularly check blood pressure at home,codebook21_llcp-v2-508.pdf,pdf_text,95.0
+WHEREBP,How do you share your blood pressure numbers,codebook21_llcp-v2-508.pdf,pdf_text,96.0
+ACEADNED,"During the past 30 days, on how many days did you use marijuana or hashish?",codebook21_llcp-v2-508.pdf,pdf_text,113.0
+CAGEG,Final child weight: Land-line and Cell-Phone data,codebook21_llcp-v2-508.pdf,pdf_text,129.0
+_HLTHPLN,Respondents aged 18-64 with health insurance,codebook21_llcp-v2-508.pdf,pdf_text,133.0
+_CHOLCH3,High Cholesterol Calculated Variable,codebook21_llcp-v2-508.pdf,pdf_text,135.0
+_DRDXAR3,Limited usual activities,codebook21_llcp-v2-508.pdf,pdf_text,138.0
+_RACEPRV,Calculated sex variable,codebook21_llcp-v2-508.pdf,pdf_text,144.0
+_CURECI1,Drink any alcoholic beverages in past 30 days,codebook21_llcp-v2-508.pdf,pdf_text,154.0
+_DRNKWK1,Heavy Alcohol Consumption Calculated Variable,codebook21_llcp-v2-508.pdf,pdf_text,156.0
+_FLSHOT7,Pneumonia Vaccination Calculated Variable,codebook21_llcp-v2-508.pdf,pdf_text,157.0
+_AIDTST4,Computed Fruit Juice intake in times per day,codebook21_llcp-v2-508.pdf,pdf_text,158.0
+HLTHPLAN,"Do you have any kind of health care coverage, including health insurance, prepaid plans such as HMOs, or",codebook_10.pdf,pdf_text,10.0
+DIABETE2,"Have you ever been told by a doctor that you have diabetes (If ""Yes"" and respondent is female, ask ""Was this only",codebook_10.pdf,pdf_text,12.0
+DENCLEAN,How long has it been since you had your teeth cleaned by a dentist or dental hygienist?,codebook_10.pdf,pdf_text,13.0
+ASTHMA2,"Have you ever been told by a doctor, nurse, or other health professional that you had asthma?",codebook_10.pdf,pdf_text,14.0
+LASTSMK1,How long has it been since you last smoked cigarettes regularly?,codebook_10.pdf,pdf_text,16.0
+VETERAN2,"Have you ever served on active duty in the United States Armed Forces, either in the regular military or in a National",codebook_10.pdf,pdf_text,18.0
+CTYCODE,What county do you live in?,codebook_10.pdf,pdf_text,20.0
+ZIPCODE,What is your ZIP Code where you live?,codebook_10.pdf,pdf_text,20.0
+TELSERV3,"During the past 12 months, has your household been without landline telephone service for 1 week or more? Do not",codebook_10.pdf,pdf_text,21.0
+DRNKANY4,"During the past 30 days, have you had at least one drink of any alcoholic beverage such as beer, wine, a malt",codebook_10.pdf,pdf_text,23.0
+ALCDAY4,"During the past 30 days, how many days per week or per month did you have at least one drink of any alcoholic",codebook_10.pdf,pdf_text,23.0
+FLUSHOT4,"A flu shot is an influenza vaccine injected into your arm. During the past 12 months, have you had a seasonal flu shot?",codebook_10.pdf,pdf_text,25.0
+FLSHTMY1,During what month and year did you receive your most recent seasonal flu shot?,codebook_10.pdf,pdf_text,25.0
+FLUSPRY3,"The seasonal flu vaccine sprayed in the nose is also called FluMist™. During the past 12 months, have you had a",codebook_10.pdf,pdf_text,25.0
+FLSPRMY1,During what month and year did you receive your most recent seasonal flu vaccine that was sprayed in your nose?,codebook_10.pdf,pdf_text,25.0
+FALL3MN2,"In the past 3 months, how many times have you fallen?",codebook_10.pdf,pdf_text,26.0
+PSATEST,"A Prostate-Specific Antigen test, also called a PSA test, is a blood test used to check men for prostate cancer. Have",codebook_10.pdf,pdf_text,30.0
+DIGRECEX,"A digital rectal exam is an exam in which a doctor, nurse or other health professional places a gloved finger into the",codebook_10.pdf,pdf_text,30.0
+DRETIME,How long has it been since your last digital rectal exam?,codebook_10.pdf,pdf_text,31.0
+HIVTST5,Have you ever been tested for HIV? Do not count tests you may have had as part of a blood donation. Include testing,codebook_10.pdf,pdf_text,33.0
+HIVTSTD2,"Not including blood donations, in what month and year was your last HIV test? (If response is before January 1985,",codebook_10.pdf,pdf_text,33.0
+HIVRISK2,"I am going to read you a list. When I am done, please tell me if any of the situations apply to you. You do not need to",codebook_10.pdf,pdf_text,34.0
+VICTRCT2,Have you been told by an eye doctor or other health care professional that you NOW have cataracts?,codebook_10.pdf,pdf_text,43.0
+BRTHCNT3,"Are you or your [if female, insert “husband/partner,” if male, insert “wife/partner”] doing anything now to keep [if female,",codebook_10.pdf,pdf_text,45.0
+TYPCNTR5,"What are you or your [If female, insert `husband/partner´, if male, insert `wife/partner´] doing now to keep [If female,",codebook_10.pdf,pdf_text,46.0
+NOBCUSE3,"What is your main reason for not doing anything now to keep [If female, “you”, if male, insert “her”] from getting",codebook_10.pdf,pdf_text,47.0
+HAVARTH2,"Have you ever been told by a doctor or other health professional that you have some form of arthritis, rheumatoid",codebook_10.pdf,pdf_text,51.0
+SHINGLES,"A vaccine for shingles has been available since May 2006, it is called Zostavax®, the zoster vaccine, or the shingles",codebook_10.pdf,pdf_text,53.0
+TNSASHOT,Did your doctor say your recent tetanus shot included the pertussis or whooping cough vaccine?,codebook_10.pdf,pdf_text,54.0
+CNCRHAVE,"Have you EVER been told by a doctor, nurse, or other health professional that you had cancer? [Read only if",codebook_10.pdf,pdf_text,55.0
+CNCRTYPE,"What type of cancer was it? [If Response = 2 (Two) or 3 (Three or more), ask: “With your most recent diagnoses of",codebook_10.pdf,pdf_text,56.0
+CSRVTRT,"Are you currently receiving treatment for cancer? By treatment, we mean surgery, radiation therapy, chemotherapy, or",codebook_10.pdf,pdf_text,56.0
+CSRVDOC,What type of doctor provides the majority of your health care?,codebook_10.pdf,pdf_text,57.0
+CSRVCTRL,Is your pain currently under control?,codebook_10.pdf,pdf_text,59.0
+CAREGIVE,"During the past month, did you provide any such care or assistance to a friend or family member?",codebook_10.pdf,pdf_text,60.0
+CRGVAGE,What age is the person to whom you are giving care?,codebook_10.pdf,pdf_text,60.0
+CRGVGNDR,Is this person male or female?,codebook_10.pdf,pdf_text,60.0
+CRGVRELT,What is her/her relationship to you? For example is he/she your (mother/daughter or father/son)?,codebook_10.pdf,pdf_text,61.0
+CRGVLONG,"For how long have you provided care for [CATI: code from Q3]. If Q3 = 77 (Don´t know/not sure) or 99 (Refused), say",codebook_10.pdf,pdf_text,61.0
+CRGVPROB,"What has a doctor said is the major health problem, long-term illness, or disability that the person you care for has?",codebook_10.pdf,pdf_text,62.0
+CRGVMST1,In which one of the following areas does the person you care for most need your help?,codebook_10.pdf,pdf_text,62.0
+CRGVHRS,"In an average week, how many hours do you provide care for [CATI: code from Q3] because of his/her health problem,",codebook_10.pdf,pdf_text,63.0
+CRGVDIFF,I am going to read a list of difficulties you may have faced as a caregiver. Please indicate which one of the following is,codebook_10.pdf,pdf_text,63.0
+CRGVCHNG,"During the past year, has the person you care for experienced changes in thinking or remembering?",codebook_10.pdf,pdf_text,63.0
+ADDEPEV,"Has a doctor or other healthcare provider EVER told you that you have a depressive disorder (including depression,",codebook_10.pdf,pdf_text,68.0
+SCNTWORK,About how many hours do you work per week on all of your jobs and businesses combined?,codebook_10.pdf,pdf_text,72.0
+SCNTLWRK,"Thinking about the last time you worked, about how many hours did you work per week at all of your jobs and",codebook_10.pdf,pdf_text,73.0
+SCNTVOTE,Did you vote in the last presidential election? The November 2008 election between Barack Obama and John McCain?,codebook_10.pdf,pdf_text,73.0
+HPVCHVC,"A vaccine to prevent the human papilloma virus or HPV infection is available and is called the cervical cancer vaccine,",codebook_10.pdf,pdf_text,84.0
+HPVCHSHT,How many HPV shots did she receive?,codebook_10.pdf,pdf_text,85.0
+H1N1AQ09,"How many household members, including you, were ill during the past month?",codebook_10.pdf,pdf_text,86.0
+H1N1AQ10,"How many people in your household, including you, were hospitalized for flu during the past month?",codebook_10.pdf,pdf_text,86.0
+_POSTSTR,Post-stratification weight (Population estimate for race/gender/age categories divided by the weighted sample,codebook_10.pdf,pdf_text,88.0
+_FINALWT,Final weight assigned to each respondent (Post-stratification weight (_POSTSTR) multiplied by design weight,codebook_10.pdf,pdf_text,88.0
+_RAWQ1,Raw weighting factor questionnaire version 1 (Number of adults in the household (NUMADULT) divided by the,codebook_10.pdf,pdf_text,88.0
+_WT2Q1,Design weight questionnaire version 1 (Stratum weight (_STRWT) multiplied by the raw weighting factor (_RAWQ1).),codebook_10.pdf,pdf_text,88.0
+_POSTQ1,Post-stratification weight questionnaire version 1 (Population estimate for race/gender/age categories divided by the,codebook_10.pdf,pdf_text,89.0
+_FINALQ1,Final weight assigned to each respondent questionnaire version 1 (Post-stratification weight (_POSTQ1) multiplied by,codebook_10.pdf,pdf_text,89.0
+_RAWQ2,Raw weighting factor questionnaire version 2 (Number of adults in the household (NUMADULT) divided by the,codebook_10.pdf,pdf_text,89.0
+_WT2Q2,Design weight questionnaire version 2 (Stratum weight (_STRWT) multiplied by the raw weighting factor (_RAWQ2).),codebook_10.pdf,pdf_text,89.0
+_POSTQ2,Post-stratification weight questionnaire version 2 (Population estimate for race/gender/age categories divided by the,codebook_10.pdf,pdf_text,90.0
+_FINALQ2,Final weight assigned to each respondent questionnaire version 2 (Post-stratification weight (_POSTQ2) multiplied by,codebook_10.pdf,pdf_text,90.0
+_RAWQ3,Raw weighting factor questionnaire version 3 (Number of adults in the household (NUMADULT) divided by the,codebook_10.pdf,pdf_text,90.0
+_WT2Q3,Design weight questionnaire version 3 (Stratum weight (_STRWT) multiplied by the raw weighting factor (_RAWQ3).),codebook_10.pdf,pdf_text,90.0
+_POSTQ3,Post-stratification weight questionnaire version 3 (Population estimate for race/gender/age categories divided by the,codebook_10.pdf,pdf_text,91.0
+_FINALQ3,Final weight assigned to each respondent questionnaire version 3 (Post-stratification weight (_POSTQ3) multiplied by,codebook_10.pdf,pdf_text,91.0
+_AGEG_,Age groups used in post-stratification (_AGEG_ is calculated by _REGION. For states using more than one,codebook_10.pdf,pdf_text,92.0
+_AGEG1_,Age group codes used in version1 post-stratification (_AGEG1_ is calculated by _REGION. For states using more,codebook_10.pdf,pdf_text,92.0
+_AGEG2_,Age group codes used in version2 post-stratification (_AGEG2_ is calculated by _REGION. For states using more,codebook_10.pdf,pdf_text,93.0
+_AGEG3_,Age group codes used in version3 post-stratification (_AGEG3_ is calculated by _REGION. For states using more,codebook_10.pdf,pdf_text,93.0
+_SEXG_,Gender categories used in post-stratification (_SEXG_ is calculated by _REGION. For states using more than one,codebook_10.pdf,pdf_text,93.0
+_SEXG1_,Gender categories used in version 1 post-stratification (_SEXG1_ is calculated by _REGION. For states using more,codebook_10.pdf,pdf_text,94.0
+_SEXG2_,Gender categories used in version 2 post-stratification (_SEXG2_ is calculated by _REGION. For states using more,codebook_10.pdf,pdf_text,94.0
+_SEXG3_,Gender categories used in version 3 post-stratification (_SEXG3_ is calculated by _REGION. For states using more,codebook_10.pdf,pdf_text,94.0
+_RACEG3_,Post-stratification race group codes used in weighting (_RACEG3_ is calculated by _REGION. For states using more,codebook_10.pdf,pdf_text,94.0
+_RACEG31,Post-stratification race group codes used in weighting version 1 (_RACEG31 is calculated by _REGION. For states,codebook_10.pdf,pdf_text,95.0
+_RACEG32,Post-stratification race group codes used in weighting version 2 (_RACEG32 is calculated by _REGION. For states,codebook_10.pdf,pdf_text,95.0
+_RACEG33,Post-stratification race group codes used in weighting version 3 (_RACEG33 is calculated by _REGION. For states,codebook_10.pdf,pdf_text,95.0
+_ITSCF1,Interruption in Telephone Service Correction Factor (CPS number of adults in households with telephones divided by,codebook_10.pdf,pdf_text,96.0
+_ITSCF2,Interruption in Telephone Service Correction Factor (Adjusted _WT2) (Adjusted design weight using TELSERV,codebook_10.pdf,pdf_text,96.0
+_ITSPOST,Interruption in Telephone Service Post Stratification Correction Factor (Population estimate for race/gender/age,codebook_10.pdf,pdf_text,96.0
+_ITSFINL,Interruption in Telephone Service Final Weighting Factor (ITS design weight (_ITSDCF2) multiplied by the ITS post,codebook_10.pdf,pdf_text,97.0
+_MSACODE,FIPS Metropolitan Statistical Area Code,codebook_10.pdf,pdf_text,97.0
+_CSEXG1_,Child gender categories used in post-stratification (_CSEXG1_ is calculated by _REGION. For states using more,codebook_10.pdf,pdf_text,100.0
+_CRACE1_,Child post-stratification race group codes used in weighting (_CRACE1_ is calculated by _REGION. For states using,codebook_10.pdf,pdf_text,100.0
+_CAGEG1_,Child age groups used in post-stratification (_CAGEG1_ is calculated by _REGION. For states using more than one,codebook_10.pdf,pdf_text,100.0
+_RAWCH1,Raw child weighting factor questionnaire version 1 (Number of children in the household (CHILDREN) divided by the,codebook_10.pdf,pdf_text,100.0
+_WT2CH1,Child design weight questionnaire version 1 (Child stratum weight (_STRWT) multiplied by the raw weighting factor,codebook_10.pdf,pdf_text,101.0
+_POSTCH1,Post-stratification child weight questionnaire version 1 (Child population estimate for race/gender/age categories,codebook_10.pdf,pdf_text,101.0
+_CHILDQ1,Final weight assigned to each child questionnaire version 1 (Post-stratification child weight (_POSTCH1) multiplied,codebook_10.pdf,pdf_text,101.0
+_CSEXG2_,Child gender categories used in post-stratification (_CSEXG2_ is calculated by _REGION. For states using more,codebook_10.pdf,pdf_text,102.0
+_CRACE2_,Child post-stratification race group codes used in weighting (_CRACE2_ is calculated by _REGION. For states using,codebook_10.pdf,pdf_text,102.0
+_CAGEG2_,Child age groups used in post-stratification (_CAGEG2_ is calculated by _REGION. For states using more than one,codebook_10.pdf,pdf_text,103.0
+_RAWCH2,Raw child weighting factor questionnaire version 2 (Number of children in the household (CHILDREN) divided by the,codebook_10.pdf,pdf_text,103.0
+_WT2CH2,Child design weight questionnaire version 2 (Child stratum weight (_STRWT) multiplied by the raw weighting factor,codebook_10.pdf,pdf_text,103.0
+_POSTCH2,Post-stratification child weight questionnaire version 2 (Child population estimate for race/gender/age categories,codebook_10.pdf,pdf_text,103.0
+_CHILDQ2,Final weight assigned to each child questionnaire version 2 (Post-stratification child weight (_POSTCH2) multiplied,codebook_10.pdf,pdf_text,104.0
+_CSEXG3_,Child gender categories used in post-stratification (_CSEXG3_ is calculated by _REGION. For states using more,codebook_10.pdf,pdf_text,104.0
+_CRACE3_,Child post-stratification race group codes used in weighting (_CRACE3_ is calculated by _REGION. For states using,codebook_10.pdf,pdf_text,105.0
+_CAGEG3_,Child age groups used in post-stratification (_CAGEG3_ is calculated by _REGION. For states using more than one,codebook_10.pdf,pdf_text,105.0
+_RAWCH3,Raw child weighting factor questionnaire version 3 (Number of children in the household (CHILDREN) divided by the,codebook_10.pdf,pdf_text,105.0
+_WT2CH3,Child design weight questionnaire version 3 (Child stratum weight (_STRWT) multiplied by the raw weighting factor,codebook_10.pdf,pdf_text,105.0
+_POSTCH3,Post-stratification child weight questionnaire version 3 (Child population estimate for race/gender/age categories,codebook_10.pdf,pdf_text,106.0
+_CHILDQ3,Final weight assigned to each child questionnaire version 3 (Post-stratification child weight (_POSTCH3) multiplied,codebook_10.pdf,pdf_text,106.0
+_CSEXG_,Child gender categories used in post-stratification (_CSEXG_ is calculated by _REGION. For states using more than,codebook_10.pdf,pdf_text,107.0
+_CRACEG_,Child post-stratification race group codes used in weighting (_CRACEG_ is calculated by _REGION. For states using,codebook_10.pdf,pdf_text,107.0
+_CAGEG_,Child age groups used in post-stratification (_CAGEG_ is calculated by _REGION. For states using more than one,codebook_10.pdf,pdf_text,107.0
+_POSTCH,Post-stratification child weight (Child population estimate for race/gender/age categories divided by the weighted,codebook_10.pdf,pdf_text,108.0
+_CHILDWT,Final weight assigned to each child (Post-stratification child weight (_POSTCH) multiplied by child design weight,codebook_10.pdf,pdf_text,108.0
+_RAWHH,Raw household weighting factor (One divided by the imputed number of phones (_IMPNPH).),codebook_10.pdf,pdf_text,108.0
+_WT2HH,Household design weight (Household stratum weight (_STRWT) multiplied by the raw weighting factor (_RAWHH).),codebook_10.pdf,pdf_text,109.0
+_POSTHH,Post-stratification household weight (Population estimate for households divided by the weighted sample frequency,codebook_10.pdf,pdf_text,109.0
+_HOUSEWT,Final weight assigned to each household (Post-stratification household weight (_POSTHH) multiplied by household,codebook_10.pdf,pdf_text,109.0
+_HCVU65,Respondents aged 18-64 that have any form of health care coverage,codebook_10.pdf,pdf_text,110.0
+_DENVST1,"Adults that have visited a dentist, dental hygenist or dental clinic within the past year",codebook_10.pdf,pdf_text,111.0
+_LTASTHM,Adults who have ever been told they have asthma,codebook_10.pdf,pdf_text,111.0
+_CASTHMA,Adults who have been told they currently have asthma,codebook_10.pdf,pdf_text,112.0
+_ASTHMST,Computed asthma status,codebook_10.pdf,pdf_text,112.0
+HTIN3,Reported height in inches,codebook_10.pdf,pdf_text,119.0
+HTM3,Reported height in meters,codebook_10.pdf,pdf_text,119.0
+WTKG2,Reported weight in kilograms,codebook_10.pdf,pdf_text,120.0
+_BMI4,Body Mass Index (BMI),codebook_10.pdf,pdf_text,120.0
+_BMI4CAT,Three-categories of Body Mass Index (BMI),codebook_10.pdf,pdf_text,120.0
+_RFBMI4,Adults who have a body mass index greater than 25.00 (Overweight or Obese),codebook_10.pdf,pdf_text,120.0
+DROCDY2_,Drink-occasions-per-day,codebook_10.pdf,pdf_text,122.0
+_RFBING4,"Binge drinkers (males having five or more drinks on one occasion, females having four or more drinks on one",codebook_10.pdf,pdf_text,122.0
+_DRNKDY3,Calculated total number of alcoholic beverages consumed per day,codebook_10.pdf,pdf_text,123.0
+_DRNKMO3,Calculated total number of alcoholic beverages consumed per month,codebook_10.pdf,pdf_text,123.0
+_RFDRHV3,Heavy drinkers (adult men having more than two drinks per day and adult women having more than one drink per day),codebook_10.pdf,pdf_text,123.0
+_RFDRMN3,Adult Men that are Heavy drinkers (having more than two drinks per day),codebook_10.pdf,pdf_text,124.0
+_RFDRWM3,Adult Women that are Heavy drinkers (having more than one drink per day),codebook_10.pdf,pdf_text,124.0
+_FLSHOT4,Adults aged 65+ who have had a flu shot within the past year,codebook_10.pdf,pdf_text,124.0
+_RFPSA2Y,Male respondents aged 40+ that have had a PSA test in the past 2 years,codebook_10.pdf,pdf_text,127.0
+_AIDTST2,Adults aged 18-64 that have ever been tested for HIV,codebook_10.pdf,pdf_text,128.0

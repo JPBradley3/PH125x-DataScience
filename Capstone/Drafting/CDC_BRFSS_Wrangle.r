@@ -121,20 +121,57 @@ load_brfss_csv <- function(year) {
     rename_with(tolower) %>%
     mutate(year = year)
 
+  # LGBT-related variables to include
+  lgbt_vars <- c("sdhstres", "_clcpm01", "_clcpm03", "_llcpm01", "_llcpm06", "_llcpm11", 
+                 "maxvo2_", "_impcsex", "trnsgndr", "childage", "_clcm2v1", "_clcwtv1", 
+                 "_clcm2v2", "_clcwtv2", "_clcm2v3", "_lcm05v1", "_lcm05v2", "_lcm10v2", 
+                 "_lcpwtv2", "_lcm10v3", "sofemale", "_poststr", "_postq1", "_postq2", 
+                 "_postq3", "_sexg_", "_sexg1_", "_sexg2_", "_sexg3_", "_itspost", 
+                 "_csexg1_", "_postch1", "_csexg2_", "_postch2", "_csexg3_", "_postch3", 
+                 "_csexg_", "_postch", "hlthpln1", "persdoc2", "medcost", "checkup1", 
+                 "bphigh4", "toldhi2", "asthnow", "chcvison", "hivtst6", "hivtstd3", 
+                 "prediab1", "doctdiab", "diabeye", "pfpprepr", "viprfvs3", "viinsur3", 
+                 "victrct3", "vigluma3", "vimacdg3", "wrkhcf1", "drhpad1", "havhpad", 
+                 "bphi2mr", "profexam", "pcpsaadv", "pcpsadis", "prostate", "asthmage", 
+                 "asdrvist", "asrchkup", "arthwgt", "arthexer", "tnsasht1", "copddoc", 
+                 "gpwelpr3", "vhdrptsd", "vhdrtbi", "rrhcare3", "mistmnt", "adanxev", 
+                 "cihcprof", "cidiagaz", "whrtst9", "casthdx2", "casthno2", "qstver", 
+                 "_hcvu651", "_rfhype5", "_rfchol", "_drdxar1", "fc60_", "actint1_", 
+                 "actint2_", "_aidtst3", "pcpsaad1", "pcpsadi1", "pcpsare1", "viprfvs2", 
+                 "viinsur2", "victrct4", "vigluma2", "vimacdg2", "csrvdoc1", "csrvsum", 
+                 "csrvrtrn", "csrvinsr", "csrvdein", "whrtst8", "whrtst10", "medicare", 
+                 "hlthcvrg", "nocov121", "lstcovrg", "drvisits", "carercvd", "dradvise", 
+                 "pcpsaad2", "actin11_", "actin21_", "hlthcvr1", "medbill1", "asbidrnk", 
+                 "asbibing", "sxorient", "crgvhous", "cddiscus", "medadvic", "chhispa", 
+                 "eor", "prirhepc", "persdoc3", "toldcfs", "_hlthpln", "hlthplan", 
+                 "diabete2", "asthma2", "digrecex", "hivtst5", "hivtstd2", "victrct2", 
+                 "havarth2", "tnsashot", "cncrhave", "csrvdoc", "crgvprob", "addepev", 
+                 "_rawq1", "_wt2q1", "_finalq1", "_rawq2", "_wt2q2", "_finalq2", "_rawq3", 
+                 "_wt2q3", "_finalq3", "_msacode", "_rawch1", "_wt2ch1", "_childq1", 
+                 "_rawch2", "_wt2ch2", "_childq2", "_rawch3", "_wt2ch3", "_childq3", 
+                 "_posthh", "_hcvu65", "_aidtst2", "menthlth", "poorhlth", "addepev2", 
+                 "vhcounsl", "vhsuicid", "cimeds", "scntmony", "scntmeal", "emtsuprt", 
+                 "acedeprs", "csrvtrt1", "misnowrk", "scntmny1", "scntmel1", "crgvmst2", 
+                 "_phys14d", "csrvtrt", "gpmndevc", "genhlth", "cvdinfr4", "cvdcrhd4", 
+                 "cvdstrk3", "asthma3", "chcscncr", "chcocncr", "chccopd", "chckidny", 
+                 "diabete3", "marital", "educa", "employ", "income2", "sex", "hivrisk3", 
+                 "chccopd1", "hivrisk4", "employ1", "hivrisk5", "chccopd3", "hivrisk2")
+
   data %>%
     select(
         year,
         state = `_state`,
-        weight = `_llcpwt`,
+        weight = any_of(c("_llcpwt", "_finalwt")),
         strata = `_ststr`,
         psu = `_psu`,
         sex_orient = any_of(c("sexorien", "sxorient")), 
-        transgender = any_of(c("trnsgndr", "transgen"))
+        transgender = any_of(c("trnsgndr", "transgen")),
+        any_of(lgbt_vars)
     )
 }
 
 # Define the years to analyze
-years_to_process <- 2014:2022
+years_to_process <- 2010:2023
 
 # Use map() to apply the function to each year and combine the results
 brfss_raw <- map_df(years_to_process, load_brfss_csv)
@@ -143,6 +180,34 @@ brfss_raw <- map_df(years_to_process, load_brfss_csv)
 if (nrow(brfss_raw) == 0) {
   stop("No BRFSS data was loaded. Please check the file paths.")
 }
+
+# ==============================
+# DEBUG: MISSING DATA ANALYSIS
+# ==============================
+cat("\n=== MISSING DATA ANALYSIS ===\n")
+cat("Total observations:", nrow(brfss_raw), "\n")
+
+# Check key LGBT variables
+key_vars <- c("sex_orient", "transgender")
+for (var in key_vars) {
+  if (var %in% names(brfss_raw)) {
+    missing_pct <- round(sum(is.na(brfss_raw[[var]])) / nrow(brfss_raw) * 100, 1)
+    cat(var, "missing:", missing_pct, "%\n")
+  } else {
+    cat(var, "NOT FOUND in dataset\n")
+  }
+}
+
+# Missing data by year
+missing_by_year <- brfss_raw %>%
+  group_by(year) %>%
+  summarise(
+    n_obs = n(),
+    sex_orient_missing = round(sum(is.na(sex_orient)) / n() * 100, 1),
+    transgender_missing = round(sum(is.na(transgender)) / n() * 100, 1),
+    .groups = 'drop'
+  )
+print(missing_by_year)
 
 # Save the combined raw data as a feather file for faster loading in the future
 write_rds(brfss_raw, file.path("C:/Users/Parker/Documents/DataScienceClass/Capstone/PH125x-DataScience/Capstone/Drafting/data_processed", "brfss_2014-2022_raw.rds"))
