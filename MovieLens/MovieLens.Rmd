@@ -409,6 +409,8 @@ well-defined training and validation sets for the modeling phase.
 
 # Methodologies
 
+## 1. Summary of Methods
+
 1.  Data Wrangling and Cleaning To begin with, key variables such as
     userId, movieId, rating, timestamp, and genres must be thoroughly
     parsed to ensure data integrity. The dataset should be examined for
@@ -459,3 +461,46 @@ well-defined training and validation sets for the modeling phase.
     statistics per bin. Finally, statistical outliers—users with
     anomalous rating variance or consistent directional bias—should be
     flagged to inform data preprocessing or modeling strategies.
+
+## 2. Work-Flow
+
+```{r, workflow, message=FALSE, warning=FALSE}
+checklist <- data.frame(
+  Phase = c(
+    rep("1. Wrangling & Cleaning", 6),
+    rep("2. Auditing for Bias", 5),
+    rep("3. Exploratory Trend Analysis", 5),
+    rep("4. Feature Engineering Prep", 5)
+  ),
+  Task = c(
+    "Verify key variables (userId, movieId, rating, etc.) are correctly parsed",
+    "Handle duplicates, missing values, and corrupt records",
+    "Check for out-of-bound or unusual rating values",
+    "Parse release year from title using regular expressions",
+    "Convert timestamp to date-time; extract year, month, or day",
+    "Split genres into structured indicators (multi-hot or long format)",
+    
+    "Evaluate rating count distribution per user and movie (detect skew)",
+    "Compare rating coverage across genre, time period, and popularity",
+    "Analyze correlation between rating count and average rating (popularity bias)",
+    "Identify underrepresented entities (obscure genres, cold-start users/items)",
+    "Assess rating behavior across high- vs. low-frequency users",
+    
+    "Visualize overall ratings distribution; segment by genre, year, user activity",
+    "Track rating evolution over time (e.g., by year or heatmap by genre)",
+    "Plot user/movie activity patterns—churn, bursts, consistency",
+    "Compare average ratings across genres and release decades",
+    "Generate scatter plots (e.g., rating vs. movie age, variance vs. sample size)",
+    
+    "Create time-based features: movie_age, rating_year, user_tenure",
+    "Normalize ratings by user and/or movie",
+    "Encode genres for modeling (one-hot, multi-hot, embeddings)",
+    "Bin users/movies by activity level and summarize statistics per bin",
+    "Detect and tag outliers or unusual raters (e.g., low variance or monotonic)"
+  )
+)
+
+kable(checklist, caption = "Comprehensive Checklist for Preprocessing and Exploration") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F) %>%
+  column_spec(1, bold = TRUE)
+```
