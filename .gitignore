@@ -49,3 +49,6 @@ Capstone/Drafting/data/DSDR-38853/38853-0002-Codebook-ICPSR.pdf
 Capstone/Drafting/data/RCMD-34363/34363-0001-Codebook.pdf
 Capstone/Drafting/data/RCMD-37229/37229-0001-Codebook-ICPSR.pdf
 Capstone/Drafting/data_processed/brfss_2010-2023_raw.rds
+MovieLens/ml-10M100K/movies.dat
+MovieLens/ml-10M100K/ratings.dat
+MovieLens/ml-10M100K.zip
