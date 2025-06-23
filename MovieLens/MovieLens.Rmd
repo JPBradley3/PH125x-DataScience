@@ -517,193 +517,105 @@ predictive modeling pipelines. \newpage
 
 ## 2. Work-Flow
 
-```{r workflow, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7.5, fig.height=10, dpi=300, fig.cap="Project Workflow"}
+```{r ml-pipeline-diagram-no-bars, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center', fig.height=16, fig.width=24}
+# Load the necessary library
 library(DiagrammeR)
 
-# NOTE: The only change is in the R chunk header above.
-# We replaced `out.width` and `fig.asp` with explicit `fig.width` and `fig.height` values in inches.
-# This provides the absolute dimensions needed for the PDF rendering engine.
-
-grViz("
-digraph pipeline {
-  # --- GRAPH-LEVEL ATTRIBUTES ---
+# Store your DOT language code in an R string variable
+# The horizontal separator bars have been removed from all nodes.
+ml_pipeline_dot <- "
+digraph G {
+  # Global graph attributes
   graph [
-    layout=dot,
-    rankdir=TB,
-    bgcolor='white',
-    nodesep=0.5,
-    ranksep=3,
-    compound=true,
-    pad=0.5
-    # The 'size' attribute remains REMOVED.
-  ]
-  
-  # --- NODE-LEVEL ATTRIBUTES ---
+    layout=dot;
+    rankdir=TB;
+    newrank=true;
+    splines=ortho;
+    nodesep=1.2;
+    ranksep=1.5;
+    fontname='Helvetica';
+    fontsize=20;
+    label='Machine Learning Pipeline for Recommender Systems';
+    labelloc=t;
+    bgcolor='#F5F5F5';
+  ];
+
+  # Global node attributes
   node [
-    shape=rectangle,
-    style='filled,rounded',
-    fontname='Arial',
-    margin=0.25,
-    width=3.0,
-    height=3.0,
-    fontsize=20
-  ]
-  
-  # --- EDGE-LEVEL ATTRIBUTES ---
-  edge [
-    arrowsize=1.5,
-    minlen=2
-  ]
-  
-  # DATA AUDIT AND WRANGLING (Blue) - Top
+    shape=plain;
+    style=filled;
+    fontname='Helvetica';
+  ];
+
+  # --- DATA PREP CLUSTER ---
   subgraph cluster_data {
-    label=<<FONT POINT-SIZE='24'><B><BR/>Data Audit &amp; Wrangling</B></FONT>>
-    style='filled,rounded'
-    color='#81D4FA'
-    fillcolor='#B3E5FC'
-    fontcolor='black'
-    margin=20
+    label=<<FONT POINT-SIZE='36'><B><BR/>Data Prep &amp; EDA</B></FONT>>;
+    style='filled,rounded';
+    color='#42A5F5';
+    fillcolor='#BBDEFB';
+    margin=30;
     
-    {
-      rank=same;
-      wrangling [label=<<B>1. Wrangling &amp; Cleaning</B><BR/><BR/>
-<FONT POINT-SIZE='18'>• Verify userId, movieId, rating<br ALIGN = 'LEFT' />
-• Handle duplicates, missing<br ALIGN = 'LEFT' />
-• Check rating bounds<br ALIGN = 'LEFT' />
-• Parse title for year<br ALIGN = 'LEFT' />
-• Convert timestamp<br ALIGN = 'LEFT' />
-• Split genres<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#E1F5FE']
-      
-      audit [label=<<B>2. Bias Audit</B><BR/><BR/>
-<FONT POINT-SIZE='18'>• Rating distribution<br ALIGN = 'LEFT' />
-• Coverage by genre/time<br ALIGN = 'LEFT' />
-• Popularity bias<br ALIGN = 'LEFT' />
-• Underrepresented groups<br ALIGN = 'LEFT' />
-• User frequency analysis<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#E1F5FE']
-      
-      trends [label=<<B>3. Exploratory Trends</B><BR/><BR/>
-<FONT POINT-SIZE='18'>• Rating by genre/year<br ALIGN = 'LEFT' />
-• Time-based changes<br ALIGN = 'LEFT' />
-• Activity trends<br ALIGN = 'LEFT' />
-• Genre vs decade<br ALIGN = 'LEFT' />
-• Age/variance scatter<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#E1F5FE']
-      
-      featprep [label=<<B>4. Feature Engineering</B><BR/><BR/>
-<FONT POINT-SIZE='18'>• Time features<br ALIGN = 'LEFT' />
-• Normalize ratings<br ALIGN = 'LEFT' />
-• Encode genres<br ALIGN = 'LEFT' />
-• Activity bins<br ALIGN = 'LEFT' />
-• Tag outliers<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#E1F5FE']
-    }
+    { rank=same; wrangling; audit; }
+    { rank=same; trends; featprep; }
+
+    wrangling [fillcolor='#E3F2FD', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>1. Data Wrangling</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Merge datasets<br/> • Handle missing values<br/> • Check data types<br/> • Remove duplicates </FONT></TD></TR> </TABLE> >];
+    audit [fillcolor='#E3F2FD', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>2. Data Audit</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Summary statistics<br/> • Distribution plots<br/> • Identify outliers<br/> • Data validation </FONT></TD></TR> </TABLE> >];
+    trends [fillcolor='#E1F5FE', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>3. Trends Analysis</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Top items/users<br/> • Ratings over time<br/> • Genre popularity<br/> • User activity levels </FONT></TD></TR> </TABLE> >];
+    featprep [fillcolor='#E1F5FE', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>4. Feature Engineering</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Time features<br/> • Normalize ratings<br/> • Encode genres<br/> • Activity bins<br/> • Tag outliers </FONT></TD></TR> </TABLE> >];
     
-    wrangling -> audit -> trends -> featprep
+    wrangling -> audit -> trends -> featprep;
   }
 
-  # MODEL DEVELOPMENT AND EVALUATION (Purple) - Middle
+  # --- MODELING CLUSTER ---
   subgraph cluster_modeling {
-    label=<<FONT POINT-SIZE='24'><B><BR/>Model Development &amp; Evaluation</B></FONT>>
-    style='filled,rounded'
-    color='#9575CD'
-    fillcolor='#D1C4E9'
-    fontcolor='black'
-    margin=20
-    
-    {
-      rank=same;
-      modelsel [label=<<B>5. Model Selection</B><BR/><BR/>
-<FONT POINT-SIZE='18'>• Identify ≥4 models<br ALIGN = 'LEFT' />
-• List key features<br ALIGN = 'LEFT' />
-• Core assumptions<br ALIGN = 'LEFT' />
-• Justify choices<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
-      
-      prepfe [label=<<B>6. Data Prep &amp; FE</B><BR/><BR/>
-<FONT POINT-SIZE='18'>• Preprocessing<br ALIGN = 'LEFT' />
-• Feature engineering<br ALIGN = 'LEFT' />
-• Handle sparsity<br ALIGN = 'LEFT' />
-• Train/test splits<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
-      
-      train [label=<<B>7. Train &amp; Tune</B><BR/><BR/>
-<FONT POINT-SIZE='18'>• Train models<br ALIGN = 'LEFT' />
-• Cross-validation<br ALIGN = 'LEFT' />
-• Log metrics<br ALIGN = 'LEFT' />
-• Hyperparameter search<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
-      
-      reg [label=<<B>8. Regularization</B><BR/><BR/>
-<FONT POINT-SIZE='18'>• Avoid overfitting<br ALIGN = 'LEFT' />
-• Compare baseline<br ALIGN = 'LEFT' />
-• Complexity effects<br ALIGN = 'LEFT' />
-• L1/L2/Dropout<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
-    }
-    
-    {
-      rank=same;
-      eval [label=<<B>9. Evaluation</B><BR/><BR/>
-<FONT POINT-SIZE='18'>• RMSE/MAE<br ALIGN = 'LEFT' />
-• Ranking metrics<br ALIGN = 'LEFT' />
-• Comparison table<br ALIGN = 'LEFT' />
-• Significance tests<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
-      
-      ens [label=<<B>10. Ensemble</B><BR/><BR/>
-<FONT POINT-SIZE='18'>• Stacking/blending<br ALIGN = 'LEFT' />
-• Compare models<br ALIGN = 'LEFT' />
-• Record trade-offs<br ALIGN = 'LEFT' />
-• Complexity<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
-      
-      report [label=<<B>11. Reporting</B><BR/><BR/>
-<FONT POINT-SIZE='18'>• Parameters<br ALIGN = 'LEFT' />
-• Visuals/stats<br ALIGN = 'LEFT' />
-• Documentation<br ALIGN = 'LEFT' />
-• Code/environment<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
-    }
+    label=<<FONT POINT-SIZE='36'><B><BR/>Model Development &amp; Evaluation</B></FONT>>;
+    style='filled,rounded';
+    color='#9575CD';
+    fillcolor='#D1C4E9';
+    margin=30;
 
-    modelsel -> prepfe -> train -> reg
-    reg -> eval -> ens -> report
+    { rank=same; modelsel; prepfe; train; reg; }
+    { rank=same; eval; ens; report; }
+
+    modelsel [fillcolor='#EDE7F6', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>5. Model Selection</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Identify ≥4 models<br/> • List key features<br/> • Core assumptions<br/> • Justify choices </FONT></TD></TR> </TABLE>>];
+    prepfe [fillcolor='#EDE7F6', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>6. Data Prep &amp; FE</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Preprocessing<br/> • Feature engineering<br/> • Handle sparsity<br/> • Train/test splits </FONT></TD></TR> </TABLE>>];
+    train [fillcolor='#EDE7F6', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>7. Train &amp; Tune</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Train models<br/> • Cross-validation<br/> • Log metrics<br/> • Hyperparameter search </FONT></TD></TR> </TABLE>>];
+    reg [fillcolor='#EDE7F6', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>8. Regularization</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Avoid overfitting<br/> • Compare baseline<br/> • Complexity effects<br/> • L1/L2/Dropout </FONT></TD></TR> </TABLE>>];
+    eval [fillcolor='#EDE7F6', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>9. Evaluation</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • RMSE/MAE<br/> • Ranking metrics<br/> • Comparison table<br/> • Significance tests </FONT></TD></TR> </TABLE>>];
+    ens [fillcolor='#EDE7F6', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>10. Ensemble</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Stacking/blending<br/> • Compare models<br/> • Record trade-offs<br/> • Complexity </FONT></TD></TR> </TABLE>>];
+    report [fillcolor='#EDE7F6', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>11. Reporting</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Parameters<br/> • Visuals/stats<br/> • Documentation<br/> • Code/environment </FONT></TD></TR> </TABLE>>];
+    
+    modelsel -> prepfe -> train -> reg;
+    reg -> eval;
+    eval -> ens -> report;
   }
 
-  # SUMMARY (Yellow) - Bottom
+  # --- SUMMARY CLUSTER ---
   subgraph cluster_summary {
-    label=<<FONT POINT-SIZE='24'><B><BR/>Summary</B></FONT>>
-    style='filled,rounded'
-    color='#FFF176'
-    fillcolor='#FFF9C4'
-    fontcolor='black'
-    margin=20
+    label=<<FONT POINT-SIZE='36'><B><BR/>Summary</B></FONT>>;
+    style='filled,rounded';
+    color='#FFF176';
+    fillcolor='#FFF9C4';
+    margin=30;
+
+    { rank=same; results; limits; reproduc; concl; }
     
-    {
-      rank=same;
-      results [label=<<B>12. Results</B><BR/><BR/>
-<FONT POINT-SIZE='18'>• Best model<br ALIGN = 'LEFT' />
-• Key findings<br ALIGN = 'LEFT' />
-• Feature importance<br ALIGN = 'LEFT' />
-• Insights<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#FFFDE7']
-      
-      limits [label=<<B>13. Limitations</B><BR/><BR/>
-<FONT POINT-SIZE='18'>• Data sparsity<br ALIGN = 'LEFT' />
-• Model limits<br ALIGN = 'LEFT' />
-• Fairness<br ALIGN = 'LEFT' />
-• Recommendations<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#FFFDE7']
-      
-      reproduc [label=<<B>14. Reproducibility</B><BR/><BR/>
-<FONT POINT-SIZE='18'>• Environment<br ALIGN = 'LEFT' />
-• Data access<br ALIGN = 'LEFT' />
-• Requirements<br ALIGN = 'LEFT' />
-• Runtime<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#FFFDE7']
-      
-      concl [label=<<B>15. Conclusion</B><BR/><BR/>
-<FONT POINT-SIZE='18'>• Synthesis<br ALIGN = 'LEFT' />
-• Impact<br ALIGN = 'LEFT' />
-• Future work<br ALIGN = 'LEFT' />
-• Final thoughts<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#FFFDE7']
-    }
-
-    results -> limits -> reproduc -> concl
+    results [fillcolor='#FFFDE7', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>12. Results</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Best model<br/> • Key findings<br/> • Feature importance<br/> • Insights </FONT></TD></TR> </TABLE>>];
+    limits [fillcolor='#FFFDE7', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>13. Limitations</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Data sparsity<br/> • Model limits<br/> • Fairness<br/> • Recommendations </FONT></TD></TR> </TABLE>>];
+    reproduc [fillcolor='#FFFDE7', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>14. Reproducibility</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Environment<br/> • Data access<br/> • Requirements<br/> • Runtime </FONT></TD></TR> </TABLE>>];
+    concl [fillcolor='#FFFDE7', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>15. Conclusion</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Synthesis<br/> • Impact<br/> • Future work<br/> • Final thoughts </FONT></TD></TR> </TABLE>>];
+    
+    results -> limits -> reproduc -> concl;
   }
-
-  # Cross-cluster links
-  featprep -> modelsel [style=dashed, color='#555', ltail=cluster_data, lhead=cluster_modeling]
-  report -> results [style=dashed, color='darkgreen', ltail=cluster_modeling, lhead=cluster_summary]
+  
+  # --- Inter-Cluster Connections ---
+  featprep -> modelsel [ltail=cluster_data, lhead=cluster_modeling, minlen=2];
+  report -> results [ltail=cluster_modeling, lhead=cluster_summary, minlen=2];
 }
-")
+"
+
+# Render the graph object
+grViz(ml_pipeline_dot)
 ```
 
 \newpage

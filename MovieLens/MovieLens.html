@@ -2917,7 +2917,7 @@ starting with a simple baseline model and systematically incorporating
 more complex factors—such as movie-specific and user-specific biases—to
 progressively improve predictive accuracy and achieve the lowest
 possible <code>RMSE</code> on the final hold-out set.</p>
-<hr />
+<div style="page-break-after: always;"></div>
 </div>
 <div id="project-overview" class="section level1">
 <h1>Project Overview</h1>
@@ -2982,7 +2982,7 @@ rigorously evaluate their performance through cross-validation, using
 the Root Mean Squared Error (<code>RMSE</code>) as the primary metric.
 This combination of tools provides a seamless transition from raw data
 exploration to the development and validation of our final
-recommendation model.</p>
+recommendation model. </p>
 </div>
 </div>
 <div id="downloading-and-extracting-the-dataset" class="section level3">
@@ -3026,7 +3026,7 @@ extract a specific file from the archive only if it is not already
 present. This conditional logic streamlines the data preparation process
 by avoiding redundant file extraction during subsequent script
 executions, ensuring the necessary data is readily available for
-analysis without unnecessary overhead.</p>
+analysis without unnecessary overhead. </p>
 </div>
 </div>
 <div id="parsing-the-ratings-and-movies-data" class="section level3">
@@ -3060,7 +3060,7 @@ coercion. The <code>userId</code>, <code>movieId</code>, and
 <code>rating</code> column is converted to a numeric type to correctly
 handle fractional values like 3.5. This procedure transforms the raw
 text data into a clean, properly typed, and structured format that is
-essential for all subsequent computational and analytical tasks.</p>
+essential for all subsequent computational and analytical tasks. </p>
 <div id="data-summary-cleaned-ratings-data" class="section level5">
 <h5>DATA SUMMARY: Cleaned Ratings Data</h5>
 <pre class="r"><code># Use kable() for a professional-looking preview of the data
@@ -3248,6 +3248,7 @@ scalable modeling of rating behavior and temporal shifts in consumption.
 Its structure provides a stable foundation for advancing hybrid
 recommender algorithms, behavioral clustering, and fairness-aware
 personalization strategies in collaborative filtering research</h6>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 </div>
@@ -3282,7 +3283,7 @@ matching with the ratings data, the <code>movieId</code> column is
 explicitly converted from a character string to an integer type. This
 structured movies table is essential, as it provides the critical
 mapping between a <code>movieId</code> and its corresponding title and
-genre information for our analysis.</p>
+genre information for our analysis. </p>
 <div id="data-summary-cleaned-movies-data" class="section level5">
 <h5>DATA SUMMARY: Cleaned Movies Data</h5>
 <pre class="r"><code># Use kable() for a professional-looking preview of the data
@@ -3479,6 +3480,7 @@ ontologies and item-level identifiers—into user behavior modeling. This
 integration enables the development of hybrid recommender systems that
 align user preferences with interpretable item features, enhancing
 algorithmic personalization, fairness, and scalability.</h6>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 </div>
@@ -3499,7 +3501,7 @@ enriched with the corresponding movie’s title and genres. This combined
 dataset is the foundational data structure for all subsequent
 exploratory analysis, feature engineering, and model training, as it
 contains all the necessary user, movie, and rating information in a
-single, tidy format.</p>
+single, tidy format. </p>
 <div id="data-summary-merged-data" class="section level5">
 <h5>DATA SUMMARY: Merged Data</h5>
 <pre class="r"><code># Use kable() for a professional-looking preview of the data
@@ -3764,6 +3766,7 @@ feedback with content-based taxonomies, it facilitates research into
 high-dimensional preference estimation, temporal drift in item
 relevance, and fine-grained regularization strategies for recommender
 architectures.</h6>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 </div>
@@ -3831,67 +3834,294 @@ during this process are identified and added back to the
 <code>edx</code> training set. Finally, all intermediate data objects
 are removed from the environment to ensure a clean workspace, leaving
 only the final, well-defined training and validation sets for the
-modeling phase.</p>
+modeling phase. </p>
 </div>
 </div>
 </div>
 <div id="methodologies" class="section level1">
 <h1>Methodologies</h1>
-<div id="summary-of-methods" class="section level2">
-<h2>1. Summary of Methods</h2>
-<ol style="list-style-type: decimal">
-<li><p>Data Wrangling and Cleaning To begin with, key variables such as
-userId, movieId, rating, timestamp, and genres must be thoroughly parsed
-to ensure data integrity. The dataset should be examined for duplicates,
-missing values, and potentially corrupt entries. Anomalous ratings—those
-falling outside the valid range—should be identified and addressed.
-Using regular expressions, the movie title field can be parsed to
-extract the release year, while timestamps should be converted into
-standard date-time objects to facilitate the creation of time-based
-features (e.g., year, month, day). Furthermore, genre information ought
-to be transformed into a format suitable for modeling, such as multi-hot
-encoding or a normalized long-table format.</p></li>
-<li><p>Auditing for Bias A comprehensive bias audit involves evaluating
-the distribution of rating counts at both the user and movie levels to
-assess potential participation imbalances. Comparative analyses should
-be conducted across genres, time periods, and popularity strata to
-identify disparities in coverage. The relationship between the number of
-ratings and average rating per item can reveal the presence of
-popularity bias. Additionally, one should assess representation gaps,
-focusing on users or movies with limited interaction history, such as
-obscure genres or newly introduced items. Differences in rating behavior
-across user frequency tiers—high-frequency versus low-frequency
-users—should also be analyzed to expose behavioral
-heterogeneity.</p></li>
-<li><p>Exploratory Trend Analysis This phase entails a visual
-exploration of global rating distributions, with stratification by
-genre, temporal dimension, and user activity level. Temporal trends in
-rating behaviors can be captured via line plots segmented by rating
-year, or heatmaps mapped by genre over time. Analysis of user and movie
-activity trajectories can uncover patterns such as user churn or content
-consumption surges. To probe cultural or temporal shifts, average
-ratings can be compared across genres and release decades. Scatter plots
-serve to illustrate relationships between rating and movie age, as well
-as to explore the interaction between rating variance and sample
-size.</p></li>
-<li><p>Feature Engineering Preparation For effective predictive
-modeling, several derived features should be constructed. Time-sensitive
-features such as movie_age, rating_year, and user_tenure enrich the
-temporal resolution of the dataset. Normalization techniques should be
-employed to adjust ratings by user or movie means to reduce
-idiosyncratic bias. Genre information may be encoded through one-hot
-vectors, multi-hot matrices, or embedded representations suitable for
-downstream algorithms. Users and movies may be binned according to their
-activity levels, enabling the generation of aggregate statistics per
-bin. Finally, statistical outliers—users with anomalous rating variance
-or consistent directional bias—should be flagged to inform data
-preprocessing or modeling strategies.</p></li>
-</ol>
+<div id="executive-summary" class="section level2">
+<h2>1. Executive Summary</h2>
+<p><strong>1. Goal</strong></p>
+<p>The primary goal of this capstone project is to develop a machine
+learning–based movie recommendation system that balances predictive
+accuracy with fairness and reproducibility. By leveraging the MovieLens
+dataset, the project aims to evaluate rating behavior across user, item,
+and temporal dimensions, mitigate bias through informed feature design
+and model auditing, and deliver transparent, replicable results. The
+system integrates ensemble modeling techniques to maximize performance
+while maintaining methodological integrity and ethical alignment.</p>
+<p><strong>2. Data Preprocessing</strong></p>
+<p>The pipeline begins with extensive data cleaning and transformation.
+Key variables such as userId, movieId, rating, timestamp, and genres
+were parsed and validated. Movie titles were processed using regular
+expressions to extract release years, and timestamps were converted into
+interpretable date-time features. Multi-genre labels were encoded using
+multi-hot representations to allow genre-level modeling. This phase also
+involved handling missing values, removing duplicates, and addressing
+outliers or abnormal records.</p>
+<p><strong>3. Bias Auditing</strong></p>
+<p>A structured bias audit was conducted to evaluate representational
+fairness in the data. Participation skew was analyzed across users and
+movies to highlight long-tail effects. Correlations between average
+ratings and item popularity were assessed to detect popularity bias.
+Genre and temporal coverage were evaluated to identify underrepresented
+segments, and differences between high- and low-frequency users were
+explored to inform equitable model behavior.</p>
+<p><strong>4. Exploratory Data Analysis</strong></p>
+<p>Exploratory analysis uncovered rating trends along temporal,
+behavioral, and genre dimensions. Visualizations, including histograms,
+line plots, and heatmaps, revealed changes in rating behavior over time,
+shifts in genre popularity, and fluctuations in user activity. These
+insights guided feature selection and model assumptions, especially in
+detecting nonstationary effects and population drift.</p>
+<p><strong>5. Feature Engineering</strong></p>
+<p>Domain-informed features were engineered to support model
+expressiveness. Temporal indicators such as movie_age, user_tenure, and
+rating_year captured lifecycle effects. Ratings were normalized at the
+user and movie levels to reduce individual biases. Users and movies were
+binned by activity and enriched with group-level statistics. Outlier
+detection based on rating variance and monotonic behavior flagged
+anomalous raters that could distort learning.</p>
+<p><strong>6. Model Selection and Tuning</strong></p>
+<p>A diverse set of supervised learning algorithms was evaluated,
+including regularized linear models (e.g., Ridge, Lasso), matrix
+factorization techniques, and ensemble-friendly tree-based models such
+as Random Forest and XGBoost. Each model was supported by a modular
+preprocessing pipeline and hyperparameter tuning via cross-validation.
+Overfitting was mitigated using regularization and complexity
+constraints.</p>
+<p><strong>7. Ensemble Learning</strong></p>
+<p>Ensemble techniques were central to the final architecture. Stacked
+generalization combined base model predictions using a meta-learner
+trained on out-of-fold outputs. Blending strategies further stabilized
+predictions by averaging strengths of distinct algorithms. These
+ensembles improved both predictive accuracy and robustness across
+evaluation sets by capturing diverse decision boundaries and reducing
+individual model variance.</p>
+<p><strong>8. Evaluation and Metrics</strong></p>
+<p>Model performance was measured using pointwise regression metrics
+such as RMSE and MAE, and ranking-oriented metrics like <a href="mailto:precision@K" class="email">precision@K</a> and NDCG to
+assess recommendation relevance. Evaluation was conducted on a held-out
+test set using consistent splits. Results were presented in comparative
+tables and visual charts, demonstrating measurable gains from ensemble
+approaches over individual models.</p>
+<p><strong>9. Reproducibility and Documentation</strong></p>
+<p>All modeling decisions, parameters, and transformations were
+documented in a reproducible pipeline built with R Markdown and version
+control. The project adheres to the principles of reproducible research
+by embedding code and results in a literate programming workflow. Each
+module—from preprocessing to modeling and evaluation—is portable,
+interpretable, and ready for peer replication.</p>
+<p><strong>10. Results</strong></p>
+<p>The final ensemble model demonstrated improved predictive performance
+across all metrics compared to individual learners. RMSE and MAE scores
+were consistently lower for ensemble configurations, and ranking
+performance—particularly <a href="mailto:precision@K" class="email">precision@K</a>—showed enhanced recommendation quality.
+Qualitative analysis confirmed better generalization to underrepresented
+user segments and improved stability across genres and time periods.
+These outcomes validate the effectiveness of the bias-aware,
+ensemble-centered strategy and highlight the importance of integrating
+fairness considerations into predictive modeling pipelines. </p>
 </div>
 <div id="work-flow" class="section level2">
 <h2>2. Work-Flow</h2>
-<div class="grViz html-widget html-fill-item" id="htmlwidget-b596a445a52e176ce840" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-b596a445a52e176ce840">{"x":{"diagram":"\ndigraph pipeline {\n  graph [\n    layout=dot,\n    rankdir=TB,\n    bgcolor=\"white\",\n    nodesep=0.6,\n    ranksep=1.0,\n    compound=true,\n    pad=0.3\n  ]\n  node [\n    shape=rectangle,\n    style=\"filled,rounded\",\n    fontname=\"Arial\",\n    margin=0.2,\n    width=2.2,\n    height=0.9,\n    fontsize=14\n  ]\n  edge [\n    arrowsize=0.8,\n    fontsize=12\n  ]\n  \n  // DATA AUDIT AND WRANGLING (Blue) - Top\n  subgraph cluster_data {\n    label=<<FONT POINT-SIZE=\"22\"><B>Data Audit &amp; Wrangling<\/B><\/FONT>>\n    style=\"filled,rounded\"\n    color=\"#81D4FA\"\n    fillcolor=\"#B3E5FC\"\n    fontcolor=\"black\"\n    margin=20\n    \n    // Force horizontal layout within cluster\n    {\n      rank=same;\n      wrangling [label=<<B>Wrangling &amp; Cleaning<\/B><BR/>Parse vars, handle outliers,<BR/>clean dates, genres>, fillcolor=\"#E1F5FE\"]\n      audit     [label=<<B>Bias Audit<\/B><BR/>Distribution checks,<BR/>groups>, fillcolor=\"#E1F5FE\"]\n      trends    [label=<<B>Exploratory Trends<\/B><BR/>Year/genre/user<BR/>trends>, fillcolor=\"#E1F5FE\"]\n      featprep  [label=<<B>Feature Prep<\/B><BR/>Encode/bins, normalize,<BR/>group>, fillcolor=\"#E1F5FE\"]\n    }\n    \n    wrangling -> audit -> trends -> featprep\n  }\n\n  // MODEL DEVELOPMENT AND EVALUATION (Purple) - Middle\n  subgraph cluster_modeling {\n    label=<<FONT POINT-SIZE=\"22\"><B>Model Dev &amp; Evaluation<\/B><\/FONT>>\n    style=\"filled,rounded\"\n    color=\"#9575CD\"\n    fillcolor=\"#D1C4E9\"\n    fontcolor=\"black\"\n    margin=20\n    \n    // Force horizontal layout within cluster\n    {\n      rank=same;\n      modelsel [label=<<B>Model Selection<\/B><BR/>Models, feature list,<BR/>assumptions>, fillcolor=\"#EDE7F6\"]\n      prepfe  [label=<<B>Data Prep &amp; FE<\/B><BR/>Preprocessing, FE,<BR/>imbalance>, fillcolor=\"#EDE7F6\"]\n      train   [label=<<B>Train &amp; Tune<\/B><BR/>Cross-validation,<BR/>logging>, fillcolor=\"#EDE7F6\"]\n      reg     [label=<<B>Regularization<\/B><BR/>Penalty, effect<BR/>comparison>, fillcolor=\"#EDE7F6\"]\n    }\n    {\n      rank=same;\n      eval    [label=<<B>Evaluation<\/B><BR/>Metrics (RMSE, MAE),<BR/>tables>, fillcolor=\"#EDE7F6\"]\n      ens     [label=<<B>Ensemble<\/B><BR/>Stack, blend,<BR/>trade-offs>, fillcolor=\"#EDE7F6\"]\n      report  [label=<<B>Reporting &amp; Repro<\/B><BR/>Docs, visuals,<BR/>reproducibility>, fillcolor=\"#EDE7F6\"]\n    }\n\n    modelsel -> prepfe -> train -> reg\n    reg -> eval -> ens -> report\n  }\n\n  // SUMMARY (Yellow) - Bottom\n  subgraph cluster_summary {\n    label=<<FONT POINT-SIZE=\"22\"><B>Summary<\/B><\/FONT>>\n    style=\"filled,rounded\"\n    color=\"#FFF176\"\n    fillcolor=\"#FFF9C4\"\n    fontcolor=\"black\"\n    margin=20\n    \n    // Force horizontal layout within cluster\n    {\n      rank=same;\n      results [label=<<B>Results &amp; Interpretation<\/B><BR/>Findings,<BR/>metrics>, fillcolor=\"#FFFDE7\"]\n      limits [label=<<B>Limitations &amp; Bias<\/B><BR/>Limits,<BR/>recs>, fillcolor=\"#FFFDE7\"]\n      reproduc [label=<<B>Repro Appendix<\/B><BR/>Code, models,<BR/>data deps>, fillcolor=\"#FFFDE7\"]\n      concl [label=<<B>Conclusion<\/B><BR/>Synthesis>, fillcolor=\"#FFFDE7\"]\n    }\n\n    results -> limits -> reproduc -> concl\n  }\n\n  // Cross-cluster links\n  featprep -> modelsel [style=dashed, color=\"#555\", ltail=cluster_data, lhead=cluster_modeling]\n  report -> results [style=dashed, color=\"darkgreen\", ltail=cluster_modeling, lhead=cluster_summary]\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-b596a445a52e176ce840" style="width:2304px;height:1536px;"></div>
+<script type="application/json" data-for="htmlwidget-b596a445a52e176ce840">{"x":{"diagram":"\ndigraph G {\n  # Global graph attributes\n  graph [\n    layout=dot;\n    rankdir=TB;\n    newrank=true;\n    splines=ortho;\n    nodesep=1.2;\n    ranksep=1.5;\n    fontname=\"Helvetica\";\n    fontsize=20;\n    label=\"Machine Learning Pipeline for Recommender Systems\";\n    labelloc=t;\n    bgcolor=\"#F5F5F5\";\n  ];\n\n  # Global node attributes\n  node [\n    shape=plain;\n    style=filled;\n    fontname=\"Helvetica\";\n  ];\n\n  # --- DATA PREP CLUSTER ---\n  subgraph cluster_data {\n    label=<<FONT POINT-SIZE=\"36\"><B><BR/>Data Prep &amp; EDA<\/B><\/FONT>>;\n    style=\"filled,rounded\";\n    color=\"#42A5F5\";\n    fillcolor=\"#BBDEFB\";\n    margin=30;\n    \n    { rank=same; wrangling; audit; }\n    { rank=same; trends; featprep; }\n\n    wrangling [fillcolor=\"#E3F2FD\", label=< <TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"12\"> <TR><TD ALIGN=\"CENTER\"><B><FONT POINT-SIZE=\"24\">1. Data Wrangling<\/FONT><\/B><\/TD><\/TR> <TR><TD ALIGN=\"LEFT\" BALIGN=\"LEFT\"><FONT POINT-SIZE=\"20\"> • Merge datasets<br/> • Handle missing values<br/> • Check data types<br/> • Remove duplicates <\/FONT><\/TD><\/TR> <\/TABLE> >];\n    audit [fillcolor=\"#E3F2FD\", label=< <TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"12\"> <TR><TD ALIGN=\"CENTER\"><B><FONT POINT-SIZE=\"24\">2. Data Audit<\/FONT><\/B><\/TD><\/TR> <TR><TD ALIGN=\"LEFT\" BALIGN=\"LEFT\"><FONT POINT-SIZE=\"20\"> • Summary statistics<br/> • Distribution plots<br/> • Identify outliers<br/> • Data validation <\/FONT><\/TD><\/TR> <\/TABLE> >];\n    trends [fillcolor=\"#E1F5FE\", label=< <TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"12\"> <TR><TD ALIGN=\"CENTER\"><B><FONT POINT-SIZE=\"24\">3. Trends Analysis<\/FONT><\/B><\/TD><\/TR> <TR><TD ALIGN=\"LEFT\" BALIGN=\"LEFT\"><FONT POINT-SIZE=\"20\"> • Top items/users<br/> • Ratings over time<br/> • Genre popularity<br/> • User activity levels <\/FONT><\/TD><\/TR> <\/TABLE> >];\n    featprep [fillcolor=\"#E1F5FE\", label=< <TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"12\"> <TR><TD ALIGN=\"CENTER\"><B><FONT POINT-SIZE=\"24\">4. Feature Engineering<\/FONT><\/B><\/TD><\/TR> <TR><TD ALIGN=\"LEFT\" BALIGN=\"LEFT\"><FONT POINT-SIZE=\"20\"> • Time features<br/> • Normalize ratings<br/> • Encode genres<br/> • Activity bins<br/> • Tag outliers <\/FONT><\/TD><\/TR> <\/TABLE> >];\n    \n    wrangling -> audit -> trends -> featprep;\n  }\n\n  # --- MODELING CLUSTER ---\n  subgraph cluster_modeling {\n    label=<<FONT POINT-SIZE=\"36\"><B><BR/>Model Development &amp; Evaluation<\/B><\/FONT>>;\n    style=\"filled,rounded\";\n    color=\"#9575CD\";\n    fillcolor=\"#D1C4E9\";\n    margin=30;\n\n    { rank=same; modelsel; prepfe; train; reg; }\n    { rank=same; eval; ens; report; }\n\n    modelsel [fillcolor=\"#EDE7F6\", label=< <TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"12\"> <TR><TD ALIGN=\"CENTER\"><B><FONT POINT-SIZE=\"24\">5. Model Selection<\/FONT><\/B><\/TD><\/TR> <TR><TD ALIGN=\"LEFT\" BALIGN=\"LEFT\"><FONT POINT-SIZE=\"20\"> • Identify ≥4 models<br/> • List key features<br/> • Core assumptions<br/> • Justify choices <\/FONT><\/TD><\/TR> <\/TABLE>>];\n    prepfe [fillcolor=\"#EDE7F6\", label=< <TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"12\"> <TR><TD ALIGN=\"CENTER\"><B><FONT POINT-SIZE=\"24\">6. Data Prep &amp; FE<\/FONT><\/B><\/TD><\/TR> <TR><TD ALIGN=\"LEFT\" BALIGN=\"LEFT\"><FONT POINT-SIZE=\"20\"> • Preprocessing<br/> • Feature engineering<br/> • Handle sparsity<br/> • Train/test splits <\/FONT><\/TD><\/TR> <\/TABLE>>];\n    train [fillcolor=\"#EDE7F6\", label=< <TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"12\"> <TR><TD ALIGN=\"CENTER\"><B><FONT POINT-SIZE=\"24\">7. Train &amp; Tune<\/FONT><\/B><\/TD><\/TR> <TR><TD ALIGN=\"LEFT\" BALIGN=\"LEFT\"><FONT POINT-SIZE=\"20\"> • Train models<br/> • Cross-validation<br/> • Log metrics<br/> • Hyperparameter search <\/FONT><\/TD><\/TR> <\/TABLE>>];\n    reg [fillcolor=\"#EDE7F6\", label=< <TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"12\"> <TR><TD ALIGN=\"CENTER\"><B><FONT POINT-SIZE=\"24\">8. Regularization<\/FONT><\/B><\/TD><\/TR> <TR><TD ALIGN=\"LEFT\" BALIGN=\"LEFT\"><FONT POINT-SIZE=\"20\"> • Avoid overfitting<br/> • Compare baseline<br/> • Complexity effects<br/> • L1/L2/Dropout <\/FONT><\/TD><\/TR> <\/TABLE>>];\n    eval [fillcolor=\"#EDE7F6\", label=< <TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"12\"> <TR><TD ALIGN=\"CENTER\"><B><FONT POINT-SIZE=\"24\">9. Evaluation<\/FONT><\/B><\/TD><\/TR> <TR><TD ALIGN=\"LEFT\" BALIGN=\"LEFT\"><FONT POINT-SIZE=\"20\"> • RMSE/MAE<br/> • Ranking metrics<br/> • Comparison table<br/> • Significance tests <\/FONT><\/TD><\/TR> <\/TABLE>>];\n    ens [fillcolor=\"#EDE7F6\", label=< <TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"12\"> <TR><TD ALIGN=\"CENTER\"><B><FONT POINT-SIZE=\"24\">10. Ensemble<\/FONT><\/B><\/TD><\/TR> <TR><TD ALIGN=\"LEFT\" BALIGN=\"LEFT\"><FONT POINT-SIZE=\"20\"> • Stacking/blending<br/> • Compare models<br/> • Record trade-offs<br/> • Complexity <\/FONT><\/TD><\/TR> <\/TABLE>>];\n    report [fillcolor=\"#EDE7F6\", label=< <TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"12\"> <TR><TD ALIGN=\"CENTER\"><B><FONT POINT-SIZE=\"24\">11. Reporting<\/FONT><\/B><\/TD><\/TR> <TR><TD ALIGN=\"LEFT\" BALIGN=\"LEFT\"><FONT POINT-SIZE=\"20\"> • Parameters<br/> • Visuals/stats<br/> • Documentation<br/> • Code/environment <\/FONT><\/TD><\/TR> <\/TABLE>>];\n    \n    modelsel -> prepfe -> train -> reg;\n    reg -> eval;\n    eval -> ens -> report;\n  }\n\n  # --- SUMMARY CLUSTER ---\n  subgraph cluster_summary {\n    label=<<FONT POINT-SIZE=\"36\"><B><BR/>Summary<\/B><\/FONT>>;\n    style=\"filled,rounded\";\n    color=\"#FFF176\";\n    fillcolor=\"#FFF9C4\";\n    margin=30;\n\n    { rank=same; results; limits; reproduc; concl; }\n    \n    results [fillcolor=\"#FFFDE7\", label=< <TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"12\"> <TR><TD ALIGN=\"CENTER\"><B><FONT POINT-SIZE=\"24\">12. Results<\/FONT><\/B><\/TD><\/TR> <TR><TD ALIGN=\"LEFT\" BALIGN=\"LEFT\"><FONT POINT-SIZE=\"20\"> • Best model<br/> • Key findings<br/> • Feature importance<br/> • Insights <\/FONT><\/TD><\/TR> <\/TABLE>>];\n    limits [fillcolor=\"#FFFDE7\", label=< <TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"12\"> <TR><TD ALIGN=\"CENTER\"><B><FONT POINT-SIZE=\"24\">13. Limitations<\/FONT><\/B><\/TD><\/TR> <TR><TD ALIGN=\"LEFT\" BALIGN=\"LEFT\"><FONT POINT-SIZE=\"20\"> • Data sparsity<br/> • Model limits<br/> • Fairness<br/> • Recommendations <\/FONT><\/TD><\/TR> <\/TABLE>>];\n    reproduc [fillcolor=\"#FFFDE7\", label=< <TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"12\"> <TR><TD ALIGN=\"CENTER\"><B><FONT POINT-SIZE=\"24\">14. Reproducibility<\/FONT><\/B><\/TD><\/TR> <TR><TD ALIGN=\"LEFT\" BALIGN=\"LEFT\"><FONT POINT-SIZE=\"20\"> • Environment<br/> • Data access<br/> • Requirements<br/> • Runtime <\/FONT><\/TD><\/TR> <\/TABLE>>];\n    concl [fillcolor=\"#FFFDE7\", label=< <TABLE BORDER=\"0\" CELLBORDER=\"0\" CELLSPACING=\"0\" CELLPADDING=\"12\"> <TR><TD ALIGN=\"CENTER\"><B><FONT POINT-SIZE=\"24\">15. Conclusion<\/FONT><\/B><\/TD><\/TR> <TR><TD ALIGN=\"LEFT\" BALIGN=\"LEFT\"><FONT POINT-SIZE=\"20\"> • Synthesis<br/> • Impact<br/> • Future work<br/> • Final thoughts <\/FONT><\/TD><\/TR> <\/TABLE>>];\n    \n    results -> limits -> reproduc -> concl;\n  }\n  \n  # --- Inter-Cluster Connections ---\n  featprep -> modelsel [ltail=cluster_data, lhead=cluster_modeling, minlen=2];\n  report -> results [ltail=cluster_modeling, lhead=cluster_summary, minlen=2];\n}\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div id="analysis" class="section level1">
+<h1>3. Analysis</h1>
+<div id="data-audit-wrangling" class="section level2">
+<h2>3.1 Data Audit &amp; Wrangling</h2>
+<div style="page-break-after: always;"></div>
+<div id="wrangling-cleaning" class="section level3">
+<h3>3.1.1 Wrangling &amp; Cleaning</h3>
+<ul>
+<li>Verify userId, movieId, rating<br />
+</li>
+<li>Handle duplicates, missing<br />
+</li>
+<li>Check rating bounds<br />
+</li>
+<li>Parse title for year<br />
+</li>
+<li>Convert timestamp<br />
+</li>
+<li>Split genres </li>
+</ul>
+</div>
+<div id="bias-audit" class="section level3">
+<h3>3.1.2 Bias Audit</h3>
+<ul>
+<li>Rating distribution<br />
+</li>
+<li>Coverage by genre/time<br />
+</li>
+<li>Popularity bias<br />
+</li>
+<li>Underrepresented groups<br />
+</li>
+<li>User frequency analysis </li>
+</ul>
+</div>
+<div id="exploratory-trends" class="section level3">
+<h3>3.1.3 Exploratory Trends</h3>
+<ul>
+<li>Rating by genre/year<br />
+</li>
+<li>Time-based changes<br />
+</li>
+<li>Activity trends<br />
+</li>
+<li>Genre vs decade<br />
+</li>
+<li>Age/variance scatter </li>
+</ul>
+</div>
+<div id="feature-engineering" class="section level3">
+<h3>3.1.4 Feature Engineering</h3>
+<ul>
+<li>Time features<br />
+</li>
+<li>Normalize ratings<br />
+</li>
+<li>Encode genres<br />
+</li>
+<li>Activity bins<br />
+</li>
+<li>Tag outliers </li>
+</ul>
+</div>
+</div>
+<div id="model-development-evaluation" class="section level2">
+<h2>3.2 Model Development &amp; Evaluation</h2>
+<div style="page-break-after: always;"></div>
+<div id="model-selection" class="section level3">
+<h3>3.2.1 Model Selection</h3>
+<ul>
+<li>Identify models<br />
+</li>
+<li>List key features<br />
+</li>
+<li>Core assumptions<br />
+</li>
+<li>Justify choices </li>
+</ul>
+</div>
+<div id="data-prep-feature-engineering" class="section level3">
+<h3>3.2.2 Data Prep &amp; Feature Engineering</h3>
+<ul>
+<li>Preprocessing<br />
+</li>
+<li>Feature engineering<br />
+</li>
+<li>Handle sparsity<br />
+</li>
+<li>Train/test splits </li>
+</ul>
+</div>
+<div id="train-tune" class="section level3">
+<h3>3.2.3 Train &amp; Tune</h3>
+<ul>
+<li>Train models<br />
+</li>
+<li>Cross-validation<br />
+</li>
+<li>Log metrics<br />
+</li>
+<li>Hyperparameter search </li>
+</ul>
+</div>
+<div id="regularization" class="section level3">
+<h3>3.2.4 Regularization</h3>
+<ul>
+<li>Avoid overfitting<br />
+</li>
+<li>Compare baseline<br />
+</li>
+<li>Complexity effects<br />
+</li>
+<li>L1/L2/Dropout </li>
+</ul>
+</div>
+<div id="evaluation" class="section level3">
+<h3>3.2.5 Evaluation</h3>
+<ul>
+<li>RMSE/MAE<br />
+</li>
+<li>Ranking metrics<br />
+</li>
+<li>Comparison table<br />
+</li>
+<li>Significance tests </li>
+</ul>
+</div>
+<div id="ensemble" class="section level3">
+<h3>3.2.6 Ensemble</h3>
+<ul>
+<li>Stacking/blending<br />
+</li>
+<li>Compare models<br />
+</li>
+<li>Record trade-offs<br />
+</li>
+<li>Complexity </li>
+</ul>
+</div>
+<div id="reporting" class="section level3">
+<h3>3.2.7 Reporting</h3>
+<ul>
+<li>Parameters<br />
+</li>
+<li>Visuals/statistics<br />
+</li>
+<li>Documentation<br />
+</li>
+<li>Code/environment </li>
+</ul>
+</div>
+</div>
+<div id="summary" class="section level2">
+<h2>3.3 Summary</h2>
+<div style="page-break-after: always;"></div>
+<div id="results" class="section level3">
+<h3>3.3.1 Results</h3>
+<ul>
+<li>Best model<br />
+</li>
+<li>Key findings<br />
+</li>
+<li>Feature importance<br />
+</li>
+<li>Insights </li>
+</ul>
+</div>
+<div id="limitations" class="section level3">
+<h3>3.3.2 Limitations</h3>
+<ul>
+<li>Data sparsity<br />
+</li>
+<li>Model limitations<br />
+</li>
+<li>Fairness<br />
+</li>
+<li>Recommendations </li>
+</ul>
+</div>
+<div id="reproducibility" class="section level3">
+<h3>3.3.3 Reproducibility</h3>
+<ul>
+<li>Environment<br />
+</li>
+<li>Data access<br />
+</li>
+<li>Requirements<br />
+</li>
+<li>Runtime </li>
+</ul>
+</div>
 </div>
 </div>
 
