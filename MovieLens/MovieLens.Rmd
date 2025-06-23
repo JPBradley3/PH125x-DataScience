@@ -335,7 +335,7 @@ skim_stats %>%
   knitr::kable(caption = "Summary statistics (mean, sd, median) for the movies data.")
 ```
 
-```{r ratings_hist, message=FALSE, warning=FALSE, fig.width=5, fig.height=3, echo=FALSE}
+```{r moviess_hist, message=FALSE, warning=FALSE, fig.width=5, fig.height=3, echo=FALSE}
 ggplot(movie_counts, aes(x = num_ratings)) +
   geom_histogram(binwidth = 10, fill = "dark red", color = "dark red") +
   scale_y_log10() +
@@ -403,7 +403,7 @@ kable(
 )
 ```
 
-```{r ratings_hist, message=FALSE, warning=FALSE, fig.width=5, fig.height=3, echo=FALSE}
+```{r movielens_hist, message=FALSE, warning=FALSE, fig.width=5, fig.height=3, echo=FALSE}
 ggplot(movie_stats, aes(x = avg_rating)) +
   geom_histogram(binwidth = 0.1, fill = "dark red", color = "black") +
   labs(
