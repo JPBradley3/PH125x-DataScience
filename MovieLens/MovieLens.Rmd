@@ -3,8 +3,9 @@ title: "MovieLens"
 author: "JP Bradley"
 date: "2025-06-22"
 output:
-  pdf_document:
+  pdf_document: 
     latex_engine: xelatex
+    toc: true
   html_document:
     df_print: paged
 always_allow_html: true
@@ -20,7 +21,7 @@ editor_options:
     wrap: 72
 ---
 
-# Introduction
+# 1. Introduction
 
 In today's digital landscape, from e-commerce platforms like Amazon to
 streaming services like Netflix, recommender systems are a critical
@@ -83,15 +84,16 @@ the final hold-out set.
 
 \newpage
 
-# Project Overview
+# 2. Project Overview
 
-## 1. Data Acquisition & Preprocessing
+## 2.1 Data Acquisition & Preprocessing
 
-### 1.1 Setting Up the R Environment
+### 2.1.1 Setting Up the R Environment
 
-#### 1.1.2 Installing Required Packages
+#### 2.1.1.1 Installing Required Packages
 
 ```{r, install_packages, message=FALSE, warning=FALSE}
+options(digits = 3)      # For 3 significant digits overall
 # List of required packages for the entire workflow
 required_packages <- c(
   "tidyverse",    # Data wrangling, plotting, stringr, readr, etc.
@@ -121,7 +123,7 @@ repository. This conditional logic automates the environment setup,
 guaranteeing that the script can run on any machine with R installed
 without requiring manual pre-installation of these essential packages.
 
-#### 1.1.3 Loading Required Packages
+#### 2.1.1.2 Loading Required Packages
 
 ```{r, setup, message=FALSE, warning=FALSE}
 # Load all required libraries
@@ -151,9 +153,9 @@ performance through cross-validation, using the Root Mean Squared Error
 seamless transition from raw data exploration to the development and
 validation of our final recommendation model. \newpage
 
-### 1.2 Downloading and Extracting the Dataset
+### 2.2.1 Downloading and Extracting the Dataset
 
-#### 1.2.1 Downloading the Dataset
+#### 2.2.2 Downloading the Dataset
 
 ```{r, download_dataset, message=FALSE, warning=FALSE}
 # Define the filename for the MovieLens 10M dataset zip file
@@ -173,7 +175,7 @@ URL is initiated only if the file is not found. This conditional logic
 ensures that the large dataset is not downloaded redundantly upon
 subsequent executions of the script.
 
-#### 1.2.2 Extracting the Dataset
+#### 2.2.2.1 Extracting the Dataset
 
 ```{r, extract_files, message=FALSE, warning=FALSE}
 # Define the file paths for the ratings and movies data within the extracted folder
@@ -200,9 +202,9 @@ process by avoiding redundant file extraction during subsequent script
 executions, ensuring the necessary data is readily available for
 analysis without unnecessary overhead. \newpage
 
-### 1.3 Parsing the Ratings and Movies Data
+### 2.3.1 Parsing the Ratings and Movies Data
 
-#### 1.3.1 Parsing the Ratings Data
+#### 2.3.1.1 Parsing the Ratings Data
 
 ```{r, parse_ratings, , message=FALSE, warning=FALSE}
 # Read the ratings file line by line, splitting each line at '::' into a matrix-like structure
@@ -252,7 +254,7 @@ skim(ratings)
 
 \newpage
 
-#### 1.3.2 Parsing the Movies Data
+#### 2.3.2.1 Parsing the Movies Data
 
 ```{r, parse_movies, message=FALSE, warning=FALSE}
 # Read each line of the movies file, split on the delimiter "::", 
@@ -304,7 +306,7 @@ skim(movies)
 
 \newpage
 
-### 1.4 Merging Ratings and Movies Data
+### 2.4.1 Merging Ratings and Movies Data
 
 ```{r, merge_data, message=FALSE, warning=FALSE}
 # Combine user ratings with movie metadata into one comprehensive table:
@@ -341,7 +343,7 @@ skim(movielens)
 
 \newpage
 
-### 1.5 Final Hold-out Test Set Preparation
+### 2.5.1 Final Hold-out Test Set Preparation
 
 ```{r, final_holdout, message=FALSE, warning=FALSE}
 # -----------------------------------------------------------------------------
@@ -408,9 +410,9 @@ environment to ensure a clean workspace, leaving only the final,
 well-defined training and validation sets for the modeling phase.
 \newpage
 
-# Methodologies
+# 3. Methodologies
 
-## 1. Executive Summary
+## 3.1 Executive Summary
 
 **1. Goal**
 
@@ -515,60 +517,100 @@ effectiveness of the bias-aware, ensemble-centered strategy and
 highlight the importance of integrating fairness considerations into
 predictive modeling pipelines. \newpage
 
-## 2. Work-Flow
+## 3.2 Work-Flow
 
-```{r ml-pipeline-diagram-no-bars, echo=FALSE, message=FALSE, warning=FALSE, fig.align='center', fig.height=16, fig.width=24}
-# Load the necessary library
+```{r make-pipeline-png, echo=FALSE, message=FALSE, warning=FALSE, eval=TRUE, out.width='100%', out.height='100%', dpi=1200}
+# ---- Load required libraries ----
 library(DiagrammeR)
+library(DiagrammeRsvg)
+library(rsvg)
 
-# Store your DOT language code in an R string variable
-# The horizontal separator bars have been removed from all nodes.
+# ---- DOT specification for the ML pipeline diagram ----
 ml_pipeline_dot <- "
 digraph G {
-  # Global graph attributes
+  // ---- Graph-wide settings ----
   graph [
     layout=dot;
-    rankdir=TB;
+    rankdir=TB;                  // Top to Bottom orientation
     newrank=true;
-    splines=ortho;
-    nodesep=1.2;
-    ranksep=1.5;
+    splines=ortho;               // Orthogonal lines
+    nodesep=0.75;
+    ranksep=3;
     fontname='Helvetica';
     fontsize=20;
     label='Machine Learning Pipeline for Recommender Systems';
     labelloc=t;
-    bgcolor='#F5F5F5';
+    bgcolor='white';
   ];
 
-  # Global node attributes
+  // ---- Default node styling ----
   node [
     shape=plain;
     style=filled;
     fontname='Helvetica';
+    margin=15;
   ];
 
-  # --- DATA PREP CLUSTER ---
+  // ---- Cluster: Data Preparation & EDA ----
   subgraph cluster_data {
-    label=<<FONT POINT-SIZE='36'><B><BR/>Data Prep &amp; EDA</B></FONT>>;
+    label=<<FONT POINT-SIZE='72'><B><BR/>Data Prep &amp; EDA<BR/></B></FONT>>;
     style='filled,rounded';
     color='#42A5F5';
     fillcolor='#BBDEFB';
-    margin=30;
-    
+    margin=15;
+
+    // Node ranking for arrangement
     { rank=same; wrangling; audit; }
     { rank=same; trends; featprep; }
 
-    wrangling [fillcolor='#E3F2FD', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>1. Data Wrangling</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Merge datasets<br/> • Handle missing values<br/> • Check data types<br/> • Remove duplicates </FONT></TD></TR> </TABLE> >];
-    audit [fillcolor='#E3F2FD', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>2. Data Audit</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Summary statistics<br/> • Distribution plots<br/> • Identify outliers<br/> • Data validation </FONT></TD></TR> </TABLE> >];
-    trends [fillcolor='#E1F5FE', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>3. Trends Analysis</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Top items/users<br/> • Ratings over time<br/> • Genre popularity<br/> • User activity levels </FONT></TD></TR> </TABLE> >];
-    featprep [fillcolor='#E1F5FE', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>4. Feature Engineering</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Time features<br/> • Normalize ratings<br/> • Encode genres<br/> • Activity bins<br/> • Tag outliers </FONT></TD></TR> </TABLE> >];
-    
+    // Nodes in this cluster
+    wrangling [
+      fillcolor='#E3F2FD',
+      label=<
+        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
+          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>1. Data Wrangling</FONT></B></TD></TR>
+          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Merge datasets<br/> • Handle missing values<br/> • Check data types<br/> • Remove duplicates </FONT></TD></TR>
+        </TABLE>
+      >
+    ];
+
+    audit [
+      fillcolor='#E3F2FD',
+      label=<
+        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
+          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>2. Data Audit</FONT></B></TD></TR>
+          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Summary statistics<br/> • Distribution plots<br/> • Identify outliers<br/> • Data validation </FONT></TD></TR>
+        </TABLE>
+      >
+    ];
+
+    trends [
+      fillcolor='#E1F5FE',
+      label=<
+        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
+          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>3. Trends Analysis</FONT></B></TD></TR>
+          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Top items/users<br/> • Ratings over time<br/> • Genre popularity<br/> • User activity levels </FONT></TD></TR>
+        </TABLE>
+      >
+    ];
+
+    featprep [
+      fillcolor='#E1F5FE',
+      label=<
+        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
+          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>4. Feature<BR/> Engineering</FONT></B></TD></TR>
+          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Time features<br/> • Normalize ratings<br/> • Encode genres<br/> • Activity bins<br/> • Tag outliers </FONT></TD></TR>
+        </TABLE>
+      >
+    ];
+
+    // Process flow inside Data Prep cluster
     wrangling -> audit -> trends -> featprep;
   }
 
-  # --- MODELING CLUSTER ---
+  // ---- Cluster: Model Development & Evaluation ----
   subgraph cluster_modeling {
-    label=<<FONT POINT-SIZE='36'><B><BR/>Model Development &amp; Evaluation</B></FONT>>;
+    label=<<FONT POINT-SIZE='72'><B><BR/>Model Development &amp; Evaluation<BR/></B></FONT>>;
     style='filled,rounded';
     color='#9575CD';
     fillcolor='#D1C4E9';
@@ -577,56 +619,166 @@ digraph G {
     { rank=same; modelsel; prepfe; train; reg; }
     { rank=same; eval; ens; report; }
 
-    modelsel [fillcolor='#EDE7F6', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>5. Model Selection</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Identify ≥4 models<br/> • List key features<br/> • Core assumptions<br/> • Justify choices </FONT></TD></TR> </TABLE>>];
-    prepfe [fillcolor='#EDE7F6', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>6. Data Prep &amp; FE</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Preprocessing<br/> • Feature engineering<br/> • Handle sparsity<br/> • Train/test splits </FONT></TD></TR> </TABLE>>];
-    train [fillcolor='#EDE7F6', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>7. Train &amp; Tune</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Train models<br/> • Cross-validation<br/> • Log metrics<br/> • Hyperparameter search </FONT></TD></TR> </TABLE>>];
-    reg [fillcolor='#EDE7F6', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>8. Regularization</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Avoid overfitting<br/> • Compare baseline<br/> • Complexity effects<br/> • L1/L2/Dropout </FONT></TD></TR> </TABLE>>];
-    eval [fillcolor='#EDE7F6', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>9. Evaluation</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • RMSE/MAE<br/> • Ranking metrics<br/> • Comparison table<br/> • Significance tests </FONT></TD></TR> </TABLE>>];
-    ens [fillcolor='#EDE7F6', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>10. Ensemble</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Stacking/blending<br/> • Compare models<br/> • Record trade-offs<br/> • Complexity </FONT></TD></TR> </TABLE>>];
-    report [fillcolor='#EDE7F6', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>11. Reporting</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Parameters<br/> • Visuals/stats<br/> • Documentation<br/> • Code/environment </FONT></TD></TR> </TABLE>>];
-    
+    modelsel [
+      fillcolor='#EDE7F6',
+      label=<
+        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
+          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>5. Model Selection</FONT></B></TD></TR>
+          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Identify ≥4 models<br/> • List key features<br/> • Core assumptions<br/> • Justify choices </FONT></TD></TR>
+        </TABLE>
+      >
+    ];
+
+    prepfe [
+      fillcolor='#EDE7F6',
+      label=<
+        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
+          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>6. Data Prep &amp; FE</FONT></B></TD></TR>
+          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Preprocessing<br/> • Feature engineering<br/> • Handle sparsity<br/> • Train/test splits </FONT></TD></TR>
+        </TABLE>
+      >
+    ];
+
+    train [
+      fillcolor='#EDE7F6',
+      label=<
+        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
+          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>7. Train &amp; Tune</FONT></B></TD></TR>
+          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Train models<br/> • Cross-validation<br/> • Log metrics<br/> • Hyperparameter search </FONT></TD></TR>
+        </TABLE>
+      >
+    ];
+
+    reg [
+      fillcolor='#EDE7F6',
+      label=<
+        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
+          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>8. Regularization</FONT></B></TD></TR>
+          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Avoid overfitting<br/> • Compare baseline<br/> • Complexity effects<br/> • L1/L2/Dropout </FONT></TD></TR>
+        </TABLE>
+      >
+    ];
+
+    eval [
+      fillcolor='#EDE7F6',
+      label=<
+        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
+          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>9. Evaluation</FONT></B></TD></TR>
+          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • RMSE/MAE<br/> • Ranking metrics<br/> • Comparison table<br/> • Significance tests </FONT></TD></TR>
+        </TABLE>
+      >
+    ];
+
+    ens [
+      fillcolor='#EDE7F6',
+      label=<
+        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
+          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>10. Ensemble</FONT></B></TD></TR>
+          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Stacking/blending<br/> • Compare models<br/> • Record trade-offs<br/> • Complexity </FONT></TD></TR>
+        </TABLE>
+      >
+    ];
+
+    report [
+      fillcolor='#EDE7F6',
+      label=<
+        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
+          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>11. Reporting</FONT></B></TD></TR>
+          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Parameters<br/> • Visuals/stats<br/> • Documentation<br/> • Code/environment </FONT></TD></TR>
+        </TABLE>
+      >
+    ];
+
+    // Process flow inside Modeling cluster
     modelsel -> prepfe -> train -> reg;
     reg -> eval;
     eval -> ens -> report;
   }
 
-  # --- SUMMARY CLUSTER ---
+  // ---- Cluster: Final Summary ----
   subgraph cluster_summary {
-    label=<<FONT POINT-SIZE='36'><B><BR/>Summary</B></FONT>>;
+    label=<<FONT POINT-SIZE='72'><B><BR/>Summary<BR/></B></FONT>>;
     style='filled,rounded';
     color='#FFF176';
     fillcolor='#FFF9C4';
     margin=30;
 
     { rank=same; results; limits; reproduc; concl; }
-    
-    results [fillcolor='#FFFDE7', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>12. Results</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Best model<br/> • Key findings<br/> • Feature importance<br/> • Insights </FONT></TD></TR> </TABLE>>];
-    limits [fillcolor='#FFFDE7', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>13. Limitations</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Data sparsity<br/> • Model limits<br/> • Fairness<br/> • Recommendations </FONT></TD></TR> </TABLE>>];
-    reproduc [fillcolor='#FFFDE7', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>14. Reproducibility</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Environment<br/> • Data access<br/> • Requirements<br/> • Runtime </FONT></TD></TR> </TABLE>>];
-    concl [fillcolor='#FFFDE7', label=< <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='0' CELLPADDING='12'> <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='24'>15. Conclusion</FONT></B></TD></TR> <TR><TD ALIGN='LEFT' BALIGN='LEFT'><FONT POINT-SIZE='20'> • Synthesis<br/> • Impact<br/> • Future work<br/> • Final thoughts </FONT></TD></TR> </TABLE>>];
-    
+
+    results [
+      fillcolor='#FFFDE7',
+      label=<
+        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
+          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>12. Results</FONT></B></TD></TR>
+          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Best model<br/> • Key findings<br/> • Feature importance<br/> • Insights </FONT></TD></TR>
+        </TABLE>
+      >
+    ];
+
+    limits [
+      fillcolor='#FFFDE7',
+      label=<
+        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
+          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>13. Limitations</FONT></B></TD></TR>
+          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Data sparsity<br/> • Model limits<br/> • Fairness<br/> • Recommendations </FONT></TD></TR>
+        </TABLE>
+      >
+    ];
+
+    reproduc [
+      fillcolor='#FFFDE7',
+      label=<
+        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
+          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>14. Reproducibility</FONT></B></TD></TR>
+          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Environment<br/> • Data access<br/> • Requirements<br/> • Runtime </FONT></TD></TR>
+        </TABLE>
+      >
+    ];
+
+    concl [
+      fillcolor='#FFFDE7',
+      label=<
+        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
+          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>15. Conclusion</FONT></B></TD></TR>
+          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Synthesis<br/> • Impact<br/> • Future work<br/> • Final thoughts </FONT></TD></TR>
+        </TABLE>
+      >
+    ];
+
+    // Process flow inside Summary cluster
     results -> limits -> reproduc -> concl;
   }
-  
-  # --- Inter-Cluster Connections ---
+
+  // ---- Inter-Cluster Edges ----
   featprep -> modelsel [ltail=cluster_data, lhead=cluster_modeling, minlen=2];
-  report -> results [ltail=cluster_modeling, lhead=cluster_summary, minlen=2];
+  report -> results   [ltail=cluster_modeling, lhead=cluster_summary, minlen=2];
 }
 "
 
-# Render the graph object
-grViz(ml_pipeline_dot)
+# ---- Generate and export the diagram ----
+g <- grViz(ml_pipeline_dot)
+svg <- export_svg(g)
+
+# Export diagram as high-res PNG file
+rsvg_png(
+  charToRaw(svg), 
+  file = "ml-pipeline.png", 
+  width = 1200, height = 2400
+)
+
+# ---- Include the image in the output ----
+knitr::include_graphics("ml-pipeline.png")
 ```
 
 \newpage
 
-# 3. Analysis
+# 4. Analysis
 
-## 3.1 Data Audit & Wrangling
+## 4.1 Data Audit & Wrangling
 
 \newpage
 
-### 3.1.1 Wrangling & Cleaning
+### 4.1.1 Wrangling & Cleaning
 
 -   Verify userId, movieId, rating\
 -   Handle duplicates, missing\
@@ -635,7 +787,7 @@ grViz(ml_pipeline_dot)
 -   Convert timestamp\
 -   Split genres \newpage
 
-### 3.1.2 Bias Audit
+### 4.1.2 Bias Audit
 
 -   Rating distribution\
 -   Coverage by genre/time\
@@ -643,7 +795,7 @@ grViz(ml_pipeline_dot)
 -   Underrepresented groups\
 -   User frequency analysis \newpage
 
-### 3.1.3 Exploratory Trends
+### 4.1.3 Exploratory Trends
 
 -   Rating by genre/year\
 -   Time-based changes\
@@ -651,7 +803,7 @@ grViz(ml_pipeline_dot)
 -   Genre vs decade\
 -   Age/variance scatter \newpage
 
-### 3.1.4 Feature Engineering
+### 4.1.4 Feature Engineering
 
 -   Time features\
 -   Normalize ratings\
@@ -659,60 +811,60 @@ grViz(ml_pipeline_dot)
 -   Activity bins\
 -   Tag outliers \newpage
 
-## 3.2 Model Development & Evaluation
+## 4.2 Model Development & Evaluation
 
 \newpage
 
-### 3.2.1 Model Selection
+### 4.2.1 Model Selection
 
 -   Identify models\
 -   List key features\
 -   Core assumptions\
 -   Justify choices \newpage
 
-### 3.2.2 Data Prep & Feature Engineering
+### 4.2.2 Data Prep & Feature Engineering
 
 -   Preprocessing\
 -   Feature engineering\
 -   Handle sparsity\
 -   Train/test splits \newpage
 
-### 3.2.3 Train & Tune
+### 4.2.3 Train & Tune
 
 -   Train models\
 -   Cross-validation\
 -   Log metrics\
 -   Hyperparameter search \newpage
 
-### 3.2.4 Regularization
+### 4.2.4 Regularization
 
 -   Avoid overfitting\
 -   Compare baseline\
 -   Complexity effects\
 -   L1/L2/Dropout \newpage
 
-### 3.2.5 Evaluation
+### 4.2.5 Evaluation
 
 -   RMSE/MAE\
 -   Ranking metrics\
 -   Comparison table\
 -   Significance tests \newpage
 
-### 3.2.6 Ensemble
+### 4.2.6 Ensemble
 
 -   Stacking/blending\
 -   Compare models\
 -   Record trade-offs\
 -   Complexity \newpage
 
-### 3.2.7 Reporting
+### 4.2.7 Reporting
 
 -   Parameters\
 -   Visuals/statistics\
 -   Documentation\
 -   Code/environment \newpage
 
-## 3.3 Summary
+## 4.3 Summary
 
 \newpage
 
@@ -736,3 +888,15 @@ grViz(ml_pipeline_dot)
 -   Data access\
 -   Requirements\
 -   Runtime \newpage
+
+
+# 5. Conclusion
+
+## 5.1 Synopsis
+
+## 5.2 Limitations
+
+## 5.3 Future Work
+
+
+
