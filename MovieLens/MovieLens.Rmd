@@ -239,15 +239,38 @@ analytical tasks. \newpage
 
 ##### DATA SUMMARY: Cleaned Ratings Data
 
-```{r, ratings_summary, , message=FALSE, warning=FALSE}
-# Use kable() for a professional-looking preview of the data
+```{r ratings_summary, message=FALSE, warning=FALSE, results='asis', echo=FALSE}
+# Preview of the first six rows
 knitr::kable(
   head(ratings), 
   caption = "A preview of the first six rows of the ratings data."
 )
 
-# Use skim() for a rich and clean statistical summary
-skim(ratings)
+# Calculate skimming summary
+library(skimr)
+skim_stats <- skim(ratings)
+
+# Print a minimal and clean stats table for numeric columns
+skim_stats %>%
+  select(
+    skim_variable,
+    numeric.mean,
+    numeric.sd,
+    numeric.p50
+  ) %>%
+  knitr::kable(caption = "Summary statistics (mean, sd, median) for the ratings data.")
+```
+
+```{r ratings_hist, message=FALSE, warning=FALSE, fig.width=5, fig.height=3, echo=FALSE}
+# Add the ratings histogram
+library(ggplot2)
+ggplot(ratings, aes(x = rating)) +
+  geom_histogram(binwidth = 0.5, fill = "dark red", color = "black") +
+  labs(
+    title = "Distribution of Movie Ratings",
+    x = "Rating",
+    y = "Count"
+  )
 ```
 
 ###### With ratings distributed across a 0.5–5.0 scale and user IDs spanning a large, heterogeneous population, the dataset supports scalable modeling of rating behavior and temporal shifts in consumption. Its structure provides a stable foundation for advancing hybrid recommender algorithms, behavioral clustering, and fairness-aware personalization strategies in collaborative filtering research
@@ -292,14 +315,35 @@ genre information for our analysis. \newpage
 ##### DATA SUMMARY: Cleaned Movies Data
 
 ```{r, movies_summary, message=FALSE, warning=FALSE}
-# Use kable() for a professional-looking preview of the data
 knitr::kable(
   head(movies), 
-  caption = "A preview of the first six rows of the movies data."
+  caption = "A preview of the first six rows of the ratings data."
 )
 
-# Use skim() for a rich and clean statistical summary
-skim(movies)
+# Calculate skimming summary
+library(skimr)
+skim_stats <- skim(movies)
+
+# Print a minimal and clean stats table for numeric columns
+skim_stats %>%
+  select(
+    skim_variable,
+    numeric.mean,
+    numeric.sd,
+    numeric.p50
+  ) %>%
+  knitr::kable(caption = "Summary statistics (mean, sd, median) for the movies data.")
+```
+
+```{r ratings_hist, message=FALSE, warning=FALSE, fig.width=5, fig.height=3, echo=FALSE}
+ggplot(movie_counts, aes(x = num_ratings)) +
+  geom_histogram(binwidth = 10, fill = "dark red", color = "dark red") +
+  scale_y_log10() +
+  labs(
+    title = "Distribution of Number of Ratings per Movie",
+    x = "Number of Ratings per Movie",
+    y = "Number of Movies (log scale)"
+  )
 ```
 
 ###### The movies metadata infuses content-based context—via genre ontologies and item-level identifiers—into user behavior modeling. This integration enables the development of hybrid recommender systems that align user preferences with interpretable item features, enhancing algorithmic personalization, fairness, and scalability.
@@ -329,14 +373,44 @@ rating information in a single, tidy format. \newpage
 ##### DATA SUMMARY: Merged Data
 
 ```{r, movielens_summary, message=FALSE, warning=FALSE}
-# Use kable() for a professional-looking preview of the data
-knitr::kable(
-  head(movielens), 
-  caption = "A preview of the first six rows of the combined data."
-)
+# 1. Summarize per-movie statistics
+movie_stats <- movielens %>% 
+  group_by(movieId) %>%
+  summarise(
+    avg_rating = mean(rating),
+    n_ratings = n()
+  )
 
-# Use skim() for a rich and clean statistical summary
-skim(movielens)
+# 2. Summarize per-user statistics (optional)
+user_stats <- movielens %>%
+  group_by(userId) %>%
+  summarise(
+    avg_rating = mean(rating),
+    n_ratings = n()
+  )
+
+# 3. Show the first few rows for context
+kable(head(movie_stats), caption = "A preview of average ratings and number of ratings for movies.")
+
+# 4. Show summary statistics for these new variables
+movie_stats_summary <- skim(movie_stats) %>%
+  select(skim_variable, numeric.mean, numeric.sd, numeric.p50) %>%
+  filter(skim_variable %in% c("avg_rating", "n_ratings"))
+
+kable(
+  movie_stats_summary,
+  caption = "Summary statistics (mean, sd, median) for average ratings and number of ratings per movie."
+)
+```
+
+```{r ratings_hist, message=FALSE, warning=FALSE, fig.width=5, fig.height=3, echo=FALSE}
+ggplot(movie_stats, aes(x = avg_rating)) +
+  geom_histogram(binwidth = 0.1, fill = "dark red", color = "black") +
+  labs(
+    title = "Distribution of Average Movie Ratings",
+    x = "Average Rating",
+    y = "Number of Movies"
+  )
 ```
 
 ###### The movielens dataset constitutes a temporally indexed, user-item interaction matrix enriched with item-level covariates (title, year, genres) and user-specific behavioral data (userId, rating, timestamp). Its schema supports advanced modeling tasks including matrix factorization with side information, dynamic collaborative filtering, and hierarchical genre-aware embeddings. By unifying observational feedback with content-based taxonomies, it facilitates research into high-dimensional preference estimation, temporal drift in item relevance, and fine-grained regularization strategies for recommender architectures.
@@ -533,12 +607,11 @@ digraph G {
     layout=dot;
     rankdir=TB;                  // Top to Bottom orientation
     newrank=true;
-    splines=ortho;               // Orthogonal lines
+    //splines=ortho;               // Orthogonal lines
     nodesep=0.75;
     ranksep=3;
     fontname='Helvetica';
     fontsize=20;
-    label='Machine Learning Pipeline for Recommender Systems';
     labelloc=t;
     bgcolor='white';
   ];
@@ -763,7 +836,7 @@ svg <- export_svg(g)
 rsvg_png(
   charToRaw(svg), 
   file = "ml-pipeline.png", 
-  width = 1200, height = 2400
+  width = 900, height = 1200
 )
 
 # ---- Include the image in the output ----
