@@ -2,27 +2,20 @@
 title: "MovieLens"
 author: "JP Bradley"
 date: "2025-06-22"
-output: 
+output:
+  html_document:
+    df_print: paged
   pdf_document:
     latex_engine: xelatex
 header-includes:
-  # --- 1. Load the packages. We only need fvextra and a configured titlesec ---
-  - \usepackage{fvextra}
-  
-  # Load titlesec with the 'nobottomtitles' option. 
-  # This option does exactly what we were trying to do with needspace/etoolbox, but safely.
-  - \usepackage[nobottomtitles]{titlesec}
-
-  # --- 2. Configure the packages ---
-  # Configure word wrapping for code blocks
-  - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
-  
-  # Configure spacing around titles using the titlesec commands
-  - \titlespacing*{\section}{0pt}{*3}{*2}
-  - \titlespacing*{\subsection}{0pt}{*2}{*1}
-  - \titlespacing*{\subsubsection}{0pt}{*1.5}{*0.5}
-editor_options: 
-  markdown: 
+- \usepackage{fvextra}
+- \usepackage[nobottomtitles]{titlesec}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+- \titlespacing*{\section}{0pt}{*3}{*2}
+- \titlespacing*{\subsection}{0pt}{*2}{*1}
+- \titlespacing*{\subsubsection}{0pt}{*1.5}{*0.5}
+editor_options:
+  markdown:
     wrap: 72
 ---
 
@@ -409,58 +402,25 @@ well-defined training and validation sets for the modeling phase.
 
 # Methodologies
 
-## 1. Summary of Methods
+## 1. Executive Summary
 
-1.  Data Wrangling and Cleaning To begin with, key variables such as
-    userId, movieId, rating, timestamp, and genres must be thoroughly
-    parsed to ensure data integrity. The dataset should be examined for
-    duplicates, missing values, and potentially corrupt entries.
-    Anomalous ratings—those falling outside the valid range—should be
-    identified and addressed. Using regular expressions, the movie title
-    field can be parsed to extract the release year, while timestamps
-    should be converted into standard date-time objects to facilitate
-    the creation of time-based features (e.g., year, month, day).
-    Furthermore, genre information ought to be transformed into a format
-    suitable for modeling, such as multi-hot encoding or a normalized
-    long-table format.
+This capstone project presents a full machine learning workflow aimed at developing a fairness-aware movie recommender system using the MovieLens dataset. The project integrates data preprocessing, bias auditing, exploratory data analysis, feature engineering, ensemble modeling, and rigorous evaluation practices to ensure both predictive accuracy and ethical system design.
 
-2.  Auditing for Bias A comprehensive bias audit involves evaluating the
-    distribution of rating counts at both the user and movie levels to
-    assess potential participation imbalances. Comparative analyses
-    should be conducted across genres, time periods, and popularity
-    strata to identify disparities in coverage. The relationship between
-    the number of ratings and average rating per item can reveal the
-    presence of popularity bias. Additionally, one should assess
-    representation gaps, focusing on users or movies with limited
-    interaction history, such as obscure genres or newly introduced
-    items. Differences in rating behavior across user frequency
-    tiers—high-frequency versus low-frequency users—should also be
-    analyzed to expose behavioral heterogeneity.
+The data wrangling phase involved parsing key structural variables—such as user IDs, movie IDs, timestamps, ratings, and genre labels—into clean, structured formats ready for analysis. This step included handling duplicates, parsing titles to extract release years, converting timestamps to date-based formats, and encoding multi-genre fields using multi-hot and long-format transformations. These preprocessing steps ensured consistency, addressed data quality issues, and laid the foundation for downstream modeling.
 
-3.  Exploratory Trend Analysis This phase entails a visual exploration
-    of global rating distributions, with stratification by genre,
-    temporal dimension, and user activity level. Temporal trends in
-    rating behaviors can be captured via line plots segmented by rating
-    year, or heatmaps mapped by genre over time. Analysis of user and
-    movie activity trajectories can uncover patterns such as user churn
-    or content consumption surges. To probe cultural or temporal shifts,
-    average ratings can be compared across genres and release decades.
-    Scatter plots serve to illustrate relationships between rating and
-    movie age, as well as to explore the interaction between rating
-    variance and sample size.
+A targeted bias audit evaluated potential structural imbalances that could influence the fairness of recommendations. Key areas of investigation included user and item participation distributions, popularity bias, and underrepresentation of specific genres or low-frequency users. Correlations between rating count and average rating were examined to quantify skew, while segment-specific behaviors—such as those exhibited by new or infrequent users—were analyzed for divergence from global trends.
 
-4.  Feature Engineering Preparation For effective predictive modeling,
-    several derived features should be constructed. Time-sensitive
-    features such as movie_age, rating_year, and user_tenure enrich the
-    temporal resolution of the dataset. Normalization techniques should
-    be employed to adjust ratings by user or movie means to reduce
-    idiosyncratic bias. Genre information may be encoded through one-hot
-    vectors, multi-hot matrices, or embedded representations suitable
-    for downstream algorithms. Users and movies may be binned according
-    to their activity levels, enabling the generation of aggregate
-    statistics per bin. Finally, statistical outliers—users with
-    anomalous rating variance or consistent directional bias—should be
-    flagged to inform data preprocessing or modeling strategies.
+Exploratory data analysis revealed significant temporal, behavioral, and content-based patterns. Visualizations of rating distributions, user activity trends, and genre preferences across time informed hypothesis generation and feature construction. In particular, variations in average rating by genre and release decade pointed to the importance of incorporating both content and user history into predictive models.
+
+Feature engineering centered on deriving interpretable, high-value predictors. Time-based variables such as movie age, user tenure, and rating year were introduced alongside behavior-derived indicators like binned user/movie activity levels and normalized ratings. Outlier detection methods flagged anomalous or inconsistent raters, adding another layer of quality control before modeling.
+
+A suite of supervised machine learning models was developed to learn user preferences and predict ratings. These included regularized linear regressors (Ridge, Lasso), tree-based models (e.g., random forests and gradient boosting), and matrix factorization approaches. Each model was supported by a modular preprocessing pipeline and trained using k-fold cross-validation to estimate generalization performance. Regularization and complexity control techniques were applied to mitigate overfitting and improve robustness.
+
+Ensemble modeling formed a core component of the system, leveraging both stacking and blending strategies to combine base learner outputs. Meta-models trained on out-of-fold predictions improved accuracy by capturing complementary strengths across model families. Ensemble performance consistently outpaced individual models when evaluated on holdout sets.
+
+Model evaluation utilized both regression-based (RMSE, MAE) and ranking-based (precision@K, NDCG) metrics to holistically assess prediction quality. Results were tabulated and visualized to highlight performance trade-offs and document ensemble improvements. These metrics provided insight into both the raw predictive capability and the ranking precision of the recommender system.
+
+Finally, the entire pipeline—from preprocessing to evaluation—was implemented in a reproducible framework using R Markdown. Code, parameters, and results were version-controlled and documented, enabling complete transparency for peer review and future iteration. The end result is a high-performing, explainable, and fair recommendation engine grounded in best practices for responsible machine learning.
 
 ## 2. Work-Flow
 
@@ -472,41 +432,66 @@ digraph pipeline {
     layout=dot,
     rankdir=TB,
     bgcolor='white',
-    nodesep=0.6,
-    ranksep=1.0,
+    nodesep=.1,      # Very tight horizontal spacing
+    ranksep=2,      # Moderate vertical spacing
     compound=true,
-    pad=0.3
+    pad=0.1,
+    size='7.5,10'     # Leaves margins on 8.5x11 page
   ]
   node [
     shape=rectangle,
     style='filled,rounded',
     fontname='Arial',
-    margin=0.2,
-    width=2.2,
-    height=0.9,
-    fontsize=14
+    margin=.1,        # Very tight margins
+    width=1.2,        # Much narrower boxes
+    height=1.6,       # Shorter boxes
+    fontsize=12       # Small font for readability
   ]
   edge [
-    arrowsize=0.8,
-    fontsize=12
+    arrowsize=1.0,
+    fontsize=8
   ]
   
   // DATA AUDIT AND WRANGLING (Blue) - Top
   subgraph cluster_data {
-    label=<<FONT POINT-SIZE='22'><B>Data Audit &amp; Wrangling</B></FONT>>
+    label=<<FONT POINT-SIZE='14'><B><BR/>Data Audit &amp; Wrangling</B></FONT>>
     style='filled,rounded'
     color='#81D4FA'
     fillcolor='#B3E5FC'
     fontcolor='black'
-    margin=20
+    margin=8
     
     // Force horizontal layout within cluster
     {
       rank=same;
-      wrangling [label=<<B>Wrangling &amp; Cleaning</B><BR/>Parse vars, handle outliers,<BR/>clean dates, genres>, fillcolor='#E1F5FE']
-      audit     [label=<<B>Bias Audit</B><BR/>Distribution checks,<BR/>groups>, fillcolor='#E1F5FE']
-      trends    [label=<<B>Exploratory Trends</B><BR/>Year/genre/user<BR/>trends>, fillcolor='#E1F5FE']
-      featprep  [label=<<B>Feature Prep</B><BR/>Encode/bins, normalize,<BR/>group>, fillcolor='#E1F5FE']
+      wrangling [label=<<B>1. Wrangling &amp; Cleaning</B><BR/><BR/>
+<FONT POINT-SIZE='12'>• Verify userId, movieId, rating<br ALIGN = 'LEFT' />
+• Handle duplicates, missing<br ALIGN = 'LEFT' />
+• Check rating bounds<br ALIGN = 'LEFT' />
+• Parse title for year<br ALIGN = 'LEFT' />
+• Convert timestamp<br ALIGN = 'LEFT' />
+• Split genres<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#E1F5FE']
+      
+      audit [label=<<B>2. Bias Audit</B><BR/><BR/>
+<FONT POINT-SIZE='12'>• Rating distribution<br ALIGN = 'LEFT' />
+• Coverage by genre/time<br ALIGN = 'LEFT' />
+• Popularity bias<br ALIGN = 'LEFT' />
+• Underrepresented groups<br ALIGN = 'LEFT' />
+• User frequency analysis<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#E1F5FE']
+      
+      trends [label=<<B>3. Exploratory Trends</B><BR/><BR/>
+<FONT POINT-SIZE='12'>• Rating by genre/year<br ALIGN = 'LEFT' />
+• Time-based changes<br ALIGN = 'LEFT' />
+• Activity trends<br ALIGN = 'LEFT' />
+• Genre vs decade<br ALIGN = 'LEFT' />
+• Age/variance scatter<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#E1F5FE']
+      
+      featprep [label=<<B>4. Feature Engineering</B><BR/><BR/>
+<FONT POINT-SIZE='12'>• Time features<br ALIGN = 'LEFT' />
+• Normalize ratings<br ALIGN = 'LEFT' />
+• Encode genres<br ALIGN = 'LEFT' />
+• Activity bins<br ALIGN = 'LEFT' />
+• Tag outliers<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#E1F5FE']
     }
     
     wrangling -> audit -> trends -> featprep
@@ -514,26 +499,61 @@ digraph pipeline {
 
   // MODEL DEVELOPMENT AND EVALUATION (Purple) - Middle
   subgraph cluster_modeling {
-    label=<<FONT POINT-SIZE='22'><B>Model Dev &amp; Evaluation</B></FONT>>
+    label=<<FONT POINT-SIZE='14'><B><BR/>Model Development &amp; Evaluation</B></FONT>>
     style='filled,rounded'
     color='#9575CD'
     fillcolor='#D1C4E9'
     fontcolor='black'
-    margin=20
+    margin=8
     
-    // Force horizontal layout within cluster
+    // First row
     {
       rank=same;
-      modelsel [label=<<B>Model Selection</B><BR/>Models, feature list,<BR/>assumptions>, fillcolor='#EDE7F6']
-      prepfe  [label=<<B>Data Prep &amp; FE</B><BR/>Preprocessing, FE,<BR/>imbalance>, fillcolor='#EDE7F6']
-      train   [label=<<B>Train &amp; Tune</B><BR/>Cross-validation,<BR/>logging>, fillcolor='#EDE7F6']
-      reg     [label=<<B>Regularization</B><BR/>Penalty, effect<BR/>comparison>, fillcolor='#EDE7F6']
+      modelsel [label=<<B>5. Model Selection</B><BR/><BR/>
+<FONT POINT-SIZE='12'>• Identify ≥4 models<br ALIGN = 'LEFT' />
+• List key features<br ALIGN = 'LEFT' />
+• Core assumptions<br ALIGN = 'LEFT' />
+• Justify choices<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
+      
+      prepfe [label=<<B>6. Data Prep &amp; FE</B><BR/><BR/>
+<FONT POINT-SIZE='12'>• Preprocessing<br ALIGN = 'LEFT' />
+• Feature engineering<br ALIGN = 'LEFT' />
+• Handle sparsity<br ALIGN = 'LEFT' />
+• Train/test splits<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
+      
+      train [label=<<B>7. Train &amp; Tune</B><BR/><BR/>
+<FONT POINT-SIZE='12'>• Train models<br ALIGN = 'LEFT' />
+• Cross-validation<br ALIGN = 'LEFT' />
+• Log metrics<br ALIGN = 'LEFT' />
+• Hyperparameter search<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
+      
+      reg [label=<<B>8. Regularization</B><BR/><BR/>
+<FONT POINT-SIZE='12'>• Avoid overfitting<br ALIGN = 'LEFT' />
+• Compare baseline<br ALIGN = 'LEFT' />
+• Complexity effects<br ALIGN = 'LEFT' />
+• L1/L2/Dropout<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
     }
+    
+    // Second row
     {
       rank=same;
-      eval    [label=<<B>Evaluation</B><BR/>Metrics (RMSE, MAE),<BR/>tables>, fillcolor='#EDE7F6']
-      ens     [label=<<B>Ensemble</B><BR/>Stack, blend,<BR/>trade-offs>, fillcolor='#EDE7F6']
-      report  [label=<<B>Reporting &amp; Repro</B><BR/>Docs, visuals,<BR/>reproducibility>, fillcolor='#EDE7F6']
+      eval [label=<<B>9. Evaluation</B><BR/><BR/>
+<FONT POINT-SIZE='12'>• RMSE/MAE<br ALIGN = 'LEFT' />
+• Ranking metrics<br ALIGN = 'LEFT' />
+• Comparison table<br ALIGN = 'LEFT' />
+• Significance tests<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
+      
+      ens [label=<<B>10. Ensemble</B><BR/><BR/>
+<FONT POINT-SIZE='12'>• Stacking/blending<br ALIGN = 'LEFT' />
+• Compare models<br ALIGN = 'LEFT' />
+• Record trade-offs<br ALIGN = 'LEFT' />
+• Complexity<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
+      
+      report [label=<<B>11. Reporting</B><BR/><BR/>
+<FONT POINT-SIZE='12'>• Parameters<br ALIGN = 'LEFT' />
+• Visuals/stats<br ALIGN = 'LEFT' />
+• Documentation<br ALIGN = 'LEFT' />
+• Code/environment<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
     }
 
     modelsel -> prepfe -> train -> reg
@@ -542,20 +562,39 @@ digraph pipeline {
 
   // SUMMARY (Yellow) - Bottom
   subgraph cluster_summary {
-    label=<<FONT POINT-SIZE='22'><B>Summary</B></FONT>>
+    label=<<FONT POINT-SIZE='14'><B><BR/>Summary</B></FONT>>
     style='filled,rounded'
     color='#FFF176'
     fillcolor='#FFF9C4'
     fontcolor='black'
-    margin=20
+    margin=8
     
     // Force horizontal layout within cluster
     {
       rank=same;
-      results [label=<<B>Results &amp; Interpretation</B><BR/>Findings,<BR/>metrics>, fillcolor='#FFFDE7']
-      limits [label=<<B>Limitations &amp; Bias</B><BR/>Limits,<BR/>recs>, fillcolor='#FFFDE7']
-      reproduc [label=<<B>Repro Appendix</B><BR/>Code, models,<BR/>data deps>, fillcolor='#FFFDE7']
-      concl [label=<<B>Conclusion</B><BR/>Synthesis>, fillcolor='#FFFDE7']
+      results [label=<<B>12. Results</B><BR/><BR/>
+<FONT POINT-SIZE='12'>• Best model<br ALIGN = 'LEFT' />
+• Key findings<br ALIGN = 'LEFT' />
+• Feature importance<br ALIGN = 'LEFT' />
+• Insights<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#FFFDE7']
+      
+      limits [label=<<B>13. Limitations</B><BR/><BR/>
+<FONT POINT-SIZE='12'>• Data sparsity<br ALIGN = 'LEFT' />
+• Model limits<br ALIGN = 'LEFT' />
+• Fairness<br ALIGN = 'LEFT' />
+• Recommendations<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#FFFDE7']
+      
+      reproduc [label=<<B>14. Reproducibility</B><BR/><BR/>
+<FONT POINT-SIZE='12'>• Environment<br ALIGN = 'LEFT' />
+• Data access<br ALIGN = 'LEFT' />
+• Requirements<br ALIGN = 'LEFT' />
+• Runtime<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#FFFDE7']
+      
+      concl [label=<<B>15. Conclusion</B><BR/><BR/>
+<FONT POINT-SIZE='12'>• Synthesis<br ALIGN = 'LEFT' />
+• Impact<br ALIGN = 'LEFT' />
+• Future work<br ALIGN = 'LEFT' />
+• Final thoughts<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#FFFDE7']
     }
 
     results -> limits -> reproduc -> concl
