@@ -517,48 +517,58 @@ predictive modeling pipelines. \newpage
 
 ## 2. Work-Flow
 
-```{r workflow, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8.5, fig.height=11, dpi=300}
+```{r workflow, echo=FALSE, message=FALSE, warning=FALSE, out.width="100%", fig.cap="Project Workflow", fig.asp=1.3}
 library(DiagrammeR)
+
+# We removed the `size` attribute from the `graph` block below.
+# This allows the diagram to scale naturally based on its content.
+# The R chunk options `out.width` and `fig.asp` will now correctly
+# control the final size in the document.
+
 grViz("
 digraph pipeline {
+  # --- GRAPH-LEVEL ATTRIBUTES ---
   graph [
     layout=dot,
     rankdir=TB,
     bgcolor='white',
-    nodesep=.15,      # Slightly more spacing
-    ranksep=2.5,      # More vertical spacing
+    nodesep=0.5,      # Increased space between nodes on the same rank
+    ranksep=3,        # Increased vertical space between rows
     compound=true,
-    pad=0.2,
-    size='12,16'      # Much larger size
+    pad=0.5           # Padding around the entire graph
+    # CRITICAL: The 'size' attribute has been REMOVED.
   ]
+  
+  # --- NODE-LEVEL ATTRIBUTES ---
   node [
     shape=rectangle,
     style='filled,rounded',
     fontname='Arial',
-    margin=.15,       # Slightly larger margins
-    width=1.8,        # Wider boxes
-    height=2.2,       # Taller boxes
-    fontsize=16       # Larger base font
-  ]
-  edge [
-    arrowsize=1.0,
-    fontsize=8
+    margin=0.25,      # More internal padding
+    width=3.0,        # Wider boxes
+    height=3.0,       # Taller boxes
+    fontsize=20       # Larger base font for node titles
   ]
   
-  // DATA AUDIT AND WRANGLING (Blue) - Top
+  # --- EDGE-LEVEL ATTRIBUTES ---
+  edge [
+    arrowsize=1.5,
+    minlen=2          # Encourage longer edges
+  ]
+  
+  # DATA AUDIT AND WRANGLING (Blue) - Top
   subgraph cluster_data {
-    label=<<FONT POINT-SIZE='18'><B><BR/>Data Audit &amp; Wrangling</B></FONT>>
+    label=<<FONT POINT-SIZE='24'><B><BR/>Data Audit &amp; Wrangling</B></FONT>>
     style='filled,rounded'
     color='#81D4FA'
     fillcolor='#B3E5FC'
     fontcolor='black'
-    margin=8
+    margin=20
     
-    // Force horizontal layout within cluster
     {
       rank=same;
       wrangling [label=<<B>1. Wrangling &amp; Cleaning</B><BR/><BR/>
-<FONT POINT-SIZE='15'>• Verify userId, movieId, rating<br ALIGN = 'LEFT' />
+<FONT POINT-SIZE='18'>• Verify userId, movieId, rating<br ALIGN = 'LEFT' />
 • Handle duplicates, missing<br ALIGN = 'LEFT' />
 • Check rating bounds<br ALIGN = 'LEFT' />
 • Parse title for year<br ALIGN = 'LEFT' />
@@ -566,21 +576,21 @@ digraph pipeline {
 • Split genres<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#E1F5FE']
       
       audit [label=<<B>2. Bias Audit</B><BR/><BR/>
-<FONT POINT-SIZE='15'>• Rating distribution<br ALIGN = 'LEFT' />
+<FONT POINT-SIZE='18'>• Rating distribution<br ALIGN = 'LEFT' />
 • Coverage by genre/time<br ALIGN = 'LEFT' />
 • Popularity bias<br ALIGN = 'LEFT' />
 • Underrepresented groups<br ALIGN = 'LEFT' />
 • User frequency analysis<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#E1F5FE']
       
       trends [label=<<B>3. Exploratory Trends</B><BR/><BR/>
-<FONT POINT-SIZE='15'>• Rating by genre/year<br ALIGN = 'LEFT' />
+<FONT POINT-SIZE='18'>• Rating by genre/year<br ALIGN = 'LEFT' />
 • Time-based changes<br ALIGN = 'LEFT' />
 • Activity trends<br ALIGN = 'LEFT' />
 • Genre vs decade<br ALIGN = 'LEFT' />
 • Age/variance scatter<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#E1F5FE']
       
       featprep [label=<<B>4. Feature Engineering</B><BR/><BR/>
-<FONT POINT-SIZE='15'>• Time features<br ALIGN = 'LEFT' />
+<FONT POINT-SIZE='18'>• Time features<br ALIGN = 'LEFT' />
 • Normalize ratings<br ALIGN = 'LEFT' />
 • Encode genres<br ALIGN = 'LEFT' />
 • Activity bins<br ALIGN = 'LEFT' />
@@ -590,60 +600,58 @@ digraph pipeline {
     wrangling -> audit -> trends -> featprep
   }
 
-  // MODEL DEVELOPMENT AND EVALUATION (Purple) - Middle
+  # MODEL DEVELOPMENT AND EVALUATION (Purple) - Middle
   subgraph cluster_modeling {
-    label=<<FONT POINT-SIZE='18'><B><BR/>Model Development &amp; Evaluation</B></FONT>>
+    label=<<FONT POINT-SIZE='24'><B><BR/>Model Development &amp; Evaluation</B></FONT>>
     style='filled,rounded'
     color='#9575CD'
     fillcolor='#D1C4E9'
     fontcolor='black'
-    margin=8
+    margin=20
     
-    // First row
     {
       rank=same;
       modelsel [label=<<B>5. Model Selection</B><BR/><BR/>
-<FONT POINT-SIZE='15'>• Identify ≥4 models<br ALIGN = 'LEFT' />
+<FONT POINT-SIZE='18'>• Identify ≥4 models<br ALIGN = 'LEFT' />
 • List key features<br ALIGN = 'LEFT' />
 • Core assumptions<br ALIGN = 'LEFT' />
 • Justify choices<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
       
       prepfe [label=<<B>6. Data Prep &amp; FE</B><BR/><BR/>
-<FONT POINT-SIZE='15'>• Preprocessing<br ALIGN = 'LEFT' />
+<FONT POINT-SIZE='18'>• Preprocessing<br ALIGN = 'LEFT' />
 • Feature engineering<br ALIGN = 'LEFT' />
 • Handle sparsity<br ALIGN = 'LEFT' />
 • Train/test splits<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
       
       train [label=<<B>7. Train &amp; Tune</B><BR/><BR/>
-<FONT POINT-SIZE='15'>• Train models<br ALIGN = 'LEFT' />
+<FONT POINT-SIZE='18'>• Train models<br ALIGN = 'LEFT' />
 • Cross-validation<br ALIGN = 'LEFT' />
 • Log metrics<br ALIGN = 'LEFT' />
 • Hyperparameter search<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
       
       reg [label=<<B>8. Regularization</B><BR/><BR/>
-<FONT POINT-SIZE='15'>• Avoid overfitting<br ALIGN = 'LEFT' />
+<FONT POINT-SIZE='18'>• Avoid overfitting<br ALIGN = 'LEFT' />
 • Compare baseline<br ALIGN = 'LEFT' />
 • Complexity effects<br ALIGN = 'LEFT' />
 • L1/L2/Dropout<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
     }
     
-    // Second row
     {
       rank=same;
       eval [label=<<B>9. Evaluation</B><BR/><BR/>
-<FONT POINT-SIZE='15'>• RMSE/MAE<br ALIGN = 'LEFT' />
+<FONT POINT-SIZE='18'>• RMSE/MAE<br ALIGN = 'LEFT' />
 • Ranking metrics<br ALIGN = 'LEFT' />
 • Comparison table<br ALIGN = 'LEFT' />
 • Significance tests<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
       
       ens [label=<<B>10. Ensemble</B><BR/><BR/>
-<FONT POINT-SIZE='15'>• Stacking/blending<br ALIGN = 'LEFT' />
+<FONT POINT-SIZE='18'>• Stacking/blending<br ALIGN = 'LEFT' />
 • Compare models<br ALIGN = 'LEFT' />
 • Record trade-offs<br ALIGN = 'LEFT' />
 • Complexity<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
       
       report [label=<<B>11. Reporting</B><BR/><BR/>
-<FONT POINT-SIZE='15'>• Parameters<br ALIGN = 'LEFT' />
+<FONT POINT-SIZE='18'>• Parameters<br ALIGN = 'LEFT' />
 • Visuals/stats<br ALIGN = 'LEFT' />
 • Documentation<br ALIGN = 'LEFT' />
 • Code/environment<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#EDE7F6']
@@ -653,38 +661,37 @@ digraph pipeline {
     reg -> eval -> ens -> report
   }
 
-  // SUMMARY (Yellow) - Bottom
+  # SUMMARY (Yellow) - Bottom
   subgraph cluster_summary {
-    label=<<FONT POINT-SIZE='18'><B><BR/>Summary</B></FONT>>
+    label=<<FONT POINT-SIZE='24'><B><BR/>Summary</B></FONT>>
     style='filled,rounded'
     color='#FFF176'
     fillcolor='#FFF9C4'
     fontcolor='black'
-    margin=8
+    margin=20
     
-    // Force horizontal layout within cluster
     {
       rank=same;
       results [label=<<B>12. Results</B><BR/><BR/>
-<FONT POINT-SIZE='15'>• Best model<br ALIGN = 'LEFT' />
+<FONT POINT-SIZE='18'>• Best model<br ALIGN = 'LEFT' />
 • Key findings<br ALIGN = 'LEFT' />
 • Feature importance<br ALIGN = 'LEFT' />
 • Insights<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#FFFDE7']
       
       limits [label=<<B>13. Limitations</B><BR/><BR/>
-<FONT POINT-SIZE='15'>• Data sparsity<br ALIGN = 'LEFT' />
+<FONT POINT-SIZE='18'>• Data sparsity<br ALIGN = 'LEFT' />
 • Model limits<br ALIGN = 'LEFT' />
 • Fairness<br ALIGN = 'LEFT' />
 • Recommendations<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#FFFDE7']
       
       reproduc [label=<<B>14. Reproducibility</B><BR/><BR/>
-<FONT POINT-SIZE='15'>• Environment<br ALIGN = 'LEFT' />
+<FONT POINT-SIZE='18'>• Environment<br ALIGN = 'LEFT' />
 • Data access<br ALIGN = 'LEFT' />
 • Requirements<br ALIGN = 'LEFT' />
 • Runtime<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#FFFDE7']
       
       concl [label=<<B>15. Conclusion</B><BR/><BR/>
-<FONT POINT-SIZE='15'>• Synthesis<br ALIGN = 'LEFT' />
+<FONT POINT-SIZE='18'>• Synthesis<br ALIGN = 'LEFT' />
 • Impact<br ALIGN = 'LEFT' />
 • Future work<br ALIGN = 'LEFT' />
 • Final thoughts<br ALIGN = 'LEFT' /></FONT>>, fillcolor='#FFFDE7']
@@ -693,7 +700,7 @@ digraph pipeline {
     results -> limits -> reproduc -> concl
   }
 
-  // Cross-cluster links
+  # Cross-cluster links
   featprep -> modelsel [style=dashed, color='#555', ltail=cluster_data, lhead=cluster_modeling]
   report -> results [style=dashed, color='darkgreen', ltail=cluster_modeling, lhead=cluster_summary]
 }
