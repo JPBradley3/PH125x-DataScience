@@ -517,7 +517,7 @@ predictive modeling pipelines. \newpage
 
 ## 2. Work-Flow
 
-```{r workflow, echo=FALSE, message=FALSE, warning=FALSE, fig.width=11, fig.height=14, dpi=300, out.width="100%", out.height="100%"}
+```{r workflow, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8.5, fig.height=11, dpi=300, out.width="8.5in", out.height="11in"}
 library(DiagrammeR)
 grViz("
 digraph pipeline {
