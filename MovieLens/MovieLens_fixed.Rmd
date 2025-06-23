@@ -5,6 +5,7 @@ date: "2025-06-22"
 output:
   pdf_document:
     latex_engine: xelatex
+  always_allow_html: true
   html_document:
     df_print: paged
 header-includes:
