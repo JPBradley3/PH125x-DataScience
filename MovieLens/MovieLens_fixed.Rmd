@@ -7,7 +7,6 @@ output:
     latex_engine: xelatex
   html_document:
     df_print: paged
-always_allow_html: true
 header-includes:
 - \usepackage{fvextra}
 - \usepackage[nobottomtitles]{titlesec}
@@ -405,50 +404,27 @@ well-defined training and validation sets for the modeling phase.
 
 ## 1. Executive Summary
 
-**1. Goal**
+This capstone project presents a full machine learning workflow aimed at developing a fairness-aware movie recommender system using the MovieLens dataset. The project integrates data preprocessing, bias auditing, exploratory data analysis, feature engineering, ensemble modeling, and rigorous evaluation practices to ensure both predictive accuracy and ethical system design.
 
-The primary goal of this capstone project is to develop a machine learning–based movie recommendation system that balances predictive accuracy with fairness and reproducibility. By leveraging the MovieLens dataset, the project aims to evaluate rating behavior across user, item, and temporal dimensions, mitigate bias through informed feature design and model auditing, and deliver transparent, replicable results. The system integrates ensemble modeling techniques to maximize performance while maintaining methodological integrity and ethical alignment.
+The data wrangling phase involved parsing key structural variables—such as user IDs, movie IDs, timestamps, ratings, and genre labels—into clean, structured formats ready for analysis. This step included handling duplicates, parsing titles to extract release years, converting timestamps to date-based formats, and encoding multi-genre fields using multi-hot and long-format transformations. These preprocessing steps ensured consistency, addressed data quality issues, and laid the foundation for downstream modeling.
 
-**2. Data Preprocessing**
+A targeted bias audit evaluated potential structural imbalances that could influence the fairness of recommendations. Key areas of investigation included user and item participation distributions, popularity bias, and underrepresentation of specific genres or low-frequency users. Correlations between rating count and average rating were examined to quantify skew, while segment-specific behaviors—such as those exhibited by new or infrequent users—were analyzed for divergence from global trends.
 
-The pipeline begins with extensive data cleaning and transformation. Key variables such as userId, movieId, rating, timestamp, and genres were parsed and validated. Movie titles were processed using regular expressions to extract release years, and timestamps were converted into interpretable date-time features. Multi-genre labels were encoded using multi-hot representations to allow genre-level modeling. This phase also involved handling missing values, removing duplicates, and addressing outliers or abnormal records.
+Exploratory data analysis revealed significant temporal, behavioral, and content-based patterns. Visualizations of rating distributions, user activity trends, and genre preferences across time informed hypothesis generation and feature construction. In particular, variations in average rating by genre and release decade pointed to the importance of incorporating both content and user history into predictive models.
 
-**3. Bias Auditing**
+Feature engineering centered on deriving interpretable, high-value predictors. Time-based variables such as movie age, user tenure, and rating year were introduced alongside behavior-derived indicators like binned user/movie activity levels and normalized ratings. Outlier detection methods flagged anomalous or inconsistent raters, adding another layer of quality control before modeling.
 
-A structured bias audit was conducted to evaluate representational fairness in the data. Participation skew was analyzed across users and movies to highlight long-tail effects. Correlations between average ratings and item popularity were assessed to detect popularity bias. Genre and temporal coverage were evaluated to identify underrepresented segments, and differences between high- and low-frequency users were explored to inform equitable model behavior.
+A suite of supervised machine learning models was developed to learn user preferences and predict ratings. These included regularized linear regressors (Ridge, Lasso), tree-based models (e.g., random forests and gradient boosting), and matrix factorization approaches. Each model was supported by a modular preprocessing pipeline and trained using k-fold cross-validation to estimate generalization performance. Regularization and complexity control techniques were applied to mitigate overfitting and improve robustness.
 
-**4. Exploratory Data Analysis**
+Ensemble modeling formed a core component of the system, leveraging both stacking and blending strategies to combine base learner outputs. Meta-models trained on out-of-fold predictions improved accuracy by capturing complementary strengths across model families. Ensemble performance consistently outpaced individual models when evaluated on holdout sets.
 
-Exploratory analysis uncovered rating trends along temporal, behavioral, and genre dimensions. Visualizations, including histograms, line plots, and heatmaps, revealed changes in rating behavior over time, shifts in genre popularity, and fluctuations in user activity. These insights guided feature selection and model assumptions, especially in detecting nonstationary effects and population drift.
+Model evaluation utilized both regression-based (RMSE, MAE) and ranking-based (precision@K, NDCG) metrics to holistically assess prediction quality. Results were tabulated and visualized to highlight performance trade-offs and document ensemble improvements. These metrics provided insight into both the raw predictive capability and the ranking precision of the recommender system.
 
-**5. Feature Engineering**
-
-Domain-informed features were engineered to support model expressiveness. Temporal indicators such as movie_age, user_tenure, and rating_year captured lifecycle effects. Ratings were normalized at the user and movie levels to reduce individual biases. Users and movies were binned by activity and enriched with group-level statistics. Outlier detection based on rating variance and monotonic behavior flagged anomalous raters that could distort learning.
-
-**6. Model Selection and Tuning**
-
-A diverse set of supervised learning algorithms was evaluated, including regularized linear models (e.g., Ridge, Lasso), matrix factorization techniques, and ensemble-friendly tree-based models such as Random Forest and XGBoost. Each model was supported by a modular preprocessing pipeline and hyperparameter tuning via cross-validation. Overfitting was mitigated using regularization and complexity constraints.
-
-**7. Ensemble Learning**
-
-Ensemble techniques were central to the final architecture. Stacked generalization combined base model predictions using a meta-learner trained on out-of-fold outputs. Blending strategies further stabilized predictions by averaging strengths of distinct algorithms. These ensembles improved both predictive accuracy and robustness across evaluation sets by capturing diverse decision boundaries and reducing individual model variance.
-
-**8. Evaluation and Metrics**
-
-Model performance was measured using pointwise regression metrics such as RMSE and MAE, and ranking-oriented metrics like precision@K and NDCG to assess recommendation relevance. Evaluation was conducted on a held-out test set using consistent splits. Results were presented in comparative tables and visual charts, demonstrating measurable gains from ensemble approaches over individual models.
-
-**9. Reproducibility and Documentation**
-
-All modeling decisions, parameters, and transformations were documented in a reproducible pipeline built with R Markdown and version control. The project adheres to the principles of reproducible research by embedding code and results in a literate programming workflow. Each module—from preprocessing to modeling and evaluation—is portable, interpretable, and ready for peer replication.
-
-**10. Results**
-
-The final ensemble model demonstrated improved predictive performance across all metrics compared to individual learners. RMSE and MAE scores were consistently lower for ensemble configurations, and ranking performance—particularly precision@K—showed enhanced recommendation quality. Qualitative analysis confirmed better generalization to underrepresented user segments and improved stability across genres and time periods. These outcomes validate the effectiveness of the bias-aware, ensemble-centered strategy and highlight the importance of integrating fairness considerations into predictive modeling pipelines.
-
+Finally, the entire pipeline—from preprocessing to evaluation—was implemented in a reproducible framework using R Markdown. Code, parameters, and results were version-controlled and documented, enabling complete transparency for peer review and future iteration. The end result is a high-performing, explainable, and fair recommendation engine grounded in best practices for responsible machine learning.
 
 ## 2. Work-Flow
 
-```{r workflow, echo=FALSE, message=FALSE, warning=FALSE}
+```{r workflow, echo=FALSE, message=FALSE, warning=FALSE, screenshot.force=FALSE}
 library(DiagrammeR)
 grViz("
 digraph pipeline {
