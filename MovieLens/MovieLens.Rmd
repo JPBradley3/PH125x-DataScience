@@ -98,29 +98,23 @@ the final hold-out set.
 #### 1.1.2 Installing Required Packages
 
 ```{r, install_packages, message=FALSE, warning=FALSE}
-# Check if the 'tidyverse' package is installed; if not, install it from CRAN
-if (!require(tidyverse)) 
-    install.packages("tidyverse", repos = "http://cran.us.r-project.org")
+# List of required packages for the entire workflow
+required_packages <- c(
+  "tidyverse",    # Data wrangling, plotting, stringr, readr, etc.
+  "caret",        # Machine learning workflow
+  "knitr",        # Dynamic report generation
+  "skimr",        # Data summaries
+  "systemfonts",  # Font handling
+  "kableExtra",   # Table formatting
+  "DiagrammeR"    # Flowcharts and diagrams
+)
 
-# Check if the 'caret' package is installed; if not, install it from CRAN
-if (!require(caret)) 
-    install.packages("caret", repos = "http://cran.us.r-project.org")
-
-# Check if the 'knitr' package is installed; if not, install it from CRAN
-if(!require(knitr)) 
-    install.packages("knitr", repos = "http://cran.us.r-project.org")
-
-# Check if the 'skimr' package is installed; if not, install it from CRAN
-if(!require(skimr)) 
-    install.packages("skimr", repos = "http://cran.us.r-project.org")
-
-# Check if the 'systemfonts' package is installed; if not, install it from CRAN
-if(!require(systemfonts)) 
-    install.packages("systemfonts", repos = "http://cran.us.r-project.org")
-
-# Check if the 'kableExtra' package is installed; if not, install it from CRAN
-if(!require(kableExtra)) 
-    install.packages("kableExtra", repos = "http://cran.us.r-project.org")
+# Install any missing packages
+for(pkg in required_packages) {
+  if (!require(pkg, character.only = TRUE)) {
+    install.packages(pkg, repos = "http://cran.us.r-project.org")
+  }
+}
 ```
 
 To ensure a fully reproducible and self-contained analysis, the script
@@ -136,23 +130,14 @@ without requiring manual pre-installation of these essential packages.
 #### 1.1.3 Loading Required Packages
 
 ```{r, setup, message=FALSE, warning=FALSE}
-# Load tidyverse for data wrangling, visualization, and functional programming workflows
-library(tidyverse)
-
-# Load caret to support end-to-end machine learning pipelines including preprocessing, model tuning, and validation
+# Load all required libraries
+library(tidyverse)    # Includes dplyr, ggplot2, stringr, readr, etc.
 library(caret)
-
-# Load knitr for dynamic report generation and integration of R output in reproducible research documents
 library(knitr)
-
-# Load skimr to produce compact, well-formatted summaries of data frames for exploratory analysis and diagnostics
 library(skimr)
-
-# Load systemfonts to prevent font from conflicting
 library(systemfonts)
-
-# Load kableExtra to produce well-formatted tables for exploratory analysis
 library(kableExtra)
+library(DiagrammeR)
 ```
 
 The analysis and modeling for this project are conducted in R,
@@ -479,160 +464,106 @@ well-defined training and validation sets for the modeling phase.
 
 ## 2. Work-Flow
 
-```{r, workflow, message=FALSE, warning=FALSE}
+```{r, workflow, echo=FALSE, message=FALSE, warning=FALSE}
 library(DiagrammeR)
-
 grViz("
-digraph academic_pipeline {
-  graph [layout=dot, rankdir=TB, bgcolor='white', compound=true, 
-         nodesep=0.6, ranksep=1.0, ratio='auto']
-  node [shape=rectangle, style='filled,rounded', fontname='Arial', margin=0.2, width=2, fontsize=20]
-  edge [arrowsize=0.8, fontsize=16]
-
-  # 1. DATA WRANGLING & AUDITING
+digraph pipeline {
+  graph [
+    layout=dot,
+    rankdir=TB,
+    bgcolor='white',
+    nodesep=0.6,
+    ranksep=1.0,
+    compound=true,
+    pad=0.3
+  ]
+  node [
+    shape=rectangle,
+    style='filled,rounded',
+    fontname='Arial',
+    margin=0.2,
+    width=2.2,
+    height=0.9,
+    fontsize=14
+  ]
+  edge [
+    arrowsize=0.8,
+    fontsize=12
+  ]
+  
+  // DATA AUDIT AND WRANGLING (Blue) - Top
   subgraph cluster_data {
-    label=<<TABLE BORDER='0'><TR><TD><FONT POINT-SIZE='22'><B>1. DATA WRANGLING &amp; AUDITING</B></FONT></TD></TR></TABLE>>
+    label=<<FONT POINT-SIZE='22'><B>Data Audit &amp; Wrangling</B></FONT>>
     style='filled,rounded'
+    color='#81D4FA'
     fillcolor='#B3E5FC'
-
-    wrangling [label=<<TABLE BORDER='0' CELLPADDING='4'>
-      <TR><TD><FONT POINT-SIZE='18'><B>Wrangling &amp; Cleaning</B></FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Parse all key variables</FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Handle duplicates, missing, outliers</FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Parse release year; convert date-times</FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Split genres into indicators</FONT></TD></TR>
-    </TABLE>>, fillcolor='#E1F5FE']
-
-    audit [label=<<TABLE BORDER='0' CELLPADDING='4'>
-      <TR><TD><FONT POINT-SIZE='18'><B>Audit for Bias</B></FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Rating distributions</FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Genre, user/movie coverage</FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Pop/underrepresented groups</FONT></TD></TR>
-    </TABLE>>, fillcolor='#E1F5FE']
-
-    trends [label=<<TABLE BORDER='0' CELLPADDING='4'>
-      <TR><TD><FONT POINT-SIZE='18'><B>Exploratory Trends</B></FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Global/genre/year rating trends</FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• User activity, temporal/cultural</FONT></TD></TR>
-    </TABLE>>, fillcolor='#E1F5FE']
-
-    feature_prep [label=<<TABLE BORDER='0' CELLPADDING='4'>
-      <TR><TD><FONT POINT-SIZE='18'><B>Feature Prep</B></FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Time-based features</FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Normalize ratings &amp; encode genres</FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Bin/group users/movies, outlier detect</FONT></TD></TR>
-    </TABLE>>, fillcolor='#E1F5FE']
+    fontcolor='black'
+    margin=20
+    
+    // Force horizontal layout within cluster
+    {
+      rank=same;
+      wrangling [label=<<B>Wrangling &amp; Cleaning</B><BR/>Parse vars, handle outliers,<BR/>clean dates, genres>, fillcolor='#E1F5FE']
+      audit     [label=<<B>Bias Audit</B><BR/>Distribution checks,<BR/>groups>, fillcolor='#E1F5FE']
+      trends    [label=<<B>Exploratory Trends</B><BR/>Year/genre/user<BR/>trends>, fillcolor='#E1F5FE']
+      featprep  [label=<<B>Feature Prep</B><BR/>Encode/bins, normalize,<BR/>group>, fillcolor='#E1F5FE']
+    }
+    
+    wrangling -> audit -> trends -> featprep
   }
 
-  # 2. MODELING
+  // MODEL DEVELOPMENT AND EVALUATION (Purple) - Middle
   subgraph cluster_modeling {
-    label=<<TABLE BORDER='0'><TR><TD><FONT POINT-SIZE='22'><B>2. MODEL DEVELOPMENT &amp; EVALUATION</B></FONT></TD></TR></TABLE>>
+    label=<<FONT POINT-SIZE='22'><B>Model Dev &amp; Evaluation</B></FONT>>
     style='filled,rounded'
+    color='#9575CD'
     fillcolor='#D1C4E9'
+    fontcolor='black'
+    margin=20
+    
+    // Force horizontal layout within cluster
+    {
+      rank=same;
+      modelsel [label=<<B>Model Selection</B><BR/>Models, feature list,<BR/>assumptions>, fillcolor='#EDE7F6']
+      prepfe  [label=<<B>Data Prep &amp; FE</B><BR/>Preprocessing, FE,<BR/>imbalance>, fillcolor='#EDE7F6']
+      train   [label=<<B>Train &amp; Tune</B><BR/>Cross-validation,<BR/>logging>, fillcolor='#EDE7F6']
+      reg     [label=<<B>Regularization</B><BR/>Penalty, effect<BR/>comparison>, fillcolor='#EDE7F6']
+    }
+    {
+      rank=same;
+      eval    [label=<<B>Evaluation</B><BR/>Metrics (RMSE, MAE),<BR/>tables>, fillcolor='#EDE7F6']
+      ens     [label=<<B>Ensemble</B><BR/>Stack, blend,<BR/>trade-offs>, fillcolor='#EDE7F6']
+      report  [label=<<B>Reporting &amp; Repro</B><BR/>Docs, visuals,<BR/>reproducibility>, fillcolor='#EDE7F6']
+    }
 
-    model_select [label=<<TABLE BORDER='0' CELLPADDING='4'>
-      <TR><TD><FONT POINT-SIZE='18'><B>Model Selection/spec</B></FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Identify &amp; justify models</FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• List features &amp; assumptions</FONT></TD></TR>
-    </TABLE>>, fillcolor='#EDE7F6']
-
-    prep_fe [label=<<TABLE BORDER='0' CELLPADDING='4'>
-      <TR><TD><FONT POINT-SIZE='18'><B>Data Prep &amp; FE</B></FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Preprocess for each model</FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Standardize FE steps, handle imbalance</FONT></TD></TR>
-    </TABLE>>, fillcolor='#EDE7F6']
-
-    training [label=<<TABLE BORDER='0' CELLPADDING='4'>
-      <TR><TD><FONT POINT-SIZE='18'><B>Training &amp; Tuning</B></FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Train on same data, cross-validate</FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Log performance</FONT></TD></TR>
-    </TABLE>>, fillcolor='#EDE7F6']
-
-    reg [label=<<TABLE BORDER='0' CELLPADDING='4'>
-      <TR><TD><FONT POINT-SIZE='18'><B>Regularization</B></FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Try penalty/complexity terms</FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Compare effects</FONT></TD></TR>
-    </TABLE>>, fillcolor='#EDE7F6']
-
-    eval [label=<<TABLE BORDER='0' CELLPADDING='4'>
-      <TR><TD><FONT POINT-SIZE='18'><B>Evaluation</B></FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• RMSE, MAE, ranking if needed</FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Performance table</FONT></TD></TR>
-    </TABLE>>, fillcolor='#EDE7F6']
-
-    ensemble [label=<<TABLE BORDER='0' CELLPADDING='4'>
-      <TR><TD><FONT POINT-SIZE='18'><B>Ensemble (Opt)</B></FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Stack, blend</FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Record gains/trade-offs</FONT></TD></TR>
-    </TABLE>>, fillcolor='#EDE7F6']
-
-    report [label=<<TABLE BORDER='0' CELLPADDING='4'>
-      <TR><TD><FONT POINT-SIZE='18'><B>Reporting/Repro</B></FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Document choices, include stats/visuals</FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Ensure code reproducibility</FONT></TD></TR>
-    </TABLE>>, fillcolor='#EDE7F6']
+    modelsel -> prepfe -> train -> reg
+    reg -> eval -> ens -> report
   }
 
-  # 3. (OPTIONAL) - Spacer cluster for visual separation
-  subgraph cluster_spacer {
-    style='invis'
-    invisible1 [label='', shape=point, width=0.01, height=0.1, style='invis']
-    invisible2 [label='', shape=point, width=0.01, height=0.1, style='invis']
-    invisible3 [label='', shape=point, width=0.01, height=0.1, style='invis']
-    invisible4 [label='', shape=point, width=0.01, height=0.1, style='invis']
-    invisible5 [label='', shape=point, width=0.01, height=0.1, style='invis']
-  }
-
-  # 4. ACADEMIC WRAP-UP (YELLOW COLUMN)
-  subgraph cluster_academic {
-    label=<<TABLE BORDER='0'><TR><TD><FONT POINT-SIZE='22'><B>4. ACADEMIC WRAP-UP</B></FONT></TD></TR></TABLE>>
+  // SUMMARY (Yellow) - Bottom
+  subgraph cluster_summary {
+    label=<<FONT POINT-SIZE='22'><B>Summary</B></FONT>>
     style='filled,rounded'
+    color='#FFF176'
     fillcolor='#FFF9C4'
+    fontcolor='black'
+    margin=20
+    
+    // Force horizontal layout within cluster
+    {
+      rank=same;
+      results [label=<<B>Results &amp; Interpretation</B><BR/>Findings,<BR/>metrics>, fillcolor='#FFFDE7']
+      limits [label=<<B>Limitations &amp; Bias</B><BR/>Limits,<BR/>recs>, fillcolor='#FFFDE7']
+      reproduc [label=<<B>Repro Appendix</B><BR/>Code, models,<BR/>data deps>, fillcolor='#FFFDE7']
+      concl [label=<<B>Conclusion</B><BR/>Synthesis>, fillcolor='#FFFDE7']
+    }
 
-    summary [label=<<TABLE BORDER='0' CELLPADDING='4'>
-      <TR><TD><FONT POINT-SIZE='18'><B>Summary &amp; Motivation</B></FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Recap objectives/data/method</FONT></TD></TR>
-    </TABLE>>, fillcolor='#FFFDE7']
-
-    results [label=<<TABLE BORDER='0' CELLPADDING='4'>
-      <TR><TD><FONT POINT-SIZE='18'><B>Results &amp; Interpretation</B></FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Main findings, metrics, visuals</FONT></TD></TR>
-    </TABLE>>, fillcolor='#FFFDE7']
-
-    limitations [label=<<TABLE BORDER='0' CELLPADDING='4'>
-      <TR><TD><FONT POINT-SIZE='18'><B>Limitations/Bias</B></FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Data/model limits</FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Recommendations</FONT></TD></TR>
-    </TABLE>>, fillcolor='#FFFDE7']
-
-    reproducibility [label=<<TABLE BORDER='0' CELLPADDING='4'>
-      <TR><TD><FONT POINT-SIZE='18'><B>Reproducibility Appx</B></FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Code repo, dependencies</FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Data/model artifacts</FONT></TD></TR>
-    </TABLE>>, fillcolor='#FFFDE7']
-
-    conclusion [label=<<TABLE BORDER='0' CELLPADDING='4'>
-      <TR><TD><FONT POINT-SIZE='18'><B>Conclusion &amp; Next Steps</B></FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Synthesize findings</FONT></TD></TR>
-      <TR><TD><FONT POINT-SIZE='16'>• Suggest future/applied work</FONT></TD></TR>
-    </TABLE>>, fillcolor='#FFFDE7']
+    results -> limits -> reproduc -> concl
   }
 
-
-
-  # Main Flows
-  wrangling -> audit -> trends -> feature_prep
-  feature_prep -> model_select [label='Ready for modeling', style=dashed, color='#555']
-  model_select -> prep_fe -> training -> reg -> eval -> ensemble -> report
-  report -> summary [label='To write-up', style=dashed, color='darkgreen']
-  summary -> results -> limitations -> reproducibility -> conclusion
-
-  # Vertical alignment (columns stay lined up by same rank)
-  { rank=same; wrangling; model_select; invisible1; summary; }
-  { rank=same; audit; prep_fe; invisible2; results; }
-  { rank=same; trends; training; invisible3; limitations; }
-  { rank=same; feature_prep; reg; invisible4; reproducibility; }
-  { rank=same; eval; ensemble; invisible5; conclusion; }
+  // Cross-cluster links
+  featprep -> modelsel [style=dashed, color='#555', ltail=cluster_data, lhead=cluster_modeling]
+  report -> results [style=dashed, color='darkgreen', ltail=cluster_modeling, lhead=cluster_summary]
 }
 ")
 ```
