@@ -21,6 +21,8 @@ editor_options:
     wrap: 72
 ---
 
+\newpage
+
 # 1. Introduction
 
 In today's digital landscape, from e-commerce platforms like Amazon to
@@ -239,7 +241,7 @@ analytical tasks. \newpage
 
 ##### DATA SUMMARY: Cleaned Ratings Data
 
-```{r ratings_summary, message=FALSE, warning=FALSE, results='asis', echo=FALSE}
+```{r ratings_summary, echo=FALSE, message=FALSE, warning=FALSE, results='asis', echo=FALSE}
 # Preview of the first six rows
 knitr::kable(
   head(ratings), 
@@ -261,7 +263,7 @@ skim_stats %>%
   knitr::kable(caption = "Summary statistics (mean, sd, median) for the ratings data.")
 ```
 
-```{r ratings_hist, message=FALSE, warning=FALSE, fig.width=5, fig.height=3, echo=FALSE}
+```{r ratings_hist, echo=FALSE, message=FALSE, warning=FALSE, fig.width=5, fig.height=3, echo=FALSE}
 # Add the ratings histogram
 library(ggplot2)
 ggplot(ratings, aes(x = rating)) +
@@ -279,7 +281,7 @@ ggplot(ratings, aes(x = rating)) +
 
 #### 2.3.2.1 Parsing the Movies Data
 
-```{r, parse_movies, message=FALSE, warning=FALSE}
+```{r, parse_movies, echo=FALSE, message=FALSE, warning=FALSE}
 # Read each line of the movies file, split on the delimiter "::", 
 # and assemble into a data frame (strings stay as character type)
 movies <- as.data.frame(
@@ -314,29 +316,38 @@ genre information for our analysis. \newpage
 
 ##### DATA SUMMARY: Cleaned Movies Data
 
-```{r, movies_summary, message=FALSE, warning=FALSE}
+```{r, movies_summary, echo=FALSE, message=FALSE, warning=FALSE}
 knitr::kable(
   head(movies), 
   caption = "A preview of the first six rows of the ratings data."
 )
 
-# Calculate skimming summary
-library(skimr)
-skim_stats <- skim(movies)
+# Get a list of character columns
+char_cols <- names(Filter(is.character, movies))
 
-# Print a minimal and clean stats table for numeric columns
-skim_stats %>%
-  select(
-    skim_variable,
-    numeric.mean,
-    numeric.sd,
-    numeric.p50
-  ) %>%
-  knitr::kable(caption = "Summary statistics (mean, sd, median) for the movies data.")
+# Get frequency tables for each
+top_counts <- map(char_cols, ~
+  movies %>%
+    count(!!sym(.x), sort = TRUE) %>%
+    head(5) %>%
+    mutate(variable = .x)
+) %>%
+  bind_rows() %>%
+  select(variable, everything())
+
+knitr::kable(top_counts, caption = "Top 5 most frequent values for each character variable")
 ```
 
-```{r moviess_hist, message=FALSE, warning=FALSE, fig.width=5, fig.height=3, echo=FALSE}
-ggplot(movie_counts, aes(x = num_ratings)) +
+```{r moviess_hist, echo=FALSE, message=FALSE, warning=FALSE, fig.width=5, fig.height=3, echo=FALSE}
+# Add number of ratings per movie if not present
+if(!"num_ratings" %in% colnames(movies)) {
+  movie_counts <- ratings %>%
+    count(movieId, name = "num_ratings")
+  movies <- movies %>%
+    left_join(movie_counts, by = "movieId")
+}
+
+ggplot(movies, aes(x = num_ratings)) +
   geom_histogram(binwidth = 10, fill = "dark red", color = "dark red") +
   scale_y_log10() +
   labs(
@@ -352,7 +363,7 @@ ggplot(movie_counts, aes(x = num_ratings)) +
 
 ### 2.4.1 Merging Ratings and Movies Data
 
-```{r, merge_data, message=FALSE, warning=FALSE}
+```{r, merge_data, echo=FALSE, message=FALSE, warning=FALSE}
 # Combine user ratings with movie metadata into one comprehensive table:
 # – left_join preserves every rating record (even if some movies lack metadata)
 # – appends title and genres columns to each rating
@@ -372,7 +383,7 @@ rating information in a single, tidy format. \newpage
 
 ##### DATA SUMMARY: Merged Data
 
-```{r, movielens_summary, message=FALSE, warning=FALSE}
+```{r, movielens_summary, echo=FALSE, message=FALSE, warning=FALSE}
 # 1. Summarize per-movie statistics
 movie_stats <- movielens %>% 
   group_by(movieId) %>%
@@ -403,7 +414,7 @@ kable(
 )
 ```
 
-```{r movielens_hist, message=FALSE, warning=FALSE, fig.width=5, fig.height=3, echo=FALSE}
+```{r moviele_hist, echo=FALSE, message=FALSE, warning=FALSE, fig.width=5, fig.height=3, echo=FALSE}
 ggplot(movie_stats, aes(x = avg_rating)) +
   geom_histogram(binwidth = 0.1, fill = "dark red", color = "black") +
   labs(
@@ -593,7 +604,7 @@ predictive modeling pipelines. \newpage
 
 ## 3.2 Work-Flow
 
-```{r make-pipeline-png, echo=FALSE, message=FALSE, warning=FALSE, eval=TRUE, out.width='100%', out.height='100%', dpi=1200}
+```{r make-pipeline-png, echo=FALSE, message=FALSE, warning=FALSE, eval=TRUE, out.width='7.5in', out.height='9.5in', dpi=1200}
 # ---- Load required libraries ----
 library(DiagrammeR)
 library(DiagrammeRsvg)
@@ -847,6 +858,156 @@ knitr::include_graphics("ml-pipeline.png")
 
 # 4. Analysis
 
+```{r analysis_map,echo=FALSE, message=FALSE, warning=FALSE,}
+# Load required libraries
+library(ggpmisc)
+library(tibble)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(tibble)
+
+set.seed(123)
+df <- tibble(
+  year = rep(2010:2022, 3),
+  group = rep(c("Fiction", "Nonfiction", "Poetry"), each = 13),
+  avg_rating = round(rnorm(39, mean = 3.7, sd = 0.2), 2),
+  median_rating = round(avg_rating - runif(39, 0, 0.2), 2),
+  n = sample(80:300, 39, replace = TRUE),
+  sd_rating = runif(39, 0.3, 0.6)
+)
+
+# Assuming df has columns: year, avg_rating, median_rating, n
+df_long <- df %>%
+  pivot_longer(
+    cols = c(avg_rating, median_rating, n),
+    names_to = "variable",
+    values_to = "value"
+  )
+library(ggplot2)
+library(dplyr)
+
+# Mock data to simulate your `df_long` if you don't already have it
+df_long <- data.frame(
+  year = rep(2010:2012, each = 6),
+  group = rep(c("A", "B"), each = 3, times = 3),
+  variable = rep(c("avg_rating", "median_rating", "n"), times = 6),
+  value = rnorm(18, 3.5, 1)
+)
+
+ggplot() +
+  geom_col(
+    data = dplyr::filter(df_long, variable == "n"),
+    aes(x = year, y = value, fill = group),
+    width = 0.7, alpha = 0.4
+  ) +
+  geom_point(
+    data = dplyr::filter(df_long, variable %in% c("avg_rating", "median_rating")),
+    aes(x = year, y = value, color = variable),
+    size = 2
+  ) +
+  geom_line(
+    data = dplyr::filter(df_long, variable %in% c("avg_rating", "median_rating")),
+    aes(x = year, y = value, color = variable, group = paste(variable, group)),
+    size = 1
+  ) +
+  scale_y_continuous(
+    name = "Rating",
+    sec.axis = sec_axis(~ ., name = "Number of Ratings")
+  ) +
+  labs(
+    title = "Ratings (avg & median) and Number of Ratings per Year by Group",
+    x = "Year",
+    color = "Metric",
+    fill = "Group"
+  ) +
+  theme_light(base_size = 14)
+# Prepare data: Average ratings by year and month (more points than yearly)
+df_monthly <- edx %>%
+  mutate(
+    year = year(as_datetime(timestamp)),
+    month = month(as_datetime(timestamp))
+  ) %>%
+  group_by(year, month) %>%
+  summarize(avg_rating = mean(rating), n = n(), .groups = "drop") %>%
+  mutate(year_month = as.Date(paste(year, month, "01", sep = "-")))
+
+# Plot: more time points
+ggplot(df_monthly, aes(x = year_month, y = avg_rating)) +
+  geom_point(color = "dark red", alpha = 0.7) +
+  geom_smooth(method = "lm", se = TRUE, color = "#21908CFF", linetype = "solid") +
+  labs(
+    title = "Average Rating by Month",
+    subtitle = "Dots: average monthly ratings; Dashed line: linear regression fit",
+    x = "Date",
+    y = "Average Rating"
+  ) +
+  theme_light(base_size = 15) +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+```
+\newpage
+```{r analysis_map,echo=FALSE, message=FALSE, warning=FALSE,}
+library(lubridate)
+set.seed(1)
+edx_sample <- edx %>% sample_n(100000)
+
+edx_sample <- edx_sample %>%
+  mutate(
+    year_month = as.Date(format(as_datetime(timestamp), "%Y-%m-01"))
+  )
+edx_sample <- edx_sample %>%
+  mutate(year = lubridate::year(lubridate::as_datetime(timestamp)))
+avg_per_month <- edx_sample %>%
+  group_by(year_month) %>%
+  summarize(avg_rating = mean(rating), .groups = "drop")
+library(ggplot2)
+ggplot(avg_per_month, aes(x = year_month, y = avg_rating)) +
+  geom_point(color = "dark red", alpha = 0.7, size = 1) +
+  geom_smooth(method = "loess", color = "#21908CFF", size = 1.5, se = FALSE) +
+  theme_light(base_size = 15) +
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
+  labs(
+    title = "Smoothed Average Rating by Month (Sampled)",
+    x = "Month",
+    y = "Average Rating"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+library(ggplot2)
+# 1. Fit LOESS and predict on a fine grid
+loess_fit <- loess(avg_rating ~ as.numeric(year_month), data = avg_per_month, span = 0.3)
+fine_dates <- seq(min(avg_per_month$year_month), max(avg_per_month$year_month), by = "day")
+preds <- predict(loess_fit, newdata = data.frame(year_month = as.numeric(fine_dates)), se = FALSE)
+
+# 2. Calculate the local slope (first derivative)
+d_pred <- diff(preds) / as.numeric(diff(fine_dates))
+mid_dates <- fine_dates[-1] # center for derivative
+
+curve_df <- data.frame(
+  year_month = mid_dates,
+  avg_rating = preds[-1],
+  slope = d_pred
+)
+
+# 3. Plot: smooth colored by slope
+ggplot() +
+  geom_point(data = avg_per_month, aes(x = year_month, y = avg_rating), color = "dark red", alpha = 0.7, size = 1) +
+  geom_line(data = curve_df, aes(x = year_month, y = avg_rating, color = slope), size = 1.5) +
+  scale_color_gradient2(
+    low = "#21908CFF", mid = "grey70", high = "dark red", midpoint = 0,
+    name = "Slope\n(Δ rating/day)"
+  ) +
+  theme_light(base_size = 15) +
+  scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
+  labs(
+    title = "Average Rating Trend (Color = Local Slope)",
+    x = "Month",
+    y = "Average Rating"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+\newpage
 ## 4.1 Data Audit & Wrangling
 
 \newpage
@@ -962,7 +1123,6 @@ knitr::include_graphics("ml-pipeline.png")
 -   Requirements\
 -   Runtime \newpage
 
-
 # 5. Conclusion
 
 ## 5.1 Synopsis
@@ -970,6 +1130,3 @@ knitr::include_graphics("ml-pipeline.png")
 ## 5.2 Limitations
 
 ## 5.3 Future Work
-
-
-
