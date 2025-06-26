@@ -859,110 +859,30 @@ knitr::include_graphics("ml-pipeline.png")
 # 4. Analysis
 
 ```{r analysis_map,echo=FALSE, message=FALSE, warning=FALSE,}
-# Load required libraries
-library(ggpmisc)
-library(tibble)
-library(dplyr)
-library(tidyr)
-library(ggplot2)
-library(tibble)
-
-set.seed(123)
-df <- tibble(
-  year = rep(2010:2022, 3),
-  group = rep(c("Fiction", "Nonfiction", "Poetry"), each = 13),
-  avg_rating = round(rnorm(39, mean = 3.7, sd = 0.2), 2),
-  median_rating = round(avg_rating - runif(39, 0, 0.2), 2),
-  n = sample(80:300, 39, replace = TRUE),
-  sd_rating = runif(39, 0.3, 0.6)
-)
-
-# Assuming df has columns: year, avg_rating, median_rating, n
-df_long <- df %>%
-  pivot_longer(
-    cols = c(avg_rating, median_rating, n),
-    names_to = "variable",
-    values_to = "value"
-  )
-library(ggplot2)
-library(dplyr)
-
-# Mock data to simulate your `df_long` if you don't already have it
-df_long <- data.frame(
-  year = rep(2010:2012, each = 6),
-  group = rep(c("A", "B"), each = 3, times = 3),
-  variable = rep(c("avg_rating", "median_rating", "n"), times = 6),
-  value = rnorm(18, 3.5, 1)
-)
-
-ggplot() +
-  geom_col(
-    data = dplyr::filter(df_long, variable == "n"),
-    aes(x = year, y = value, fill = group),
-    width = 0.7, alpha = 0.4
-  ) +
-  geom_point(
-    data = dplyr::filter(df_long, variable %in% c("avg_rating", "median_rating")),
-    aes(x = year, y = value, color = variable),
-    size = 2
-  ) +
-  geom_line(
-    data = dplyr::filter(df_long, variable %in% c("avg_rating", "median_rating")),
-    aes(x = year, y = value, color = variable, group = paste(variable, group)),
-    size = 1
-  ) +
-  scale_y_continuous(
-    name = "Rating",
-    sec.axis = sec_axis(~ ., name = "Number of Ratings")
-  ) +
-  labs(
-    title = "Ratings (avg & median) and Number of Ratings per Year by Group",
-    x = "Year",
-    color = "Metric",
-    fill = "Group"
-  ) +
-  theme_light(base_size = 14)
-# Prepare data: Average ratings by year and month (more points than yearly)
-df_monthly <- edx %>%
-  mutate(
-    year = year(as_datetime(timestamp)),
-    month = month(as_datetime(timestamp))
-  ) %>%
-  group_by(year, month) %>%
-  summarize(avg_rating = mean(rating), n = n(), .groups = "drop") %>%
-  mutate(year_month = as.Date(paste(year, month, "01", sep = "-")))
-
-# Plot: more time points
-ggplot(df_monthly, aes(x = year_month, y = avg_rating)) +
-  geom_point(color = "dark red", alpha = 0.7) +
-  geom_smooth(method = "lm", se = TRUE, color = "#21908CFF", linetype = "solid") +
-  labs(
-    title = "Average Rating by Month",
-    subtitle = "Dots: average monthly ratings; Dashed line: linear regression fit",
-    x = "Date",
-    y = "Average Rating"
-  ) +
-  theme_light(base_size = 15) +
-  theme(
-    axis.text.x = element_text(angle = 45, hjust = 1)
-  )
 ```
 \newpage
 ```{r analysis_map,echo=FALSE, message=FALSE, warning=FALSE,}
+```{r analysis_map, echo=FALSE, message=FALSE, warning=FALSE}
 library(lubridate)
+library(ggplot2)
 set.seed(1)
+
+# Sample data
 edx_sample <- edx %>% sample_n(100000)
 
+# Extract year and year-month
 edx_sample <- edx_sample %>%
   mutate(
-    year_month = as.Date(format(as_datetime(timestamp), "%Y-%m-01"))
+    year_month = as.Date(format(as_datetime(timestamp), "%Y-%m-01")),
+    year = lubridate::year(lubridate::as_datetime(timestamp))
   )
-edx_sample <- edx_sample %>%
-  mutate(year = lubridate::year(lubridate::as_datetime(timestamp)))
+
+# Calculate average rating per month
 avg_per_month <- edx_sample %>%
   group_by(year_month) %>%
   summarize(avg_rating = mean(rating), .groups = "drop")
-library(ggplot2)
+
+# Plot 1: Smoothed Average Rating by Month
 ggplot(avg_per_month, aes(x = year_month, y = avg_rating)) +
   geom_point(color = "dark red", alpha = 0.7, size = 1) +
   geom_smooth(method = "loess", color = "#21908CFF", size = 1.5, se = FALSE) +
@@ -974,15 +894,15 @@ ggplot(avg_per_month, aes(x = year_month, y = avg_rating)) +
     y = "Average Rating"
   ) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-library(ggplot2)
-# 1. Fit LOESS and predict on a fine grid
+
+# Fit LOESS model for smooth trend
 loess_fit <- loess(avg_rating ~ as.numeric(year_month), data = avg_per_month, span = 0.3)
 fine_dates <- seq(min(avg_per_month$year_month), max(avg_per_month$year_month), by = "day")
 preds <- predict(loess_fit, newdata = data.frame(year_month = as.numeric(fine_dates)), se = FALSE)
 
-# 2. Calculate the local slope (first derivative)
+# Calculate local slope (first derivative)
 d_pred <- diff(preds) / as.numeric(diff(fine_dates))
-mid_dates <- fine_dates[-1] # center for derivative
+mid_dates <- fine_dates[-1] # Center points for derivative
 
 curve_df <- data.frame(
   year_month = mid_dates,
@@ -990,13 +910,13 @@ curve_df <- data.frame(
   slope = d_pred
 )
 
-# 3. Plot: smooth colored by slope
+# Plot 2: Trend with Slope Coloring (LaTeX-friendly label)
 ggplot() +
   geom_point(data = avg_per_month, aes(x = year_month, y = avg_rating), color = "dark red", alpha = 0.7, size = 1) +
   geom_line(data = curve_df, aes(x = year_month, y = avg_rating, color = slope), size = 1.5) +
   scale_color_gradient2(
     low = "#21908CFF", mid = "grey70", high = "dark red", midpoint = 0,
-    name = "Slope\n(Δ rating/day)"
+    name = expression(paste("Slope (", Delta, " rating/day)"))
   ) +
   theme_light(base_size = 15) +
   scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
