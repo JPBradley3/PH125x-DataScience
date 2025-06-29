@@ -1,1052 +1,1050 @@
 ---
-title: "MovieLens"
-author: "JP Bradley"
-date: "2025-06-22"
-output:
+title: "MovieLens Capstone"
+subtitle: "HarvardX PH125.9x - Data Science"
+author: "James Bradley"
+date: "2025-06-29"
+output: 
   pdf_document: 
     latex_engine: xelatex
     toc: true
-  html_document:
-    df_print: paged
-always_allow_html: true
-header-includes:
-- \usepackage{fvextra}
-- \usepackage[nobottomtitles]{titlesec}
-- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
-- \titlespacing*{\section}{0pt}{*3}{*2}
-- \titlespacing*{\subsection}{0pt}{*2}{*1}
-- \titlespacing*{\subsubsection}{0pt}{*1.5}{*0.5}
-editor_options:
-  markdown:
-    wrap: 72
 ---
 
-\newpage
-
-# 1. Introduction
-
-In today's digital landscape, from e-commerce platforms like Amazon to
-streaming services like Netflix, recommender systems are a critical
-component for enhancing user experience and driving engagement. They
-seek to solve the problem of information overload by intelligently
-filtering and predicting a user's potential interest in items they have
-not yet encountered. This project directly engages with this challenge
-by building and evaluating a movie recommendation system based on the
-principles of collaborative filtering.
-
-To accomplish this, we leverage the well-established `MovieLens 10M`
-dataset, a public benchmark dataset provided by the GroupLens research
-group. This rich dataset contains over 10 million ratings applied by
-approximately 71,000 users to nearly 10,000 unique movies. Each record
-provides crucial data points for analysis: unique identifiers for users
-and movies, a numerical rating on a scale of 0.5 to 5, a UNIX timestamp
-indicating when the rating was given, and associated metadata such as
-movie titles and genres. The fundamental challenge lies in the inherent
-sparsity of the data—most users have rated only a tiny fraction of the
-available movies, leaving a vast matrix of unknown preferences that our
-model must learn to predict.
-
-The primary methodology employed in this analysis is collaborative
-filtering, a technique that makes automatic predictions about the
-interests of a user by collecting preferences from many other users.
-Unlike content-based methods, which would analyze the properties of a
-movie such as its genre or director, collaborative filtering relies
-solely on historical user-item interaction data. The underlying
-assumption is that users who have agreed in the past (e.g., gave similar
-ratings to the same movies) are likely to agree in the future. The model
-identifies these patterns to predict a user's rating for a new item by
-finding a "neighborhood" of similar users or, more commonly, by modeling
-the intrinsic biases associated with each user (e.g., a user who tends
-to give high ratings) and each movie (e.g., a movie that is universally
-acclaimed). The structure of the `MovieLens` dataset, being a large
-matrix of user-movie ratings, makes it an ideal candidate for this
-approach.
-
-**Project Objective:**
-
-The principal objective of this project is to develop and validate a
-machine learning model that accurately predicts movie ratings. The
-success of the model is quantitatively measured by the Root Mean Squared
-Error (`RMSE`), and the primary goal is to minimize this error metric on
-a final, unseen hold-out validation set, denoted as
-`final_holdout_test`.
-
-The `RMSE` is a standard metric for regression tasks that calculates the
-square root of the average of the squared differences between predicted
-and actual ratings. It is chosen for two key reasons: it heavily
-penalizes larger errors, making it sensitive to significant prediction
-misses, and its value is interpretable in the same units as the rating
-itself (i.e., "stars"). Therefore, a lower `RMSE` signifies a model
-whose predictions are, on average, closer to the true user ratings. Our
-methodology will follow an incremental approach, starting with a simple
-baseline model and systematically incorporating more complex
-factors—such as movie-specific and user-specific biases—to progressively
-improve predictive accuracy and achieve the lowest possible `RMSE` on
-the final hold-out set.
 
 \newpage
 
-# 2. Project Overview
+# Introduction
 
-## 2.1 Data Acquisition & Preprocessing
+Recommendation systems have revolutionized how we discover content online, quietly shaping our experiences on platforms ranging from streaming services to e-commerce sites. Every day, millions of users rely on these intelligent systems to filter through overwhelming amounts of content and surface items that match their unique tastes. As someone completing the HarvardX Data Science Professional Certificate program, I recognize that building effective recommendation engines represents one of the most impactful applications of machine learning in today's digital economy. This capstone project challenges me to construct a movie recommendation system using the renowned MovieLens dataset, allowing me to apply the data science skills I've developed throughout this program to a practical, industry-relevant problem.
 
-### 2.1.1 Setting Up the R Environment
+For this project, I utilize the MovieLens 10M dataset, a comprehensive collection of movie ratings that has served as a cornerstone for recommendation system research since its release by the University of Minnesota's GroupLens team. The dataset I'm working with contains approximately 10 million ratings spanning 10,000 movies and 72,000 users, with each rating reflecting a user's satisfaction level on a half-star scale from 0.5 to 5. This rich dataset provides an ideal testing ground for implementing collaborative filtering algorithms and exploring how user preferences can be mathematically modeled to generate accurate predictions.
 
-#### 2.1.1.1 Installing Required Packages
+My goal is to create a predictive model that can accurately estimate how a user would rate a movie they haven't yet seen. Success will be measured using Root Mean Square Error (RMSE), a metric that captures the average magnitude of prediction errors. The target I'm aiming to achieve is an RMSE below 0.86490 on the holdout validation set, which represents a meaningful improvement over naive baseline approaches. To reach this target, I plan to implement an iterative modeling strategy, beginning with simple average-based predictions and gradually introducing more complex features such as user-specific preferences, movie-specific biases, and regularization techniques to prevent overfitting.
 
-```{r, install_packages, message=FALSE, warning=FALSE}
-options(digits = 3)      # For 3 significant digits overall
-# List of required packages for the entire workflow
-required_packages <- c(
-  "tidyverse",    # Data wrangling, plotting, stringr, readr, etc.
-  "caret",        # Machine learning workflow
-  "knitr",        # Dynamic report generation
-  "skimr",        # Data summaries
-  "systemfonts",  # Font handling
-  "kableExtra",   # Table formatting
-  "DiagrammeR"    # Flowcharts and diagrams
-)
+In the following sections, I present a comprehensive analysis of my approach to this challenge. I start by conducting thorough exploratory data analysis to uncover patterns in user rating behaviors and identify potential features for modeling. I then describe my methodology, walking through each modeling decision and the mathematical foundations underlying my chosen algorithms. The results section showcases the performance improvements achieved at each stage of model development, accompanied by visualizations that illustrate key insights. I conclude by reflecting on the lessons learned throughout this project and proposing directions for future improvements. This project not only demonstrates my ability to tackle complex data science problems but also highlights the practical value of machine learning in creating personalized user experiences.\newpage
 
-# Install any missing packages
-for(pkg in required_packages) {
-  if (!require(pkg, character.only = TRUE)) {
-    install.packages(pkg, repos = "http://cran.us.r-project.org")
-  }
-}
-```
 
-To ensure a fully reproducible and self-contained analysis, the script
-begins by programmatically managing its core dependencies, `tidyverse`
-and `caret`. For each package, the code first attempts to load it into
-the R session. If a package is not already installed on the system, the
-`require()` function fails, which in turn triggers an automatic
-installation from a specified Comprehensive R Archive Network (`CRAN`)
-repository. This conditional logic automates the environment setup,
-guaranteeing that the script can run on any machine with R installed
-without requiring manual pre-installation of these essential packages.
+# Exploratory Data Analysis
 
-#### 2.1.1.2 Loading Required Packages
+```{r og_capstone_code, echo=FALSE, message=FALSE, warning=FALSE}
+##########################################################
+# Create edx and final_holdout_test sets 
+##########################################################
 
-```{r, setup, message=FALSE, warning=FALSE}
-# Load all required libraries
-library(tidyverse)    # Includes dplyr, ggplot2, stringr, readr, etc.
+# Note: this process could take a couple of minutes
+
+if(!require(tidyverse)) install.packages("tidyverse", repos = "http://cran.us.r-project.org")
+if(!require(caret)) install.packages("caret", repos = "http://cran.us.r-project.org")
+if(!require(dyplr)) install.packages("caret", repos = "http://cran.us.r-project.org")
+if(!require(knitr)) install.packages("caret", repos = "http://cran.us.r-project.org")
+
+library(tidyverse)
 library(caret)
+library(dplyr)
 library(knitr)
-library(skimr)
-library(systemfonts)
-library(kableExtra)
-library(DiagrammeR)
-```
 
-The analysis and modeling for this project are conducted in R,
-leveraging the `tidyverse` and `caret` packages to establish a robust
-and reproducible data science pipeline. The `tidyverse` suite is
-instrumental in the data wrangling and exploratory analysis phases. Its
-packages, particularly `dplyr` and `ggplot2`, enable efficient data
-manipulation—such as joining the ratings and movies datasets and
-engineering new features—and the creation of insightful visualizations
-to understand underlying data distributions. For the modeling phase, the
-`caret` package provides a unified framework for the predictive modeling
-workflow. We utilize `caret` to perform a stratified split of the data
-into training and validation sets, to train various machine learning
-models with a consistent syntax, and to rigorously evaluate their
-performance through cross-validation, using the Root Mean Squared Error
-(`RMSE`) as the primary metric. This combination of tools provides a
-seamless transition from raw data exploration to the development and
-validation of our final recommendation model. \newpage
+# MovieLens 10M dataset:
+# https://grouplens.org/datasets/movielens/10m/
+# http://files.grouplens.org/datasets/movielens/ml-10m.zip
 
-### 2.2.1 Downloading and Extracting the Dataset
+options(timeout = 120)
 
-#### 2.2.2 Downloading the Dataset
-
-```{r, download_dataset, message=FALSE, warning=FALSE}
-# Define the filename for the MovieLens 10M dataset zip file
 dl <- "ml-10M100K.zip"
-
-# Check if the file already exists in the current working directory
-# If it doesn't, download the dataset zip file from the specified URL and save it with the given filename
-if (!file.exists(dl))
+if(!file.exists(dl))
   download.file("https://files.grouplens.org/datasets/movielens/ml-10m.zip", dl)
-```
 
-To ensure a self-contained and reproducible workflow, the R script
-programmatically manages the data acquisition process. The script first
-checks if the dataset's compressed zip archive, `ml-10M.zip`, already
-exists in the local working directory. The download from the specified
-URL is initiated only if the file is not found. This conditional logic
-ensures that the large dataset is not downloaded redundantly upon
-subsequent executions of the script.
-
-#### 2.2.2.1 Extracting the Dataset
-
-```{r, extract_files, message=FALSE, warning=FALSE}
-# Define the file paths for the ratings and movies data within the extracted folder
 ratings_file <- "ml-10M100K/ratings.dat"
-movies_file  <- "ml-10M100K/movies.dat"
+if(!file.exists(ratings_file))
+  unzip(dl, ratings_file)
 
-# Check if the ratings file exists; if not, extract it from the downloaded zip archive
-if (!file.exists(ratings_file)) unzip(dl, ratings_file)
+movies_file <- "ml-10M100K/movies.dat"
+if(!file.exists(movies_file))
+  unzip(dl, movies_file)
 
-# Check if the movies file exists; if not, extract it from the downloaded zip archive
-if (!file.exists(movies_file)) unzip(dl, movies_file)
-
-```
-
-Following the data acquisition, the script programmatically prepares the
-raw data for loading into the R environment. Our analysis specifically
-requires the `ratings.dat` and `movies.dat` files, which are contained
-within the downloaded zip archive. To manage these files efficiently,
-the code first checks for the existence of each required file in the
-designated project directory. The `unzip` function is then called to
-selectively extract a specific file from the archive only if it is not
-already present. This conditional logic streamlines the data preparation
-process by avoiding redundant file extraction during subsequent script
-executions, ensuring the necessary data is readily available for
-analysis without unnecessary overhead. \newpage
-
-### 2.3.1 Parsing the Ratings and Movies Data
-
-#### 2.3.1.1 Parsing the Ratings Data
-
-```{r, parse_ratings, , message=FALSE, warning=FALSE}
-# Read the ratings file line by line, splitting each line at '::' into a matrix-like structure
-ratings <- as.data.frame(str_split(read_lines(ratings_file), 
-                                   fixed("::"), simplify = TRUE), 
+ratings <- as.data.frame(str_split(read_lines(ratings_file), fixed("::"), simplify = TRUE),
                          stringsAsFactors = FALSE)
-
-# Rename the columns to meaningful variable names
 colnames(ratings) <- c("userId", "movieId", "rating", "timestamp")
-
-# Convert each column to its appropriate data type for analysis
-ratings <- ratings %>% 
-  mutate(userId = as.integer(userId), 
-         movieId = as.integer(movieId), 
-         rating = as.numeric(rating), 
+ratings <- ratings %>%
+  mutate(userId = as.integer(userId),
+         movieId = as.integer(movieId),
+         rating = as.numeric(rating),
          timestamp = as.integer(timestamp))
-```
 
-The script ingests the raw `ratings.dat` file, which uses a non-standard
-double-colon (::) delimiter. To handle this format, the data is first
-read as a vector of text lines, and each line is then parsed into
-separate columns using a string-splitting function. The resulting matrix
-is converted into a standard R data frame, to which we assign the
-descriptive column headers: `userId`, `movieId`, `rating`, and
-`timestamp`. In the final and critical step of this process, we perform
-data type coercion. The `userId`, `movieId`, and `timestamp` columns are
-converted to integers, and the `rating` column is converted to a numeric
-type to correctly handle fractional values like 3.5. This procedure
-transforms the raw text data into a clean, properly typed, and
-structured format that is essential for all subsequent computational and
-analytical tasks. \newpage
-
-##### DATA SUMMARY: Cleaned Ratings Data
-
-```{r ratings_summary, echo=FALSE, message=FALSE, warning=FALSE, results='asis', echo=FALSE}
-# Preview of the first six rows
-knitr::kable(
-  head(ratings), 
-  caption = "A preview of the first six rows of the ratings data."
-)
-
-# Calculate skimming summary
-library(skimr)
-skim_stats <- skim(ratings)
-
-# Print a minimal and clean stats table for numeric columns
-skim_stats %>%
-  select(
-    skim_variable,
-    numeric.mean,
-    numeric.sd,
-    numeric.p50
-  ) %>%
-  knitr::kable(caption = "Summary statistics (mean, sd, median) for the ratings data.")
-```
-
-```{r ratings_hist, echo=FALSE, message=FALSE, warning=FALSE, fig.width=5, fig.height=3, echo=FALSE}
-# Add the ratings histogram
-library(ggplot2)
-ggplot(ratings, aes(x = rating)) +
-  geom_histogram(binwidth = 0.5, fill = "dark red", color = "black") +
-  labs(
-    title = "Distribution of Movie Ratings",
-    x = "Rating",
-    y = "Count"
-  )
-```
-
-###### With ratings distributed across a 0.5–5.0 scale and user IDs spanning a large, heterogeneous population, the dataset supports scalable modeling of rating behavior and temporal shifts in consumption. Its structure provides a stable foundation for advancing hybrid recommender algorithms, behavioral clustering, and fairness-aware personalization strategies in collaborative filtering research
-
-\newpage
-
-#### 2.3.2.1 Parsing the Movies Data
-
-```{r, parse_movies, echo=FALSE, message=FALSE, warning=FALSE}
-# Read each line of the movies file, split on the delimiter "::", 
-# and assemble into a data frame (strings stay as character type)
-movies <- as.data.frame(
-  str_split(
-    read_lines(movies_file), 
-    fixed("::"), 
-    simplify = TRUE
-  ), 
-  stringsAsFactors = FALSE
-)
-
-# Assign meaningful column names
+movies <- as.data.frame(str_split(read_lines(movies_file), fixed("::"), simplify = TRUE),
+                        stringsAsFactors = FALSE)
 colnames(movies) <- c("movieId", "title", "genres")
-
-# Convert movieId from character to integer for proper joins and filtering
-movies <- movies %>% 
+movies <- movies %>%
   mutate(movieId = as.integer(movieId))
-```
 
-In parallel with the ratings data, the script loads and processes the
-`movies.dat` file to create a structured lookup table for movie
-information. The process mirrors the handling of the ratings file, first
-ingesting the raw text lines and then parsing each line based on the
-double-colon (::) delimiter to separate the distinct data fields. This
-parsed data is converted into a data frame, and its columns are
-programmatically named `movieId`, `title`, and `genres`. To ensure data
-integrity and to enable correct matching with the ratings data, the
-`movieId` column is explicitly converted from a character string to an
-integer type. This structured movies table is essential, as it provides
-the critical mapping between a `movieId` and its corresponding title and
-genre information for our analysis. \newpage
-
-##### DATA SUMMARY: Cleaned Movies Data
-
-```{r, movies_summary, echo=FALSE, message=FALSE, warning=FALSE}
-knitr::kable(
-  head(movies), 
-  caption = "A preview of the first six rows of the ratings data."
-)
-
-# Get a list of character columns
-char_cols <- names(Filter(is.character, movies))
-
-# Get frequency tables for each
-top_counts <- map(char_cols, ~
-  movies %>%
-    count(!!sym(.x), sort = TRUE) %>%
-    head(5) %>%
-    mutate(variable = .x)
-) %>%
-  bind_rows() %>%
-  select(variable, everything())
-
-knitr::kable(top_counts, caption = "Top 5 most frequent values for each character variable")
-```
-
-```{r moviess_hist, echo=FALSE, message=FALSE, warning=FALSE, fig.width=5, fig.height=3, echo=FALSE}
-# Add number of ratings per movie if not present
-if(!"num_ratings" %in% colnames(movies)) {
-  movie_counts <- ratings %>%
-    count(movieId, name = "num_ratings")
-  movies <- movies %>%
-    left_join(movie_counts, by = "movieId")
-}
-
-ggplot(movies, aes(x = num_ratings)) +
-  geom_histogram(binwidth = 10, fill = "dark red", color = "dark red") +
-  scale_y_log10() +
-  labs(
-    title = "Distribution of Number of Ratings per Movie",
-    x = "Number of Ratings per Movie",
-    y = "Number of Movies (log scale)"
-  )
-```
-
-###### The movies metadata infuses content-based context—via genre ontologies and item-level identifiers—into user behavior modeling. This integration enables the development of hybrid recommender systems that align user preferences with interpretable item features, enhancing algorithmic personalization, fairness, and scalability.
-
-\newpage
-
-### 2.4.1 Merging Ratings and Movies Data
-
-```{r, merge_data, echo=FALSE, message=FALSE, warning=FALSE}
-# Combine user ratings with movie metadata into one comprehensive table:
-# – left_join preserves every rating record (even if some movies lack metadata)
-# – appends title and genres columns to each rating
-# Result: movielens has userId, movieId, rating, timestamp, title, and genres
 movielens <- left_join(ratings, movies, by = "movieId")
-```
 
-To create a single, comprehensive dataset for analysis, the ratings and
-movies data frames are merged using a `left_join` operation. This
-function links the two tables by matching rows that share a common
-`movieId`. The result is a new, unified data frame named `movielens`,
-where each rating record is now enriched with the corresponding movie's
-title and genres. This combined dataset is the foundational data
-structure for all subsequent exploratory analysis, feature engineering,
-and model training, as it contains all the necessary user, movie, and
-rating information in a single, tidy format. \newpage
+# Final hold-out test set will be 10% of MovieLens data
+set.seed(1, sample.kind="Rounding") # if using R 3.6 or later
+# set.seed(1) # if using R 3.5 or earlier
+test_index <- createDataPartition(y = movielens$rating, times = 1, p = 0.1, list = FALSE)
+edx <- movielens[-test_index,]
+temp <- movielens[test_index,]
 
-##### DATA SUMMARY: Merged Data
-
-```{r, movielens_summary, echo=FALSE, message=FALSE, warning=FALSE}
-# 1. Summarize per-movie statistics
-movie_stats <- movielens %>% 
-  group_by(movieId) %>%
-  summarise(
-    avg_rating = mean(rating),
-    n_ratings = n()
-  )
-
-# 2. Summarize per-user statistics (optional)
-user_stats <- movielens %>%
-  group_by(userId) %>%
-  summarise(
-    avg_rating = mean(rating),
-    n_ratings = n()
-  )
-
-# 3. Show the first few rows for context
-kable(head(movie_stats), caption = "A preview of average ratings and number of ratings for movies.")
-
-# 4. Show summary statistics for these new variables
-movie_stats_summary <- skim(movie_stats) %>%
-  select(skim_variable, numeric.mean, numeric.sd, numeric.p50) %>%
-  filter(skim_variable %in% c("avg_rating", "n_ratings"))
-
-kable(
-  movie_stats_summary,
-  caption = "Summary statistics (mean, sd, median) for average ratings and number of ratings per movie."
-)
-```
-
-```{r moviele_hist, echo=FALSE, message=FALSE, warning=FALSE, fig.width=5, fig.height=3, echo=FALSE}
-ggplot(movie_stats, aes(x = avg_rating)) +
-  geom_histogram(binwidth = 0.1, fill = "dark red", color = "black") +
-  labs(
-    title = "Distribution of Average Movie Ratings",
-    x = "Average Rating",
-    y = "Number of Movies"
-  )
-```
-
-###### The movielens dataset constitutes a temporally indexed, user-item interaction matrix enriched with item-level covariates (title, year, genres) and user-specific behavioral data (userId, rating, timestamp). Its schema supports advanced modeling tasks including matrix factorization with side information, dynamic collaborative filtering, and hierarchical genre-aware embeddings. By unifying observational feedback with content-based taxonomies, it facilitates research into high-dimensional preference estimation, temporal drift in item relevance, and fine-grained regularization strategies for recommender architectures.
-
-\newpage
-
-### 2.5.1 Final Hold-out Test Set Preparation
-
-```{r, final_holdout, message=FALSE, warning=FALSE}
-# -----------------------------------------------------------------------------
-# STEP 1: Create a reproducible 10% hold‐out sample from the full movielens data
-# -----------------------------------------------------------------------------
-# Set a random seed so that anyone running this code will get the same split.
-# For R ≥ 3.6, you need sample.kind = "Rounding" to replicate older behavior;
-# if you’re on R ≤ 3.5, just use set.seed(1).
-set.seed(1, sample.kind = "Rounding")
-
-# createDataPartition() returns row indices for a stratified sample of ratings.
-# Here p = 0.1 means “take 10% of the rows” while preserving the rating distribution.
-test_index <- createDataPartition(
-  y     = movielens$rating,  # the outcome we want to stratify by
-  times = 1,                  # only one partition
-  p     = 0.1,                # proportion in the hold‐out set
-  list  = FALSE               # return a vector, not a list
-)
-
-# Split the data:
-# – edx    : 90% of the data, to train and tune our models
-# – temp   : initial 10% hold‐out, which we’ll prune next
-edx  <- movielens[-test_index, ]
-temp <- movielens[test_index, ]
-
-# -----------------------------------------------------------------------------
-# STEP 2: Guarantee that the final test set only contains users and movies seen
-#            during training (so we aren’t forced to predict on unseen data).
-# -----------------------------------------------------------------------------
-# semi_join(x, y, by) keeps only rows in x that have matching keys in y.
+# Make sure userId and movieId in final hold-out test set are also in edx set
 final_holdout_test <- temp %>% 
-  semi_join(edx, by = "movieId") %>%  # drop any ratings for brand‐new movies
-  semi_join(edx, by = "userId")       # drop any ratings from brand‐new users
+  semi_join(edx, by = "movieId") %>%
+  semi_join(edx, by = "userId")
 
-# Any rows from temp that got dropped because of unseen user/movie:
+# Add rows removed from final hold-out test set back into edx set
 removed <- anti_join(temp, final_holdout_test)
+edx <- rbind(edx, removed)
 
-# Put those removed rows back into the edx (training) set to preserve all data.
-edx <- bind_rows(edx, removed)
-
-# -----------------------------------------------------------------------------
-# STEP 3: Clean up workspace
-# -----------------------------------------------------------------------------
-# Remove files and objects we no longer need to free up memory
 rm(dl, ratings, movies, test_index, temp, movielens, removed)
 ```
 
-To rigorously evaluate the final model's performance, we partition the
-complete `movielens` dataset into a primary training set (`edx`) and a
-final hold-out validation set (`final_holdout_test`). To ensure this
-process is reproducible, we first set a random seed. Using the
-`createDataPartition` function, we perform an initial 90/10 stratified
-split based on the rating outcome, which preserves the rating
-distribution in both sets. However, a critical step is then taken to
-address a common challenge in recommendation systems: ensuring the
-validation set only contains users and movies that are also present in
-the training set. We achieve this by filtering the hold-out set using
-`semi_join` operations, which guarantees that every `userId` and
-`movieId` in the final `final_holdout_test` set also exists in the `edx`
-set. To maintain data integrity, any rows removed from the hold-out set
-during this process are identified and added back to the `edx` training
-set. Finally, all intermediate data objects are removed from the
-environment to ensure a clean workspace, leaving only the final,
-well-defined training and validation sets for the modeling phase.
-\newpage
-
-# 3. Methodologies
-
-## 3.1 Executive Summary
-
-**1. Goal**
-
-The primary goal of this capstone project is to develop a machine
-learning–based movie recommendation system that balances predictive
-accuracy with fairness and reproducibility. By leveraging the MovieLens
-dataset, the project aims to evaluate rating behavior across user, item,
-and temporal dimensions, mitigate bias through informed feature design
-and model auditing, and deliver transparent, replicable results. The
-system integrates ensemble modeling techniques to maximize performance
-while maintaining methodological integrity and ethical alignment.
-
-**2. Data Preprocessing**
-
-The pipeline begins with extensive data cleaning and transformation. Key
-variables such as userId, movieId, rating, timestamp, and genres were
-parsed and validated. Movie titles were processed using regular
-expressions to extract release years, and timestamps were converted into
-interpretable date-time features. Multi-genre labels were encoded using
-multi-hot representations to allow genre-level modeling. This phase also
-involved handling missing values, removing duplicates, and addressing
-outliers or abnormal records.
-
-**3. Bias Auditing**
-
-A structured bias audit was conducted to evaluate representational
-fairness in the data. Participation skew was analyzed across users and
-movies to highlight long-tail effects. Correlations between average
-ratings and item popularity were assessed to detect popularity bias.
-Genre and temporal coverage were evaluated to identify underrepresented
-segments, and differences between high- and low-frequency users were
-explored to inform equitable model behavior.
-
-**4. Exploratory Data Analysis**
-
-Exploratory analysis uncovered rating trends along temporal, behavioral,
-and genre dimensions. Visualizations, including histograms, line plots,
-and heatmaps, revealed changes in rating behavior over time, shifts in
-genre popularity, and fluctuations in user activity. These insights
-guided feature selection and model assumptions, especially in detecting
-nonstationary effects and population drift.
-
-**5. Feature Engineering**
-
-Domain-informed features were engineered to support model
-expressiveness. Temporal indicators such as movie_age, user_tenure, and
-rating_year captured lifecycle effects. Ratings were normalized at the
-user and movie levels to reduce individual biases. Users and movies were
-binned by activity and enriched with group-level statistics. Outlier
-detection based on rating variance and monotonic behavior flagged
-anomalous raters that could distort learning.
-
-**6. Model Selection and Tuning**
-
-A diverse set of supervised learning algorithms was evaluated, including
-regularized linear models (e.g., Ridge, Lasso), matrix factorization
-techniques, and ensemble-friendly tree-based models such as Random
-Forest and XGBoost. Each model was supported by a modular preprocessing
-pipeline and hyperparameter tuning via cross-validation. Overfitting was
-mitigated using regularization and complexity constraints.
-
-**7. Ensemble Learning**
-
-Ensemble techniques were central to the final architecture. Stacked
-generalization combined base model predictions using a meta-learner
-trained on out-of-fold outputs. Blending strategies further stabilized
-predictions by averaging strengths of distinct algorithms. These
-ensembles improved both predictive accuracy and robustness across
-evaluation sets by capturing diverse decision boundaries and reducing
-individual model variance.
-
-**8. Evaluation and Metrics**
-
-Model performance was measured using pointwise regression metrics such
-as RMSE and MAE, and ranking-oriented metrics like
-[precision\@K](mailto:precision@K){.email} and NDCG to assess
-recommendation relevance. Evaluation was conducted on a held-out test
-set using consistent splits. Results were presented in comparative
-tables and visual charts, demonstrating measurable gains from ensemble
-approaches over individual models.
-
-**9. Reproducibility and Documentation**
-
-All modeling decisions, parameters, and transformations were documented
-in a reproducible pipeline built with R Markdown and version control.
-The project adheres to the principles of reproducible research by
-embedding code and results in a literate programming workflow. Each
-module—from preprocessing to modeling and evaluation—is portable,
-interpretable, and ready for peer replication.
-
-**10. Results**
-
-The final ensemble model demonstrated improved predictive performance
-across all metrics compared to individual learners. RMSE and MAE scores
-were consistently lower for ensemble configurations, and ranking
-performance—particularly
-[precision\@K](mailto:precision@K){.email}—showed enhanced
-recommendation quality. Qualitative analysis confirmed better
-generalization to underrepresented user segments and improved stability
-across genres and time periods. These outcomes validate the
-effectiveness of the bias-aware, ensemble-centered strategy and
-highlight the importance of integrating fairness considerations into
-predictive modeling pipelines. \newpage
-
-## 3.2 Work-Flow
-
-```{r make-pipeline-png, echo=FALSE, message=FALSE, warning=FALSE, eval=TRUE, out.width='7.5in', out.height='9.5in', dpi=1200}
-# ---- Load required libraries ----
-library(DiagrammeR)
-library(DiagrammeRsvg)
-library(rsvg)
-
-# ---- DOT specification for the ML pipeline diagram ----
-ml_pipeline_dot <- "
-digraph G {
-  // ---- Graph-wide settings ----
-  graph [
-    layout=dot;
-    rankdir=TB;                  // Top to Bottom orientation
-    newrank=true;
-    //splines=ortho;               // Orthogonal lines
-    nodesep=0.75;
-    ranksep=3;
-    fontname='Helvetica';
-    fontsize=20;
-    labelloc=t;
-    bgcolor='white';
-  ];
-
-  // ---- Default node styling ----
-  node [
-    shape=plain;
-    style=filled;
-    fontname='Helvetica';
-    margin=15;
-  ];
-
-  // ---- Cluster: Data Preparation & EDA ----
-  subgraph cluster_data {
-    label=<<FONT POINT-SIZE='72'><B><BR/>Data Prep &amp; EDA<BR/></B></FONT>>;
-    style='filled,rounded';
-    color='#42A5F5';
-    fillcolor='#BBDEFB';
-    margin=15;
-
-    // Node ranking for arrangement
-    { rank=same; wrangling; audit; }
-    { rank=same; trends; featprep; }
-
-    // Nodes in this cluster
-    wrangling [
-      fillcolor='#E3F2FD',
-      label=<
-        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
-          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>1. Data Wrangling</FONT></B></TD></TR>
-          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Merge datasets<br/> • Handle missing values<br/> • Check data types<br/> • Remove duplicates </FONT></TD></TR>
-        </TABLE>
-      >
-    ];
-
-    audit [
-      fillcolor='#E3F2FD',
-      label=<
-        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
-          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>2. Data Audit</FONT></B></TD></TR>
-          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Summary statistics<br/> • Distribution plots<br/> • Identify outliers<br/> • Data validation </FONT></TD></TR>
-        </TABLE>
-      >
-    ];
-
-    trends [
-      fillcolor='#E1F5FE',
-      label=<
-        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
-          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>3. Trends Analysis</FONT></B></TD></TR>
-          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Top items/users<br/> • Ratings over time<br/> • Genre popularity<br/> • User activity levels </FONT></TD></TR>
-        </TABLE>
-      >
-    ];
-
-    featprep [
-      fillcolor='#E1F5FE',
-      label=<
-        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
-          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>4. Feature<BR/> Engineering</FONT></B></TD></TR>
-          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Time features<br/> • Normalize ratings<br/> • Encode genres<br/> • Activity bins<br/> • Tag outliers </FONT></TD></TR>
-        </TABLE>
-      >
-    ];
-
-    // Process flow inside Data Prep cluster
-    wrangling -> audit -> trends -> featprep;
-  }
-
-  // ---- Cluster: Model Development & Evaluation ----
-  subgraph cluster_modeling {
-    label=<<FONT POINT-SIZE='72'><B><BR/>Model Development &amp; Evaluation<BR/></B></FONT>>;
-    style='filled,rounded';
-    color='#9575CD';
-    fillcolor='#D1C4E9';
-    margin=30;
-
-    { rank=same; modelsel; prepfe; train; reg; }
-    { rank=same; eval; ens; report; }
-
-    modelsel [
-      fillcolor='#EDE7F6',
-      label=<
-        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
-          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>5. Model Selection</FONT></B></TD></TR>
-          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Identify ≥4 models<br/> • List key features<br/> • Core assumptions<br/> • Justify choices </FONT></TD></TR>
-        </TABLE>
-      >
-    ];
-
-    prepfe [
-      fillcolor='#EDE7F6',
-      label=<
-        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
-          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>6. Data Prep &amp; FE</FONT></B></TD></TR>
-          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Preprocessing<br/> • Feature engineering<br/> • Handle sparsity<br/> • Train/test splits </FONT></TD></TR>
-        </TABLE>
-      >
-    ];
-
-    train [
-      fillcolor='#EDE7F6',
-      label=<
-        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
-          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>7. Train &amp; Tune</FONT></B></TD></TR>
-          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Train models<br/> • Cross-validation<br/> • Log metrics<br/> • Hyperparameter search </FONT></TD></TR>
-        </TABLE>
-      >
-    ];
-
-    reg [
-      fillcolor='#EDE7F6',
-      label=<
-        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
-          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>8. Regularization</FONT></B></TD></TR>
-          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Avoid overfitting<br/> • Compare baseline<br/> • Complexity effects<br/> • L1/L2/Dropout </FONT></TD></TR>
-        </TABLE>
-      >
-    ];
-
-    eval [
-      fillcolor='#EDE7F6',
-      label=<
-        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
-          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>9. Evaluation</FONT></B></TD></TR>
-          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • RMSE/MAE<br/> • Ranking metrics<br/> • Comparison table<br/> • Significance tests </FONT></TD></TR>
-        </TABLE>
-      >
-    ];
-
-    ens [
-      fillcolor='#EDE7F6',
-      label=<
-        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
-          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>10. Ensemble</FONT></B></TD></TR>
-          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Stacking/blending<br/> • Compare models<br/> • Record trade-offs<br/> • Complexity </FONT></TD></TR>
-        </TABLE>
-      >
-    ];
-
-    report [
-      fillcolor='#EDE7F6',
-      label=<
-        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
-          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>11. Reporting</FONT></B></TD></TR>
-          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Parameters<br/> • Visuals/stats<br/> • Documentation<br/> • Code/environment </FONT></TD></TR>
-        </TABLE>
-      >
-    ];
-
-    // Process flow inside Modeling cluster
-    modelsel -> prepfe -> train -> reg;
-    reg -> eval;
-    eval -> ens -> report;
-  }
-
-  // ---- Cluster: Final Summary ----
-  subgraph cluster_summary {
-    label=<<FONT POINT-SIZE='72'><B><BR/>Summary<BR/></B></FONT>>;
-    style='filled,rounded';
-    color='#FFF176';
-    fillcolor='#FFF9C4';
-    margin=30;
-
-    { rank=same; results; limits; reproduc; concl; }
-
-    results [
-      fillcolor='#FFFDE7',
-      label=<
-        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
-          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>12. Results</FONT></B></TD></TR>
-          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Best model<br/> • Key findings<br/> • Feature importance<br/> • Insights </FONT></TD></TR>
-        </TABLE>
-      >
-    ];
-
-    limits [
-      fillcolor='#FFFDE7',
-      label=<
-        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
-          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>13. Limitations</FONT></B></TD></TR>
-          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Data sparsity<br/> • Model limits<br/> • Fairness<br/> • Recommendations </FONT></TD></TR>
-        </TABLE>
-      >
-    ];
-
-    reproduc [
-      fillcolor='#FFFDE7',
-      label=<
-        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
-          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>14. Reproducibility</FONT></B></TD></TR>
-          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Environment<br/> • Data access<br/> • Requirements<br/> • Runtime </FONT></TD></TR>
-        </TABLE>
-      >
-    ];
-
-    concl [
-      fillcolor='#FFFDE7',
-      label=<
-        <TABLE BORDER='0' CELLBORDER='0' CELLSPACING='50' CELLPADDING='12'>
-          <TR><TD ALIGN='CENTER'><B><FONT POINT-SIZE='48'>15. Conclusion</FONT></B></TD></TR>
-          <TR><TD ALIGN='LEFT'><FONT POINT-SIZE='48'> • Synthesis<br/> • Impact<br/> • Future work<br/> • Final thoughts </FONT></TD></TR>
-        </TABLE>
-      >
-    ];
-
-    // Process flow inside Summary cluster
-    results -> limits -> reproduc -> concl;
-  }
-
-  // ---- Inter-Cluster Edges ----
-  featprep -> modelsel [ltail=cluster_data, lhead=cluster_modeling, minlen=2];
-  report -> results   [ltail=cluster_modeling, lhead=cluster_summary, minlen=2];
-}
-"
-
-# ---- Generate and export the diagram ----
-g <- grViz(ml_pipeline_dot)
-svg <- export_svg(g)
-
-# Export diagram as high-res PNG file
-rsvg_png(
-  charToRaw(svg), 
-  file = "ml-pipeline.png", 
-  width = 900, height = 1200
-)
-
-# ---- Include the image in the output ----
-knitr::include_graphics("ml-pipeline.png")
+## Structure of the Data: `str(edx)`
+```{r og_capstone_structure, echo=FALSE, output.width="90%"}
+options(digits = 5)
+glimpse(edx)
 ```
 
-\newpage
-
-# 4. Analysis
-
-```{r analysis_map,echo=FALSE, message=FALSE, warning=FALSE,}
+## First Five Rows of the Dataset: `head(edx)`
+```{r og_capstone_head, echo=FALSE, message=FALSE, warning=FALSE, output.width="90%"}
+options(digits = 5)
+kable(head(edx, 5))
 ```
-\newpage
-```{r analysis_map,echo=FALSE, message=FALSE, warning=FALSE,}
-```{r analysis_map, echo=FALSE, message=FALSE, warning=FALSE}
-library(lubridate)
-library(ggplot2)
-set.seed(1)
 
-# Sample data
-edx_sample <- edx %>% sample_n(100000)
+## Variables Found:
 
-# Extract year and year-month
-edx_sample <- edx_sample %>%
-  mutate(
-    year_month = as.Date(format(as_datetime(timestamp), "%Y-%m-01")),
-    year = lubridate::year(lubridate::as_datetime(timestamp))
+`userId` and `movieId` are integer identifiers that uniquely represent users and movies in the system. These are categorical variables despite being numeric, serving as keys to link ratings to specific users and films. The `userId` allows tracking of individual user preferences across multiple ratings, while `movieId` connects ratings to specific movies regardless of who rated them.
+
+`rating` is the core measurement variable, stored as a double-precision number representing user satisfaction on a 5-point scale. This is the target variable for any predictive modeling and represents explicit feedback from users about their movie preferences. 
+
+`timestamp` is an integer representing Unix epoch time (seconds since January 1, 1970), recording the exact moment when each rating was submitted. This temporal data enables analysis of how ratings change over time and can reveal trends in user behavior or movie popularity.
+
+`title` is a character string that provides human-readable movie information, consistently formatted with the movie name followed by its release year in parentheses. This variable serves both as a reference for data validation and as a potential source of features (like release year or title keywords). 
+
+`genres` is a character field containing pipe-delimited genre labels, representing a multi-label classification where each movie can belong to multiple categories simultaneously. 
+
+This categorical information about movie content can be valuable for understanding rating patterns and for content-based analysis approaches.\newpage
+
+
+## Summary of Relevent Variables
+
+### Summary of the `userId` and `movieId` Variables
+
+*Relationship* - Together, these two variables form the core relationship in the dataset - a many-to-many relationship where each user can rate multiple movies and each movie can be rated by multiple users. This creates a sparse user-movie interaction matrix, as most users will only rate a small fraction of all available movies. The combination of (userId, movieId) essentially serves as a composite key that uniquely identifies each rating event in the dataset.
+
+*Analytical Importance* - These variables enable two fundamental types of analysis: user-based patterns (aggregating by userId to find user preferences, rating behaviors, and activity levels) and item-based patterns (aggregating by movieId to determine movie popularity, average ratings, and rating distributions). The sparsity and high cardinality of both variables present challenges for machine learning - they cannot be used directly as numeric features and require encoding techniques like embeddings or one-hot encoding. Their interaction is the primary signal for collaborative filtering algorithms, where patterns in which users rate which movies can be used to predict missing ratings and generate recommendations.
+
+```{r og_capstone_user_movie_summary, echo=FALSE, warning=FALSE, output.width="90%"}
+# STEP 1: Create user statistics first
+user_stats <- edx %>%
+  group_by(userId) %>%
+  summarise(
+    avg_rating = mean(rating),
+    sd_rating = sd(rating),
+    n_ratings = n(),
+    .groups = 'drop'
   )
 
-# Calculate average rating per month
-avg_per_month <- edx_sample %>%
-  group_by(year_month) %>%
-  summarize(avg_rating = mean(rating), .groups = "drop")
+# STEP 2: Basic distribution of average ratings across all users
+ggplot(user_stats, aes(x = avg_rating)) +
+  geom_histogram(bins = 50, fill = "steelblue", alpha = 0.7) +
+  geom_density(aes(y = after_stat(count)), color = "darkred", size = 1) +
+  labs(title = "Distribution of User Average Ratings",
+       x = "Average Rating", y = "Count") +
+  theme_minimal()
 
-# Plot 1: Smoothed Average Rating by Month
-ggplot(avg_per_month, aes(x = year_month, y = avg_rating)) +
-  geom_point(color = "dark red", alpha = 0.7, size = 1) +
-  geom_smooth(method = "loess", color = "#21908CFF", size = 1.5, se = FALSE) +
-  theme_light(base_size = 15) +
-  scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
+# STEP 3: Get top 20 most active users for clearer visualization
+top_users <- user_stats %>%
+  arrange(desc(n_ratings)) %>%
+  head(20) %>%
+  pull(userId)
+
+# Calculate rating proportions for these users
+user_rating_dist <- edx %>%
+  filter(userId %in% top_users) %>%
+  count(userId, rating) %>%
+  group_by(userId) %>%
+  mutate(proportion = n / sum(n))
+
+# STEP 4: Visualize top users' rating distributions
+ggplot(user_rating_dist, aes(x = rating, y = proportion, 
+                              color = factor(userId))) +
+  geom_line(size = 1, alpha = 0.7) +
+  geom_point(size = 2) +
+  scale_x_continuous(breaks = 1:5) +
+  facet_wrap(~userId, ncol = 5) +
+  labs(title = "Rating Distributions for Top 20 Most Active Users",
+       x = "Rating", y = "Proportion of Ratings") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+The first chart shows that most users give pretty high ratings on average. The peak of the curve sits around 3.7-3.8 stars out of 5, which is well above the middle point of 2.5. Very few users have average ratings below 2.5, meaning harsh critics are rare on this platform. This makes sense when you think about it - people usually pick movies they think they'll like, so naturally they end up rating them positively. The smooth curve over the bars shows this pattern holds true across thousands of different users, so it's not just a few people skewing the results. This positive tilt in ratings is simply how most people use the rating system.
+
+Looking at how the 20 most active users rate movies tells an interesting story about personal rating styles. Even though most people lean positive, these power users each have their own unique approach. User 14453 spreads their ratings across all five stars pretty evenly, suggesting they're more willing to use the full scale. Meanwhile, users 3817 and 6767 mostly stick to 4 and 5-star ratings - they're the generous types. User 59269 is tougher than most, centering their ratings around 3 stars and not afraid to go lower. These differences show that while everyone might be watching the same movies, they're judging them by their own personal standards. For building recommendation systems, this means you can't just take ratings at face value - a 4-star rating from a tough critic might actually mean more than a 5-star rating from someone who loves everything they watch.
+\newpage
+
+```{r og_capstone_user_movie_summary2, echo=FALSE, output.width="100%"}
+# STEP 5: Compare user types based on activity
+user_categories <- user_stats %>%
+  mutate(user_type = case_when(
+    n_ratings < 20 ~ "Light Rater (<20)",
+    n_ratings < 100 ~ "Moderate Rater (20-99)",
+    TRUE ~ "Heavy Rater (100+)"
+  ))
+
+
+# STEP 6: Visualize rating patterns by user type
+# Sample data for efficiency
+sample_users_by_type <- user_categories %>%
+  group_by(user_type) %>%
+  sample_n(min(100, n())) %>%
+  pull(userId)
+
+rating_by_type <- edx %>%
+  filter(userId %in% sample_users_by_type) %>%
+  left_join(user_categories %>% select(userId, user_type), by = "userId")
+
+ggplot(rating_by_type, aes(x = rating, fill = user_type)) +
+  geom_bar(position = "dodge", alpha = 0.7) +
+  scale_x_continuous(breaks = 1:5) +
+  facet_wrap(~user_type, scales = "free_y") +
+  labs(title = "Rating Distributions by User Type",
+       x = "Rating", y = "Count",
+       fill = "User Type") +
+  theme_minimal()
+
+
+# Summary by user type
+user_categories %>%
+  group_by(user_type) %>%
+  summarise(
+    count = n(),
+    avg_rating_mean = mean(avg_rating),
+    avg_rating_sd = sd(avg_rating)
+  )
+
+```
+The data reveals an interesting finding: rating behavior remains surprisingly consistent regardless of how active users are on the platform. Heavy raters (those with 100+ ratings), moderate raters (20-99 ratings), and light raters (less than 20 ratings) all show nearly identical average ratings around 3.56-3.65 stars. This suggests that whether someone rates hundreds of movies or just a handful, they tend to be equally positive in their assessments.
+
+The bar charts tell a more nuanced story about how each group uses the rating scale. Heavy raters show the most pronounced preference for 4-star ratings, with a massive spike at that value, while being more conservative with perfect 5-star scores. Light raters, despite rating fewer movies, are more generous with both 4 and 5-star ratings, showing roughly equal usage of both. Moderate raters fall somewhere in between, with a clear preference for 4 stars but still liberal use of 5-star ratings. All three groups show the same pattern of rarely using 1 or 2-star ratings, with usage dropping off dramatically below 3 stars. This consistency across user types reinforces that the positive rating bias is a fundamental characteristic of how people interact with the platform, not something that changes with experience or engagement level. The slightly higher variance (sd) among light raters (0.541 vs 0.413 for heavy raters) suggests they're a bit less consistent in their rating patterns, possibly because they're still developing their personal rating style or are more selective about which movies they choose to rate.
+\newpage
+
+```{r og_capstone_user_movie_summary3, echo=FALSE, output.width="100%"}
+# STEP 1: Create movie statistics
+movie_stats <- edx %>%
+  group_by(movieId, title) %>%
+  summarise(
+    avg_rating = mean(rating),
+    sd_rating = sd(rating),
+    n_ratings = n(),
+    .groups = 'drop'
+  )
+
+# Distribution of movie average ratings
+ggplot(movie_stats, aes(x = avg_rating)) +
+  geom_histogram(bins = 50, fill = "darkgreen", alpha = 0.7) +
+  labs(title = "Distribution of Movie Average Ratings",
+       x = "Average Rating", y = "Number of Movies with Same Rating") +
+  theme_minimal()
+```
+
+The histogram displays the distribution of average ratings across all movies in the dataset, revealing a near-normal distribution centered around 3.5 stars. The chart shows that the vast majority of movies receive average ratings between 2.5 and 4.5 stars, with the peak occurring at approximately 3.5 stars where nearly 800 movies cluster. The distribution is notably symmetric, with a gradual increase in frequency from 2.0 to 3.5 stars and a corresponding gradual decrease from 3.5 to 4.5 stars.
+
+Very few movies achieve extreme ratings at either end of the spectrum. The left tail shows minimal movies with average ratings below 2.0 stars, indicating that truly poorly-rated films are rare in the dataset. Similarly, the right tail demonstrates that very few movies maintain average ratings above 4.5 stars, with almost no movies achieving a perfect 5.0 average. This pattern suggests that when ratings are aggregated across many users, extreme opinions tend to balance out, resulting in most movies falling within a moderate range. The shape of this distribution contrasts notably with the user rating distribution, which showed a positive skew. This difference indicates that while individual users tend to rate optimistically, the collective wisdom of crowds produces a more balanced assessment of movie quality, with most films being rated as average to slightly above average rather than exceptional or terrible.
+\newpage
+
+### Summary of the `rating` Variable
+
+```{r og_capstone_rating_summary, echo=FALSE, output.width="90%"}
+
+# Visualize overall distribution
+ggplot(edx, aes(x = factor(rating))) +
+  geom_bar(fill = "steelblue", alpha = 0.7) +
+  geom_text(stat = "count", aes(label = ..count..), vjust = -0.5) +
+  labs(title = "Distribution of All Ratings",
+       x = "Rating", y = "Count") +
+  theme_minimal()
+
+# Basic summary
+summary(edx$rating)
+table(edx$rating)
+
+```
+This rating distribution chart reveals a strong positive bias typical of user-generated review systems, with approximately 82% of all ratings falling between 3.0 and 5.0 stars. The distribution peaks dramatically at 4.0 stars with over 2.5 million ratings, followed by 3.0 stars with about 2.1 million ratings, while lower ratings (0.5-2.5 stars) collectively account for less than 18% of the total. This right-skewed pattern suggests that users are more likely to rate products or services they have positive experiences with, as dissatisfied users often don't leave ratings at all. The substantial concentration of ratings at whole-number values (particularly 3.0, 4.0, and 5.0) compared to half-star ratings indicates that users tend to gravitate toward round numbers when rating, a common psychological tendency in rating systems. This distribution pattern has important implications for interpreting average ratings, as the positive skew means that even mediocre items may have relatively high average scores.
+
+```{r og_capstone_rating_user_activity, echo=FALSE, output.width="90%"}
+# Create user groups based on activity
+user_activity <- edx %>%
+  group_by(userId) %>%
+  summarise(n_ratings = n()) %>%
+  mutate(user_group = cut(n_ratings, 
+                          breaks = c(0, 20, 50, 100, Inf),
+                          labels = c("Light", "Moderate", "Active", "Heavy")))
+
+# Join back and compare ratings
+edx_with_groups <- edx %>%
+  left_join(user_activity, by = "userId")
+
+# Compare rating distributions
+rating_by_group <- edx_with_groups %>%
+  group_by(user_group, rating) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  group_by(user_group) %>%
+  mutate(proportion = n / sum(n))
+
+# Visualize
+ggplot(rating_by_group, aes(x = factor(rating), y = proportion, fill = user_group)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Rating Distribution by User Activity Level",
+       x = "Rating", y = "Proportion", fill = "User Type") +
+  theme_minimal()
+
+# Statistical comparison
+edx_with_groups %>%
+  group_by(user_group) %>%
+  summarise(
+    mean_rating = mean(rating),
+    sd_rating = sd(rating),
+    median_rating = median(rating),
+    n = n()
+  )
+```
+This chart analyzes how user activity levels influence movie rating patterns in the dataset by categorizing users into four groups based on their rating frequency: Light, Moderate, Active, and Heavy users. The analysis creates a grouped bar chart visualization using ggplot2 that displays the proportion of each rating value (from 0.5 to 5 stars) across these different user types. The statistical comparison section calculates summary statistics (mean rating, standard deviation, median rating, and sample size) for each user group to quantify behavioral differences. The resulting visualization reveals interesting patterns - for instance, all user groups show a peak around ratings of 3.5-4, but the distribution shapes vary, with more active users potentially showing different rating tendencies than casual users. This type of analysis is valuable for understanding user behavior in recommendation systems, as it can reveal whether frequent raters are more critical or generous than occasional users, and whether rating patterns should be normalized based on user activity levels to improve prediction accuracy.\newpage
+
+```{r og_capstone_rating_popular_movie, echo=FALSE, output.width="90%"}
+# Create movie popularity groups
+movie_popularity <- edx %>%
+  group_by(movieId) %>%
+  summarise(n_ratings = n()) %>%
+  mutate(popularity = cut(n_ratings,
+                         breaks = c(0, 10, 50, 100, 500, Inf),
+                         labels = c("Very Low", "Low", "Medium", "High", "Very High")))
+
+# Compare ratings by popularity
+edx_with_popularity <- edx %>%
+  left_join(movie_popularity, by = "movieId")
+
+# Box plot comparison
+ggplot(edx_with_popularity %>% sample_n(100000), 
+       aes(x = popularity, y = rating, fill = popularity)) +
+  geom_boxplot() +
+  geom_jitter(alpha = 0.01, width = 0.2) +
+  labs(title = "Rating Distribution by Movie Popularity",
+       x = "Movie Popularity", y = "Rating") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# Summary statistics
+edx_with_popularity %>%
+  group_by(popularity) %>%
+  summarise(
+    mean_rating = mean(rating),
+    sd_rating = sd(rating),
+    q25 = quantile(rating, 0.25),
+    median = median(rating),
+    q75 = quantile(rating, 0.75),
+    n = n()
+  )
+```
+This analysis examines the relationship between movie popularity (measured by the number of ratings received) and rating scores. Movies were categorized into five popularity groups based on their rating counts: Very Low (0-10 ratings), Low (10-50), Medium (50-100), High (100-500), and Very High (500+ ratings). The visualization and summary statistics reveal a clear positive relationship between popularity and ratings - movies with very low popularity have a mean rating of 3.02, which steadily increases to 3.55 for very popular movies. Similarly, the median rating increases from 3.0 to 4.0 across these groups. The box plot shows that highly popular movies not only receive higher ratings on average but also have their rating distributions shifted upward, with more concentrated ratings in the 3.5-4.5 range. This pattern suggests that popular movies tend to be genuinely better-received by audiences, though it could also reflect selection bias where viewers are more likely to watch and rate movies they expect to enjoy. The vast majority of ratings (8.14 million) come from very popular movies, while movies with very low popularity account for only 5,696 ratings, indicating the highly skewed nature of movie viewership patterns.\newpage
+
+```{r og_capstone_rating_time, echo=FALSE, message=FALSE, warning=FALSE, output.width="90%"}
+# Convert timestamp to date and create periods
+library(lubridate)
+
+edx_with_time <- edx %>%
+  mutate(
+    date = as_datetime(timestamp),
+    year = year(date),
+    month = month(date),
+    year_group = cut(year, 
+                     breaks = c(-Inf, 1997, 2000, 2003, 2006, Inf),
+                     labels = c("1996-1997", "1998-2000", "2001-2003", "2004-2006", "2007+"))
+  )
+
+# Compare ratings over time periods
+time_comparison <- edx_with_time %>%
+  group_by(year_group, rating) %>%
+  summarise(n = n(), .groups = "drop") %>%
+  group_by(year_group) %>%
+  mutate(proportion = n / sum(n))
+
+# Line plot of rating trends
+ggplot(time_comparison, aes(x = rating, y = proportion, color = year_group)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 3) +
+  labs(title = "Rating Distribution Changes Over Time",
+       x = "Rating", y = "Proportion", color = "Time Period") +
+  theme_minimal()
+
+# Test for rating inflation
+edx_with_time %>%
+  group_by(year) %>%
+  summarise(avg_rating = mean(rating)) %>%
+  ggplot(aes(x = year, y = avg_rating)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(title = "Average Rating Trend Over Years",
+       x = "Year", y = "Average Rating") +
+  theme_minimal()
+```
+This temporal analysis reveals significant changes in rating patterns over time. The rating distribution evolved from being heavily concentrated around 3 stars in the early period (1996-1997) to becoming more dispersed across different rating values in later years. The proportion of 4-star ratings notably increased from the early period to later time periods, while the dominance of 3-star ratings diminished. However, despite this shift toward more varied rating distributions, the overall average rating actually declined over time. The trend analysis shows a clear negative trajectory, with average ratings dropping from approximately 4.0 in 1995 to around 3.5 by 2009, as indicated by the fitted linear regression line. This decline of roughly 0.5 stars over 14 years suggests a form of "rating deflation" rather than the inflation one might expect, possibly indicating that users became more critical over time or that the composition of movies being rated changed. The year-to-year variation shows some volatility, particularly in the mid-1990s, but the downward trend remains consistent throughout the observed period. This temporal effect is an important consideration for any predictive modeling, as it suggests that rating behavior is not static but evolves systematically over time.\newpage
+
+
+```{r og_capstone_rating_genre, echo=FALSE, output.width="90%"}
+# Create genre indicators
+library(tidyr)
+
+# Extract individual genres (this may take time with 9M rows)
+genre_data <- edx %>%
+  sample_n(100000) %>%  # Sample for demonstration
+  separate_rows(genres, sep = "\\|") %>%
+  filter(genres != "(no genres listed)")
+
+# Compare ratings by genre
+genre_comparison <- genre_data %>%
+  group_by(genres) %>%
+  summarise(
+    mean_rating = mean(rating),
+    sd_rating = sd(rating),
+    n = n()
+  ) %>%
+  filter(n >= 1000) %>%  # Only genres with sufficient data
+  arrange(desc(mean_rating))
+
+# Visualize genre differences
+ggplot(genre_comparison, aes(x = reorder(genres, mean_rating), y = mean_rating)) +
+  geom_bar(stat = "identity", fill = "darkgreen", alpha = 0.7) +
+  geom_errorbar(aes(ymin = mean_rating - sd_rating, 
+                    ymax = mean_rating + sd_rating), 
+                width = 0.2) +
+  coord_flip() +
+  labs(title = "Average Rating by Genre",
+       x = "Genre", y = "Mean Rating (with SD)") +
+  theme_minimal()
+```
+This analysis examines how movie ratings vary across different genres in the dataset. After extracting individual genres from the pipe-separated genre field and filtering for genres with sufficient data (at least 1,000 ratings), the visualization reveals notable differences in average ratings across genres. Film-Noir emerges as the highest-rated genre with an average rating around 4.0, followed closely by Documentary and War films, suggesting these genres consistently produce content that resonates well with audiences. Drama, Mystery, and Crime films also perform above average. In contrast, Horror films receive the lowest average ratings (approximately 3.3), with Children's and Sci-Fi movies also rating below the overall dataset average. The error bars indicate the standard deviation for each genre, showing that most genres have similar variability in ratings despite their different means. The relatively large error bars (roughly ±1 rating point) suggest substantial variation within each genre, indicating that while genre is a meaningful predictor of ratings, individual movie quality still varies considerably within genres. This genre effect is an important feature for predictive modeling, as it shows systematic differences of up to 0.7 rating points between the highest and lowest-rated genres.\newpage 
+
+
+```{r og_capstone_rating_correlation, echo=FALSE, output.width="90%"}
+# Correlation between user metrics and average rating
+user_metrics <- edx %>%
+  group_by(userId) %>%
+  summarise(
+    avg_rating = mean(rating),
+    n_ratings = n(),
+    rating_variance = var(rating),
+    unique_movies = n_distinct(movieId)
+  )
+
+cor(user_metrics[, c("avg_rating", "n_ratings", "rating_variance", "unique_movies")])
+```
+
+\newpage
+
+### Summary of the `timestamp` Variable
+
+The timestamp variable captures the exact moment each rating was submitted, stored as Unix epoch time (seconds since January 1, 1970). This temporal data spans from January 1995 to January 2009, providing nearly 14 years of user rating behavior. Converting these timestamps to readable dates reveals several important patterns about how the MovieLens platform evolved and how user preferences changed over time.
+
+
+```{r og_capstone_timestamp_summary, echo=FALSE, output.width="90%"}
+# Convert timestamp to readable dates
+edx <- edx %>%
+  mutate(date = as_datetime(timestamp),
+         year = year(date),
+         month = month(date),
+         day_of_week = wday(date, label = TRUE),
+         hour = hour(date))
+
+# Ratings over time
+edx %>%
+  group_by(year) %>%
+  summarise(n_ratings = n()) %>%
+  ggplot(aes(year, n_ratings)) +
+  geom_line() +
+  labs(title = "Rating Activity Over Years")
+```
+
+
+The "Rating Activity Over Years" chart reveals a highly irregular pattern of data collection throughout MovieLens's history, with two dramatic peaks rather than steady organic growth. Starting near zero in 1995, activity surges to approximately 900,000 ratings in 1997, drops to 200,000 in 1998, then skyrockets to the dataset's maximum of over 1.1 million ratings in 2000. Following this peak, activity plummets by nearly 75% to under 300,000 ratings annually during 2001-2002, remains depressed through 2003, then climbs to a second major peak of approximately 1 million ratings in 2005. After 2005, activity steadily declines through 2009, ending around 600,000-700,000 ratings annually. This volatile pattern suggests data was collected in specific campaigns rather than through continuous user engagement, with the concentration of ratings in 2000 and 2005 potentially overrepresenting movies and user preferences from these periods. Understanding this temporal clustering is crucial for analysis, as the dataset represents snapshots during high-activity periods rather than a consistent longitudinal sample of user behavior.\newpage 
+
+```{r og_capstone_timestamp_summary2, echo=FALSE, output.width="90%"}
+# Clear approach without regex
+library(lubridate)
+library(tidyverse)
+
+# Step 1: Add date columns
+edx <- edx %>%
+  mutate(
+    date = as_datetime(timestamp),
+    rating_year = year(date)
+  )
+
+# Step 2: Extract year from title
+# MovieLens format: "Movie Title (YYYY)"
+# The year is always the 4 characters before the closing parenthesis
+edx <- edx %>%
+  mutate(
+    # Using base R substring function
+    release_year = substring(title, nchar(title) - 4, nchar(title) - 1),
+    # Convert to numeric
+    release_year = as.numeric(release_year),
+    # Calculate movie age
+    movie_age_at_rating = rating_year - release_year
+  )
+```
+
+```{r og_capstone_timestamp_summary3, echo=FALSE, warning=FALSE, message=FALSE, output.width="90%"}
+# How does movie age affect ratings?
+edx %>%
+  filter(!is.na(movie_age_at_rating), 
+         movie_age_at_rating >= 0,     # Remove negative ages (errors)
+         movie_age_at_rating <= 60) %>% # Focus on reasonable range
+  group_by(movie_age_at_rating) %>%
+  summarise(
+    avg_rating = mean(rating),
+    n_ratings = n()
+  ) %>%
+  filter(n_ratings >= 100) %>%  # Only ages with enough data
+  ggplot(aes(movie_age_at_rating, avg_rating)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = "loess", se = TRUE) +
   labs(
-    title = "Smoothed Average Rating by Month (Sampled)",
-    x = "Month",
-    y = "Average Rating"
+    title = "How Movie Ages Affects Ratings",
+    x = "Movie Age at Time of Rating (years)",
+    y = "Average Rating",
   ) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme_minimal()
+```
+By extracting release years from movie titles and comparing them to rating dates, we discovered a fascinating "survivor bias" pattern. Movies rated when they were 15-30 years old consistently receive higher average ratings (around 3.6-3.7 stars) compared to newer releases rated within their first few years (averaging 3.4-3.5 stars). This effect peaks for movies around 20-25 years old and gradually declines for films older than 40 years. This pattern likely reflects that only the best older movies remain in cultural memory and continue to be sought out by viewers, while newer movies include both hits and misses.\newpage
 
-# Fit LOESS model for smooth trend
-loess_fit <- loess(avg_rating ~ as.numeric(year_month), data = avg_per_month, span = 0.3)
-fine_dates <- seq(min(avg_per_month$year_month), max(avg_per_month$year_month), by = "day")
-preds <- predict(loess_fit, newdata = data.frame(year_month = as.numeric(fine_dates)), se = FALSE)
 
-# Calculate local slope (first derivative)
-d_pred <- diff(preds) / as.numeric(diff(fine_dates))
-mid_dates <- fine_dates[-1] # Center points for derivative
-
-curve_df <- data.frame(
-  year_month = mid_dates,
-  avg_rating = preds[-1],
-  slope = d_pred
-)
-
-# Plot 2: Trend with Slope Coloring (LaTeX-friendly label)
-ggplot() +
-  geom_point(data = avg_per_month, aes(x = year_month, y = avg_rating), color = "dark red", alpha = 0.7, size = 1) +
-  geom_line(data = curve_df, aes(x = year_month, y = avg_rating, color = slope), size = 1.5) +
-  scale_color_gradient2(
-    low = "#21908CFF", mid = "grey70", high = "dark red", midpoint = 0,
-    name = expression(paste("Slope (", Delta, " rating/day)"))
-  ) +
-  theme_light(base_size = 15) +
-  scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
+```{r og_capstone_timestamp_summary4, echo=FALSE, message=FALSE, warning=FALSE, output.width="90%"}
+# Do different eras prefer different movie ages?
+edx %>%
+  filter(!is.na(movie_age_at_rating), 
+         movie_age_at_rating >= 0,
+         movie_age_at_rating <= 50) %>%
+  mutate(
+    rating_era = cut(rating_year, 
+                     breaks = c(1995, 2000, 2005, 2010),
+                     labels = c("1995-1999", "2000-2004", "2005-2009"))
+  ) %>%
+  filter(!is.na(rating_era)) %>%
+  group_by(rating_era, movie_age_at_rating) %>%
+  summarise(avg_rating = mean(rating), .groups = "drop") %>%
+  ggplot(aes(movie_age_at_rating, avg_rating, color = rating_era)) +
+  geom_smooth(se = FALSE) +
   labs(
-    title = "Average Rating Trend (Color = Local Slope)",
-    x = "Month",
-    y = "Average Rating"
+    title = "How Movie Age Preferences Changed Over Time",
+    x = "Movie Age (years)",
+    y = "Average Rating",
+    color = "Rating Period"
   ) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme_minimal()
+```
+The platform experienced dramatic fluctuations in user activity throughout its history. Rating submissions started modestly in 1995-1996, then surged to a peak around 2000 with over 1.5 million ratings that year. Activity declined sharply to about 200,000 ratings annually during 2001-2003, before experiencing a second major surge in 2005 that reached nearly 1.4 million ratings. The volatile pattern suggests the data may have been collected in specific campaigns rather than through continuous organic growth, which is important context for understanding potential biases in the dataset.\newpage
+
+### Summary of the Biases found
+
+*Biases in the* `rating` *Variable*
+
+The `rating` variable exhibits a strong positive skew, with a mean of 3.51 stars and 82% of all ratings falling between 3-5 stars. This distribution reveals that users demonstrate a clear tendency to rate movies favorably, placing the typical "average" movie well above the scale midpoint of 2.5. Additionally, the `rating` data shows a distinct whole-number preference - 73% of ratings are given at integer values (1, 2, 3, 4, 5) rather than half-star increments. This pattern indicates a psychological tendency toward round numbers when users evaluate movies. The concentration of ratings at 4.0 stars (28% of all ratings) and 3.0 stars (23%) further emphasizes how users gravitate toward positive but not extreme assessments.
+
+*Biases Related to* `userId`
+
+The `userId` variable reveals systematic differences in how individuals use the rating scale. Some users consistently rate higher than others, with certain users predominantly assigning 4-5 star ratings while others center their ratings around 3 stars. These personal rating styles persist regardless of activity level - users who rate hundreds of movies maintain similar average ratings (3.56-3.65 stars) to those who rate just a handful. However, the variance in ratings differs by user type: light users (fewer than 20 ratings) show higher standard deviation (0.541) compared to heavy raters (0.413), suggesting that rating consistency develops with experience. The distribution of user activity itself is highly skewed, with most users rating relatively few movies while a small subset contributes thousands of ratings.
+
+*Biases Related to* `movieId`
+
+The `movieId` variable captures movie-specific biases that cause systematic deviations in ratings. Popular movies with hundreds or thousands of ratings show different patterns than obscure films with just a handful of reviews. The distribution of average ratings across movies forms a near-normal curve centered around 3.5 stars, contrasting with the skewed distribution of individual ratings. Movies with very few ratings tend to show more extreme averages, likely due to self-selection where niche films are primarily watched and rated by audiences predisposed to enjoy them. The popularity distribution follows a power law, with a few blockbuster movies receiving massive numbers of ratings while the long tail contains thousands of films with minimal rating activity.
+
+*Biases Related to* `timestamp`
+
+The `timestamp` variable reveals several temporal biases in the data. Most notably, when combined with movie release years extracted from titles, it exposes a "survivor bias" - movies rated 15-30 years after their release receive ratings that are 0.2-0.3 stars higher than newer films. This bias peaks when movies reach 20-25 years old, after which the effect gradually diminishes. The timestamp data also shows highly uneven distribution of rating activity across years, with dramatic spikes in 2000 and 2005 that collected over 1.5 million ratings each, while other years saw as few as 200,000 ratings. Despite these collection irregularities, the average rating across all movies remained remarkably stable throughout the 14-year period, hovering around 3.5 stars with no evidence of systematic inflation or deflation.
+
+*Data Collection and Structural Biases*
+
+Beyond individual variables, the dataset structure itself introduces biases. The fundamental self-selection bias means users choose which movies to watch and rate, inherently skewing ratings positive as people generally avoid movies they expect to dislike. The requirement that all movies and users in the test set must also appear in the training set eliminates edge cases and rare users or movies from evaluation. The sporadic data collection pattern, with rating activity concentrated in specific years rather than distributed evenly, may overrepresent the preferences and movies popular during those peak collection periods. These structural characteristics mean the dataset may not fully represent naturalistic rating behavior or the full spectrum of movies and users that a real-world system would encounter.
+
+
+## Model Building
+
+This section establishes the foundation for our recommendation system evaluation framework. We begin by splitting the edx dataset into training (80%) and test (20%) sets, ensuring reproducibility with a fixed random seed. A crucial preprocessing step filters the test set to include only users and movies that appear in the training set, preventing issues with unseen entities during prediction. The RMSE (Root Mean Square Error) function is defined as our primary evaluation metric, which measures the average deviation between predicted and actual ratings. This metric is particularly suitable for recommendation systems as it penalizes larger errors more heavily, reflecting the importance of accurate predictions in user satisfaction.
+```{r og_capstone_modeling1, echo=TRUE, message=FALSE, warning=FALSE, output.width="90%"}
+# Load required libraries
+library(tidyverse)
+library(caret)
+library(lubridate)
+
+# First, let's create a train/test split from edx (not touching final_holdout_test yet)
+set.seed(1, sample.kind="Rounding")
+test_index <- createDataPartition(y = edx$rating, times = 1, p = 0.2, list = FALSE)
+train_set <- edx[-test_index,]
+test_set <- edx[test_index,]
+
+# Ensure test set users and movies are in training set
+test_set <- test_set %>% 
+  semi_join(train_set, by = "movieId") %>%
+  semi_join(train_set, by = "userId")
+
+# Define RMSE function
+RMSE <- function(true_ratings, predicted_ratings){
+  sqrt(mean((true_ratings - predicted_ratings)^2))
+}
 ```
 \newpage
-## 4.1 Data Audit & Wrangling
+### Baseline Model
 
-\newpage
+**Baseline Model Equation:**
 
-### 4.1.1 Wrangling & Cleaning
+$$\hat{r}_{ui} = \mu$$
 
--   Verify userId, movieId, rating\
--   Handle duplicates, missing\
--   Check rating bounds\
--   Parse title for year\
--   Convert timestamp\
--   Split genres \newpage
+Where:
 
-### 4.1.2 Bias Audit
+- $\hat{r}_{ui}$ = predicted rating for user $u$ and movie $i$
+- $\mu$ = global average rating across all movies and users in the training set
 
--   Rating distribution\
--   Coverage by genre/time\
--   Popularity bias\
--   Underrepresented groups\
--   User frequency analysis \newpage
+In this case, $\mu = 3.512$ (the mean of all ratings in the training set).
 
-### 4.1.3 Exploratory Trends
 
--   Rating by genre/year\
--   Time-based changes\
--   Activity trends\
--   Genre vs decade\
--   Age/variance scatter \newpage
+```{r og_capstone_baseline_model, echo=TRUE, output.width="90%"}
+# Simple average of all ratings
+mu <- mean(train_set$rating)
+baseline_rmse <- RMSE(test_set$rating, mu)
+print(paste("Baseline RMSE:", round(baseline_rmse, 5)))
 
-### 4.1.4 Feature Engineering
+# Store results
+rmse_results <- data.frame(
+  method = "Just the average",
+  RMSE = baseline_rmse
+)
+```
+The baseline model serves as our simplest benchmark, predicting all ratings as the global average (μ) of all training set ratings. With an RMSE of 1.05990, this naive approach establishes the performance floor that more sophisticated models must surpass. While this model completely ignores individual user preferences and movie characteristics, it provides a valuable reference point for quantifying the improvements gained from adding complexity. The relatively high RMSE indicates substantial variability in ratings that cannot be captured by a single average value, justifying the need for more nuanced modeling approaches.\newpage
 
--   Time features\
--   Normalize ratings\
--   Encode genres\
--   Activity bins\
--   Tag outliers \newpage
+### Movie Effect
+**Movie Effect Model with Regularization:**
 
-## 4.2 Model Development & Evaluation
+$$\hat{r}_{ui} = \mu + b_i$$
 
-\newpage
+Where the regularized movie effect $b_i$ is calculated as:
 
-### 4.2.1 Model Selection
+$$b_i = \frac{\sum_{u \in R(i)} (r_{ui} - \mu)}{n_i + \lambda}$$
 
--   Identify models\
--   List key features\
--   Core assumptions\
--   Justify choices \newpage
+Where:
 
-### 4.2.2 Data Prep & Feature Engineering
+- $\hat{r}_{ui}$ = predicted rating for user $u$ and movie $i$
+- $\mu$ = global average rating (3.512)
+- $b_i$ = regularized movie-specific effect
+- $R(i)$ = set of users who rated movie $i$
+- $r_{ui}$ = actual rating by user $u$ for movie $i$
+- $n_i$ = number of ratings for movie $i$
+- $\lambda$ = regularization parameter (set to 3)
 
--   Preprocessing\
--   Feature engineering\
--   Handle sparsity\
--   Train/test splits \newpage
+The regularization parameter $\lambda$ shrinks the movie effect toward zero for movies with few ratings, preventing overfitting. When a movie has many ratings ($n_i >> \lambda$), the formula approximates the simple average deviation from $\mu$. For movies with few ratings, the effect is dampened proportionally.
 
-### 4.2.3 Train & Tune
+```{r og_capstone_movieEffect, echo=TRUE, output.width="90%"}
+# Movie effect with regularization
+# Lambda is the regularization parameter
+lambda <- 3
 
--   Train models\
--   Cross-validation\
--   Log metrics\
--   Hyperparameter search \newpage
+movie_avgs <- train_set %>%
+  group_by(movieId) %>%
+  summarize(
+    b_i = sum(rating - mu) / (n() + lambda),
+    n_i = n()
+  )
 
-### 4.2.4 Regularization
+# Predict with movie effects
+predicted_ratings <- test_set %>%
+  left_join(movie_avgs, by='movieId') %>%
+  mutate(
+    b_i = ifelse(is.na(b_i), 0, b_i),
+    pred = mu + b_i
+  ) %>%
+  pull(pred)
 
--   Avoid overfitting\
--   Compare baseline\
--   Complexity effects\
--   L1/L2/Dropout \newpage
+model_1_rmse <- RMSE(test_set$rating, predicted_ratings)
+rmse_results <- bind_rows(rmse_results,
+                         data.frame(method="Movie Effect (Regularized)",
+                                   RMSE = model_1_rmse))
+print(paste("Movie Effect RMSE:", round(model_1_rmse, 5)))
+```
+The first improvement introduces movie-specific effects (b_i) with regularization (λ=3) to account for the inherent quality differences between films. This model recognizes that some movies are systematically rated higher or lower than average, regardless of who watches them. The regularization parameter helps prevent overfitting for movies with few ratings by shrinking their effects toward zero. The substantial RMSE reduction to 0.94368 demonstrates that movie quality is a significant factor in rating prediction, improving accuracy by approximately 11% over the baseline. This finding aligns with intuition—blockbuster films and critically acclaimed movies tend to receive consistently higher ratings across diverse audiences.\newpage
 
-### 4.2.5 Evaluation
 
--   RMSE/MAE\
--   Ranking metrics\
--   Comparison table\
--   Significance tests \newpage
+### User Effect
 
-### 4.2.6 Ensemble
+**Movie + User Effect Model with Regularization:**
 
--   Stacking/blending\
--   Compare models\
--   Record trade-offs\
--   Complexity \newpage
+$$\hat{r}_{ui} = \mu + b_i + b_u$$
 
-### 4.2.7 Reporting
+Where the regularized user effect $b_u$ is calculated as:
 
--   Parameters\
--   Visuals/statistics\
--   Documentation\
--   Code/environment \newpage
+$$b_u = \frac{\sum_{i \in R(u)} (r_{ui} - \mu - b_i)}{n_u + \lambda}$$
 
-## 4.3 Summary
+Where:
 
-\newpage
+- $\hat{r}_{ui}$ = predicted rating for user $u$ and movie $i$
+- $\mu$ = global average rating (3.512)
+- $b_i$ = regularized movie-specific effect (from previous model)
+- $b_u$ = regularized user-specific effect
+- $R(u)$ = set of movies rated by user $u$
+- $r_{ui}$ = actual rating by user $u$ for movie $i$
+- $n_u$ = number of ratings by user $u$
+- $\lambda$ = regularization parameter (set to 3)
 
-### 3.3.1 Results
+This model captures both movie quality ($b_i$) and user rating tendencies ($b_u$). The user effect is calculated on the residuals after removing the global average and movie effect, ensuring that $b_u$ represents the user's personal bias independent of which movies they chose to rate. The regularization continues to protect against overfitting for users with few ratings.
 
--   Best model\
--   Key findings\
--   Feature importance\
--   Insights \newpage
+```{r og_capstone_userEffect, echo=TRUE, output.width="90%"}
+# User effect with regularization
+user_avgs <- train_set %>%
+  left_join(movie_avgs, by='movieId') %>%
+  mutate(b_i = ifelse(is.na(b_i), 0, b_i)) %>%
+  group_by(userId) %>%
+  summarize(
+    b_u = sum(rating - mu - b_i) / (n() + lambda),
+    n_u = n()
+  )
 
-### 3.3.2 Limitations
+# Predict with movie + user effects
+predicted_ratings <- test_set %>%
+  left_join(movie_avgs, by='movieId') %>%
+  left_join(user_avgs, by='userId') %>%
+  mutate(
+    b_i = ifelse(is.na(b_i), 0, b_i),
+    b_u = ifelse(is.na(b_u), 0, b_u),
+    pred = mu + b_i + b_u
+  ) %>%
+  pull(pred)
 
--   Data sparsity\
--   Model limitations\
--   Fairness\
--   Recommendations \newpage
+model_2_rmse <- RMSE(test_set$rating, predicted_ratings)
+rmse_results <- bind_rows(rmse_results,
+                         data.frame(method="Movie + User Effects (Regularized)",
+                                   RMSE = model_2_rmse))
+print(paste("Movie + User Effect RMSE:", round(model_2_rmse, 5)))
+```
+Building upon the movie effect model, we add user-specific biases (b_u) to capture individual rating tendencies. Some users are inherently more generous with their ratings, while others are more critical, creating systematic differences in how they score films. By modeling these personal baselines alongside movie effects, the RMSE drops further to 0.86532, representing an 8.3% improvement over the movie-only model. This significant enhancement underscores the importance of personalization in recommendation systems—understanding not just what makes a good movie, but what makes a good movie for a particular user.\newpage
 
-### 3.3.3 Reproducibility
 
--   Environment\
--   Data access\
--   Requirements\
--   Runtime \newpage
+### Genre Effect
 
-# 5. Conclusion
+**Movie + User + Genre Effect Model with Regularization:**
 
-## 5.1 Synopsis
+$$\hat{r}_{ui} = \mu + b_i + b_u + b_g(i)$$
 
-## 5.2 Limitations
+Where the regularized genre effect $b_g$ is calculated as:
 
-## 5.3 Future Work
+$$b_g = \frac{\sum_{(u,i) \in R(g)} (r_{ui} - \mu - b_i - b_u)}{n_g + 10\lambda}$$
+
+And for movies with multiple genres:
+
+$$b_g(i) = \frac{1}{|G_i|} \sum_{g \in G_i} b_g$$
+
+Where:
+
+- $\hat{r}_{ui}$ = predicted rating for user $u$ and movie $i$
+- $\mu$ = global average rating (3.512)
+- $b_i$ = regularized movie-specific effect
+- $b_u$ = regularized user-specific effect
+- $b_g(i)$ = average genre effect for movie $i$
+- $R(g)$ = set of all (user, movie) pairs where the movie has genre $g$
+- $n_g$ = number of ratings for genre $g$
+- $G_i$ = set of genres for movie $i$
+- $|G_i|$ = number of genres for movie $i$
+- $\lambda$ = regularization parameter (set to 3, with genre using $10\lambda = 30$)
+
+The genre effect captures rating patterns associated with specific genres after accounting for movie and user biases. Movies with multiple genres receive the average effect of all their associated genres. The higher regularization parameter ($10\lambda$) for genres reflects the need for stronger smoothing due to the broader categorization.
+
+```{r og_capstone_genreEffect, echo=TRUE, output.width="90%"}
+# First, create genre features
+# Extract individual genres and calculate genre effects
+genre_effects <- train_set %>%
+  left_join(movie_avgs, by='movieId') %>%
+  left_join(user_avgs, by='userId') %>%
+  mutate(
+    b_i = ifelse(is.na(b_i), 0, b_i),
+    b_u = ifelse(is.na(b_u), 0, b_u),
+    residual = rating - mu - b_i - b_u
+  ) %>%
+  # This is the key optimization - work with smaller dataset
+  group_by(movieId, genres) %>%
+  summarize(residual = mean(residual), .groups = "drop") %>%
+  separate_rows(genres, sep = "\\|") %>%
+  group_by(genres) %>%
+  summarize(
+    b_g = sum(residual) / (n() + lambda * 10),
+    n_g = n()
+  )
+
+# Create a lookup table for movie genre effects
+# This is much faster than calculating on the fly
+movie_genre_effects <- train_set %>%
+  select(movieId, genres) %>%
+  distinct() %>%
+  separate_rows(genres, sep = "\\|") %>%
+  left_join(genre_effects, by = "genres") %>%
+  group_by(movieId) %>%
+  summarize(b_g = mean(b_g, na.rm = TRUE))
+
+# Now predictions are just a simple join
+predicted_ratings <- test_set %>%
+  left_join(movie_avgs, by='movieId') %>%
+  left_join(user_avgs, by='userId') %>%
+  left_join(movie_genre_effects, by='movieId') %>%
+  mutate(
+    b_i = ifelse(is.na(b_i), 0, b_i),
+    b_u = ifelse(is.na(b_u), 0, b_u),
+    b_g = ifelse(is.na(b_g), 0, b_g),
+    pred = mu + b_i + b_u + b_g
+  ) %>%
+  pull(pred)
+
+model_3_rmse <- RMSE(test_set$rating, predicted_ratings)
+rmse_results <- bind_rows(rmse_results,
+                         data.frame(method="Movie + User + Genre Effects",
+                                   RMSE = model_3_rmse))
+print(paste("Movie + User + Genre Effect RMSE:", round(model_3_rmse, 5)))
+```
+The genre effect model attempts to capture rating patterns associated with different film categories by extracting individual genres from the pipe-delimited genre field. The implementation uses an efficient pre-calculation strategy to avoid computational bottlenecks, creating a lookup table of genre effects at the movie level. Surprisingly, adding genre information yields minimal improvement (RMSE: 0.86551), actually performing slightly worse than the user+movie model. This counterintuitive result suggests that genre preferences are largely already captured by the combination of movie and user effects, or that the genre categorization in the dataset may be too broad or inconsistent to provide additional predictive value.\newpage
+
+
+### Time Effect
+
+**Movie + User + Time Effect Model with Regularization:**
+
+$$\hat{r}_{ui} = \mu + b_i + b_u + b_t + b_y$$
+
+Where the time effects are calculated as:
+
+**Movie Age Effect:**
+$$b_t = \frac{\sum_{(u,i) \in R(t)} (r_{ui} - \mu - b_i - b_u)}{n_t + 5\lambda}$$
+
+**Rating Year Effect:**
+$$b_y = \frac{\sum_{(u,i) \in R(y)} (r_{ui} - \mu - b_i - b_u)}{n_y + 2\lambda}$$
+
+Where:
+
+- $\hat{r}_{ui}$ = predicted rating for user $u$ and movie $i$
+- $\mu$ = global average rating (3.512)
+- $b_i$ = regularized movie-specific effect
+- $b_u$ = regularized user-specific effect
+- $b_t$ = movie age effect (based on age categories: <0, 0-5, 5-10, 10-20, 20-30, 30+ years)
+- $b_y$ = rating year effect
+- $R(t)$ = set of ratings for movies in age category $t$
+- $R(y)$ = set of ratings made in year $y$
+- $n_t$ = number of ratings in age category $t$
+- $n_y$ = number of ratings in year $y$
+- $\lambda$ = regularization parameter (3, with $5\lambda = 15$ for age effect, $2\lambda = 6$ for year effect)
+
+The movie age effect captures how ratings change based on how old a movie is when rated (e.g., nostalgia for classics vs. hype for new releases). The rating year effect accounts for temporal trends in how users rate movies over time. The different regularization multipliers reflect the varying sparsity of these temporal features.
+
+```{r og_capstone_timeEffect, echo=TRUE, output.width="90%"}
+# Add time features to training set
+train_set <- train_set %>%
+  mutate(
+    date = as_datetime(timestamp),
+    rating_year = year(date),
+    rating_month = month(date),
+    # Extract release year from title without regex
+    # MovieLens format: "Movie Title (YYYY)"
+    # Year is always the last 4 digits before the closing parenthesis
+    release_year = as.numeric(substring(title, nchar(title) - 4, nchar(title) - 1)),
+    # Movie age at rating time
+    movie_age = rating_year - release_year,
+    # Standardize movie age for modeling
+    movie_age_std = scale(movie_age)[,1]
+  )
+
+# Time effect with regularization
+time_effects <- train_set %>%
+  left_join(movie_avgs, by='movieId') %>%
+  left_join(user_avgs, by='userId') %>%
+  mutate(
+    b_i = ifelse(is.na(b_i), 0, b_i),
+    b_u = ifelse(is.na(b_u), 0, b_u),
+    residual = rating - mu - b_i - b_u
+  ) %>%
+  filter(!is.na(movie_age)) %>%
+  group_by(movie_age_cat = cut(movie_age, breaks = c(-Inf, 0, 5, 10, 20, 30, Inf))) %>%
+  summarize(
+    b_t = sum(residual) / (n() + lambda * 5),
+    n_t = n(),
+    .groups = "drop"
+  )
+
+# Also model year effects
+year_effects <- train_set %>%
+  left_join(movie_avgs, by='movieId') %>%
+  left_join(user_avgs, by='userId') %>%
+  mutate(
+    b_i = ifelse(is.na(b_i), 0, b_i),
+    b_u = ifelse(is.na(b_u), 0, b_u),
+    residual = rating - mu - b_i - b_u
+  ) %>%
+  group_by(rating_year) %>%
+  summarize(
+    b_y = sum(residual) / (n() + lambda * 2),
+    n_y = n(),
+    .groups = "drop"
+  )
+
+# Apply all effects to test set
+test_set <- test_set %>%
+  mutate(
+    date = as_datetime(timestamp),
+    rating_year = year(date),
+    # Extract release year without regex
+    release_year = as.numeric(substring(title, nchar(title) - 4, nchar(title) - 1)),
+    movie_age = rating_year - release_year,
+    movie_age_cat = cut(movie_age, breaks = c(-Inf, 0, 5, 10, 20, 30, Inf))
+  )
+
+# Final prediction WITHOUT genre effect (since it was slow)
+# Just movie + user + time effects
+predicted_ratings <- test_set %>%
+  left_join(movie_avgs, by='movieId') %>%
+  left_join(user_avgs, by='userId') %>%
+  left_join(time_effects, by='movie_age_cat') %>%
+  left_join(year_effects, by='rating_year') %>%
+  mutate(
+    b_i = ifelse(is.na(b_i), 0, b_i),
+    b_u = ifelse(is.na(b_u), 0, b_u),
+    b_t = ifelse(is.na(b_t), 0, b_t),
+    b_y = ifelse(is.na(b_y), 0, b_y),
+    pred = mu + b_i + b_u + b_t + b_y
+  ) %>%
+  pull(pred)
+
+model_4_rmse <- RMSE(test_set$rating, predicted_ratings)
+rmse_results <- bind_rows(rmse_results,
+                         data.frame(method="Movie + User + Time Effects",
+                                   RMSE = model_4_rmse))
+
+print(paste("Movie + User + Time Effects RMSE:", round(model_4_rmse, 5)))
+```
+Temporal dynamics are incorporated through two mechanisms: movie age at rating time and the year when ratings were made. The model extracts release years from movie titles and calculates how old each movie was when rated, recognizing that ratings patterns may change as movies age—new releases might benefit from hype while classics earn consistent appreciation. Additionally, overall rating trends across years are modeled to capture potential rating inflation or changing user behavior over time. The time-aware model achieves an RMSE of 0.86501, a modest improvement that suggests temporal factors play a secondary but measurable role in rating prediction.\newpage
+
+### Ensemble Model with All Effects
+
+**Ensemble Model with All Effects:**
+
+$$\hat{r}_{ui} = \mu + b_i + b_u + b_g + b_t + b_y$$
+
+Where all effects are combined:
+
+- $\mu$ = global average rating (3.512)
+- $b_i$ = regularized movie-specific effect
+- $b_u$ = regularized user-specific effect  
+- $b_g$ = simplified genre effect (movie-level residual average)
+- $b_t$ = movie age effect
+- $b_y$ = rating year effect
+
+**Simplified Genre Effect:**
+$$b_g = \frac{1}{n_i} \sum_{u \in R(i)} (r_{ui} - \mu - b_i - b_u)$$
+
+Where:
+
+- $\hat{r}_{ui}$ = predicted rating for user $u$ and movie $i$
+- $R(i)$ = set of users who rated movie $i$
+- $n_i$ = number of ratings for movie $i$
+
+This ensemble model combines all previous effects to capture multiple sources of variation in ratings. The genre effect in this final model is simplified to a movie-level average of residuals after accounting for movie and user effects, serving as a proxy for genre-related patterns without the computational overhead of processing individual genre labels. Each component addresses different aspects of rating behavior: movie quality, user preferences, content type, movie age at rating time, and temporal trends.
+
+```{r og_capstone_ensemble, echo=TRUE, output.width="90%"}
+# Fast genre effect calculation (if you still want it)
+# Pre-calculate movie-level genre effect
+movie_genre_effects <- train_set %>%
+  left_join(movie_avgs, by='movieId') %>%
+  left_join(user_avgs, by='userId') %>%
+  mutate(
+    b_i = ifelse(is.na(b_i), 0, b_i),
+    b_u = ifelse(is.na(b_u), 0, b_u),
+    residual = rating - mu - b_i - b_u
+  ) %>%
+  group_by(movieId) %>%
+  summarize(
+    b_g = mean(residual),  # Simple average residual per movie as genre proxy
+    .groups = "drop"
+  )
+
+# Final prediction with ALL effects
+predicted_ratings_all <- test_set %>%
+  left_join(movie_avgs, by='movieId') %>%
+  left_join(user_avgs, by='userId') %>%
+  left_join(movie_genre_effects, by='movieId') %>%
+  left_join(time_effects, by='movie_age_cat') %>%
+  left_join(year_effects, by='rating_year') %>%
+  mutate(
+    b_i = ifelse(is.na(b_i), 0, b_i),
+    b_u = ifelse(is.na(b_u), 0, b_u),
+    b_g = ifelse(is.na(b_g), 0, b_g),
+    b_t = ifelse(is.na(b_t), 0, b_t),
+    b_y = ifelse(is.na(b_y), 0, b_y),
+    pred = mu + b_i + b_u + b_g + b_t + b_y
+  ) %>%
+  pull(pred)
+
+model_5_rmse <- RMSE(test_set$rating, predicted_ratings_all)
+rmse_results <- bind_rows(rmse_results,
+                         data.frame(method="All Effects (Movie + User + Genre + Time)",
+                                   RMSE = model_5_rmse))
+
+print(paste("All Effects RMSE:", round(model_5_rmse, 5)))
+```
+The culminating model integrates all effects—movie, user, genre, and time—to create a comprehensive prediction framework. Despite the additional complexity, the final RMSE of 0.86412 represents only a marginal improvement over simpler models. This diminishing return on model complexity is common in recommendation systems, where the most substantial gains come from modeling the primary factors (movies and users), while auxiliary features provide incremental benefits. The final model achieves approximately 18.5% improvement over the baseline, demonstrating the cumulative value of the multi-factor approach while highlighting that the movie and user effects capture the majority of predictable rating variance in the MovieLens dataset.\newpage
+
+
+## Results
+The **Root Mean Square Error (RMSE)** is a commonly used metric for measuring the accuracy of predictions in regression and recommendation system tasks. RMSE quantifies the average magnitude of the difference between predicted values and actual observed values. In other words, it tells us how far off our model's predictions are from the true values, on average.
+
+The RMSE is defined mathematically as follows:
+
+$$
+\text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
+$$
+
+where:
+
+- $n$ is the number of observations,
+- $y_i$ is the actual value for observation $i$,
+- $\hat{y}_i$ is the predicted value for observation $i$.
+
+In the context of our analysis, a lower RMSE indicates that our model's predicted ratings are closer to the actual user ratings in the MovieLens dataset. Conversely, a higher RMSE means that there is a larger average error between predicted and true ratings. 
+
+By comparing RMSE values for different models or approaches, we can determine which method provides more accurate predictions—helping us select the best model for use in a real-world recommendation system.
+
+
+```{r og_capstone_finalModel, echo=FALSE, output.width="100%"}
+# Simple Results Visualization
+library(tidyverse)
+library(knitr)
+
+# 1. Basic RMSE Results Plot
+rmse_plot <- ggplot(rmse_results, aes(x = reorder(method, RMSE), y = RMSE)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  geom_text(aes(label = round(RMSE, 4)), hjust = -0.1) +
+  coord_flip() +
+  labs(title = "Model Performance Results",
+       x = "", y = "RMSE") +
+  theme_minimal() +
+  geom_hline(yintercept = 0.86490, linetype = "dashed", color = "red")
+
+print(rmse_plot)
+
+# 2. Simple Results Table
+results_summary <- rmse_results %>%
+  mutate(RMSE = round(RMSE, 5)) %>%
+  select(Method = method, RMSE)
+
+kable(results_summary, caption = "Final Model Results")
+```
+The progressive modeling approach yielded substantial improvements in prediction accuracy, with each additional feature contributing to better performance until reaching diminishing returns. The baseline model, which simply predicted the global average rating of 3.512 for all movies, produced an RMSE of 1.05990, establishing a performance floor. Adding regularized movie effects captured the inherent quality differences between films and reduced RMSE to 0.94368, an 11% improvement that demonstrated how some movies consistently receive higher or lower ratings regardless of viewer. The inclusion of user-specific biases further reduced RMSE to 0.86532, recognizing that individual users have systematic tendencies to rate more harshly or generously than average. Attempts to incorporate genre information surprisingly resulted in minimal improvement (RMSE: 0.86551), suggesting that genre preferences were already largely captured through the movie and user effects. Time-based features, including movie age at rating time and yearly trends, provided modest gains with an RMSE of 0.86501. The final ensemble model combining all effects achieved an RMSE of 0.86412, successfully surpassing the target threshold of 0.86490. This represents an 18.5% improvement over the baseline, with the bulk of the gains coming from the movie and user effects alone. The diminishing returns from additional features highlight a common pattern in recommendation systems where the primary factors capture most of the predictable variance, while auxiliary features provide only incremental benefits.\newpage
+
+
+# Conclusion
+
+This project successfully built a movie recommendation system that predicts user ratings with good accuracy, achieving an RMSE of 0.86412 and beating the target goal. The most important discovery was that we only needed to know two main things to make good predictions: which movies are generally liked or disliked (movie effect) and whether individual users tend to give high or low ratings (user effect). These two simple ideas alone got us most of the way to accurate predictions. Adding information about when movies were rated and what genres they belonged to helped a little bit, but not as much as expected. The analysis also revealed interesting patterns, like how older movies tend to get better ratings (probably because only the good ones are still watched years later) and how most people give ratings between 3 and 5 stars, rarely using the lower end of the scale.
+
+Working on this project taught me valuable lessons about building recommendation systems with real data. I learned that starting simple and gradually adding complexity is the best approach—our basic model using just averages was terrible, but each small improvement added up to something useful. The biggest surprise was that movie genres didn't help predictions much, which shows that what people say they like (such as "I love action movies") might be less important than their actual rating history. I also discovered the importance of regularization, which is like adding a safety net to prevent the model from memorizing weird patterns in movies or users with very few ratings. The project showed me that cleaning and understanding your data through exploration is just as important as building fancy models.
+
+To make even better predictions, there are several directions worth exploring. We could try techniques that find hidden patterns in the data, like discovering that certain groups of users all tend to like the same types of movies without explicitly being told what those types are. Adding more information about the movies themselves—like who directed them, who starred in them, or even analyzing plot summaries—could help capture preferences our current approach misses. We could also build separate models for different types of users (like those who rate many movies versus those who rate just a few) or different time periods, since rating behavior might change over the years. Another improvement would be to combine multiple prediction methods and average their results, as this often works better than any single approach. Finally, testing our model on completely fresh data would help ensure it works well for new users and movies, not just the ones we trained on.
+
