@@ -132,14 +132,14 @@ genre_effects <- train_set %>%
   mutate(
     b_i = ifelse(is.na(b_i), 0, b_i),
     b_u = ifelse(is.na(b_u), 0, b_u),
-    residual = rating - mu - b_i - b_u          # Calculate what's left after accounting for movie & user
+    residual = rating - mu - b_i - b_u
   ) %>%
   group_by(movieId, genres) %>%
   summarize(residual = mean(residual), .groups = "drop") %>%
-  separate_rows(genres, sep = "\\|")           # Split movies with multiple genres into multiple rows
-group_by(genres) %>%
+  separate_rows(genres, sep = "\\|") %>%   # Split genres
+  group_by(genres) %>%
   summarize(
-    b_g = sum(residual) / (n() + lambda * 10), # Calculate average genre effect, with stronger regularization
+    b_g = sum(residual) / (n() + lambda * 10), # genre effect
     n_g = n()
   )
 # Compute average genre effect per movie (a movie may have more than one genre)
