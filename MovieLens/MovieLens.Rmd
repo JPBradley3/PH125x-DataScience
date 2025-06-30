@@ -252,7 +252,7 @@ Very few movies achieve extreme ratings at either end of the spectrum. The left 
 
 ### Summary of the `rating` Variable
 
-```{r og_capstone_rating_summary, echo=FALSE, output.width="90%"}
+```{r og_capstone_rating_summary, echo=FALSE, warning=FALSE, message=FALSE, output.width="90%"}
 
 # Visualize overall distribution
 ggplot(edx, aes(x = factor(rating))) +
@@ -521,7 +521,6 @@ By extracting release years from movie titles and comparing them to rating dates
 
 
 ```{r og_capstone_timestamp_summary4, echo=FALSE, message=FALSE, warning=FALSE, output.width="90%"}
-# Do different eras prefer different movie ages?
 edx %>%
   filter(!is.na(movie_age_at_rating), 
          movie_age_at_rating >= 0,
@@ -578,7 +577,7 @@ library(tidyverse)
 library(caret)
 library(lubridate)
 
-# First, let's create a train/test split from edx (not touching final_holdout_test yet)
+# First, create a train/test split from edx (not touching final_holdout_test yet)
 set.seed(1, sample.kind="Rounding")
 test_index <- createDataPartition(y = edx$rating, times = 1, p = 0.2, list = FALSE)
 train_set <- edx[-test_index,]
@@ -768,7 +767,7 @@ genre_effects <- train_set %>%
     b_u = ifelse(is.na(b_u), 0, b_u),
     residual = rating - mu - b_i - b_u
   ) %>%
-  # This is the key optimization - work with smaller dataset
+
   group_by(movieId, genres) %>%
   summarize(residual = mean(residual), .groups = "drop") %>%
   separate_rows(genres, sep = "\\|") %>%
@@ -779,7 +778,6 @@ genre_effects <- train_set %>%
   )
 
 # Create a lookup table for movie genre effects
-# This is much faster than calculating on the fly
 movie_genre_effects <- train_set %>%
   select(movieId, genres) %>%
   distinct() %>%
@@ -788,7 +786,7 @@ movie_genre_effects <- train_set %>%
   group_by(movieId) %>%
   summarize(b_g = mean(b_g, na.rm = TRUE))
 
-# Now predictions are just a simple join
+# Now join predictions
 predicted_ratings <- test_set %>%
   left_join(movie_avgs, by='movieId') %>%
   left_join(user_avgs, by='userId') %>%
@@ -901,7 +899,7 @@ test_set <- test_set %>%
     movie_age_cat = cut(movie_age, breaks = c(-Inf, 0, 5, 10, 20, 30, Inf))
   )
 
-# Final prediction WITHOUT genre effect (since it was slow)
+# Final prediction WITHOUT genre effect
 # Just movie + user + time effects
 predicted_ratings <- test_set %>%
   left_join(movie_avgs, by='movieId') %>%
@@ -953,7 +951,7 @@ Where:
 This ensemble model combines all previous effects to capture multiple sources of variation in ratings. The genre effect in this final model is simplified to a movie-level average of residuals after accounting for movie and user effects, serving as a proxy for genre-related patterns without the computational overhead of processing individual genre labels. Each component addresses different aspects of rating behavior: movie quality, user preferences, content type, movie age at rating time, and temporal trends.
 
 ```{r og_capstone_ensemble, echo=TRUE, output.width="90%"}
-# Fast genre effect calculation (if you still want it)
+# Fast genre effect calculation 
 # Pre-calculate movie-level genre effect
 movie_genre_effects <- train_set %>%
   left_join(movie_avgs, by='movieId') %>%
